@@ -5,6 +5,7 @@ from functools import lru_cache
 import json
 # 工作目录改名兼容：证据记录保留传入绝对路径的拼写，不将目录联接解析成另一个名字；文件摘要及完整重放保持。
 from pathlib import Path
+from workspace_location import local_path
 import numpy as np
 from score_export import read_json,save_json,sha256
 from source_meter_selection import fingerprint
@@ -52,7 +53,7 @@ def build_content(parent_path,binding):
     parent=replay_resolution(parent_path,binding)
     dependencies=parent['resolution_provenance']['dependencies'];_verify_dependencies(binding,dependencies)
     meta=read_json(parent['evidence_path'])
-    with np.load(Path(parent['evidence_path']).with_suffix('.npz'),allow_pickle=False) as data:
+    with np.load(local_path(Path(parent['evidence_path']).with_suffix('.npz')),allow_pickle=False) as data:
         arrays={k:data[k].copy() for k in data.files}
     tracks=evidence_tracks(meta,arrays);r=parent['result'];duration=float(binding['duration_seconds'])
     candidate=next(c for c in r['candidates'] if c['candidate_index']==r['selected_candidate_index'])

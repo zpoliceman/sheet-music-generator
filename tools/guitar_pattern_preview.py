@@ -19,7 +19,7 @@ import webbrowser
 import xml.etree.ElementTree as ET
 
 from score_export import read_json, save_json, sha256
-from workspace_location import project_identity, same_workspace
+from workspace_location import project_identity, same_workspace, local_path
 from source_timing_acceptance import require_isolated_output
 from guitar_pattern_selection import (catalogue, compile_selection, describe_source, fingerprint,
     measure_timeline, has_selection, normalize_plan)
@@ -44,7 +44,7 @@ def current_projects(extra=()):
             path = (index.parent/unquote(link)).parent/'project.json'
             if path.is_file():
                 paths.append(path.resolve())
-    paths += [Path(p).resolve() for p in extra]
+    paths += [local_path(p).resolve() for p in extra]
     result = {}
     for path in dict.fromkeys(paths):
         if not path.is_relative_to(ROOT) or not path.is_file():

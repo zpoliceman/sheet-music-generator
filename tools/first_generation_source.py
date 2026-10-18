@@ -4,6 +4,7 @@ from copy import deepcopy
 from functools import lru_cache
 # 工作目录改名兼容：证据记录保留传入绝对路径的拼写，不将目录联接解析成另一个名字；文件摘要及完整重放保持。
 from pathlib import Path
+from workspace_location import local_path
 import math
 import numpy as np
 from score_export import PPQ, TempoMap, read_json, save_json, sha256
@@ -29,7 +30,7 @@ def read_bound_evidence(path, binding):
         raise ValueError('首次生成原音或匿名证据版本不匹配')
     # 首次生成自动拍轴交接：新增全长绑定，不能缩短证据时长以绕过首尾覆盖验收。
     import soundfile as sf
-    actual_duration = sf.info(binding['sources']['mix']['path']).duration
+    actual_duration = sf.info(local_path(binding['sources']['mix']['path'])).duration
     if (not math.isclose(float(meta['duration_seconds']), float(binding['duration_seconds']), abs_tol=1e-6)
             or not math.isclose(actual_duration, float(binding['duration_seconds']), abs_tol=1e-6)):
         raise ValueError('首次生成证据／原音实际时长不符，不能裁掉缺证首尾')
@@ -44,7 +45,7 @@ def read_bound_evidence(path, binding):
             raise ValueError('首次生成音源已改变')
     if sha256(binding['vocal_project']) != binding['vocal_project_sha256']:
         raise ValueError('首次生成人声原工程已改变')
-    with np.load(archive, allow_pickle=False) as stored:
+    with np.load(local_path(archive), allow_pickle=False) as stored:
         arrays = {key: stored[key].copy() for key in stored.files}
     return meta, arrays
 

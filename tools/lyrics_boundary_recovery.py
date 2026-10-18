@@ -2,6 +2,7 @@
 # 连续转调识别与不确定调性保护：新增有界真实重预测；原预测与来源记录均保留。
 import copy,gc,math,time
 from pathlib import Path
+from workspace_location import local_path
 from lyrics_transcribe import file_sha256,save_json
 
 def conflicting_groups(chars):
@@ -32,12 +33,12 @@ def recover_boundaries(chars,plan,reference,output,phrase_reports,aligner,reject
     if not groups:return chars,phrase_reports,{'status':'not_needed','groups':[]}
     import soundfile as sf
     import torch
-    result=copy.deepcopy(chars);reports=list(phrase_reports);source=reference['source'];info=sf.info(source['path']);offset=source.get('offset_seconds',0.);recovery=[]
+    result=copy.deepcopy(chars);reports=list(phrase_reports);source=reference['source'];info=sf.info(local_path(source['path']));offset=source.get('offset_seconds',0.);recovery=[]
     if file_sha256(Path(source['path']))!=source['sha256']:raise ValueError('联合字界恢复的原音频SHA失配。')
     for ids in groups:
         new_id=max((d['job_id'] for d in reports),default=-1)+1;job=joint_window(plan,ids,reference,new_id);phase=time.perf_counter()
         first=max(0,math.floor((job['start_seconds']-offset)*info.samplerate));last=min(info.frames,math.ceil((job['end_seconds']-offset)*info.samplerate));crop=output/'crops'/f'boundary_{new_id:03d}.wav';crop.parent.mkdir(parents=True,exist_ok=True)
-        audio,rate=sf.read(source['path'],start=first,stop=last,dtype='float32',always_2d=True);sf.write(crop,audio,rate,subtype='FLOAT')
+        audio,rate=sf.read(local_path(source['path']),start=first,stop=last,dtype='float32',always_2d=True);sf.write(crop,audio,rate,subtype='FLOAT')
         local={**reference,'text':job['reference_text'],'lines':[reference['lines'][i] for i in job['line_indices']],'source':{'path':str(crop),'sha256':file_sha256(crop),'sample_rate':rate,'channels':info.channels,'duration_seconds':len(audio)/rate,'offset_seconds':first/rate+offset}}
         detail={'job_id':new_id,'line_indices':job['line_indices'],'timings':{'crop_decode_write_seconds':time.perf_counter()-phase},'crop':local['source'],'original_source':source,'anchor_evidence':job,'reference_kind':reference['reference_kind']};phrase_output=output/'phrases'/f'boundary_{new_id:03d}'
         values=rejector(aligner(local,phrase_output,detail),local,detail);destinations=[c for c in result if c['line_index'] in job['line_indices']]

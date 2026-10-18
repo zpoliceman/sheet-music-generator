@@ -1,6 +1,7 @@
 """两曲简谱吉他确认发布：把已确认的乐器范围与冻结工程分开记录。"""
 # 两曲简谱吉他确认发布：新增按范围发布证明；未发布钢琴不被整体passed顺带放行。
 from pathlib import Path
+from workspace_location import local_path
 from score_export import read_json,sha256
 from source_timing_acceptance import require_music_publication
 
@@ -42,7 +43,7 @@ def validate_manifest(folder,payload=None):
     # 三曲确认发布与右手选择交接：修改逐份授权精确比较，不允许钢琴借旧吉他范围放行。
     # if acceptance.get('published_instruments')!=SCOPE:raise ValueError('音乐验收与实际发布范围不一致')
     if acceptance.get('published_instruments')!=scope:raise ValueError('音乐验收与实际发布范围不一致')
-    source=Path(manifest['source_project']);approval_path=Path(manifest['approval'])
+    source=local_path(manifest['source_project']);approval_path=local_path(manifest['approval'])
     if not source.is_file() or sha256(source)!=manifest['source_project_sha256']:raise ValueError('认可的来源工程已改变')
     if not approval_path.is_file() or sha256(approval_path)!=manifest['approval_sha256']:raise ValueError('发布听辨授权已改变')
     approval=read_json(approval_path)
@@ -51,7 +52,7 @@ def validate_manifest(folder,payload=None):
     if approval.get('publication_authorized') is not True or approval.get('instruments')!=scope:
         raise ValueError('未取得本乐器范围的明确发布授权')
     bound=[x for x in approval.get('source_candidates',{}).values()
-           if Path(x['project']).resolve()==source.resolve() and x['sha256']==manifest['source_project_sha256']]
+           if local_path(x['project']).resolve()==source.resolve() and x['sha256']==manifest['source_project_sha256']]
     if len(bound)!=1:raise ValueError('用户确认不是该版本的工程')
     if sha256(folder/'project.json')!=sha256(source):raise ValueError('发布时改变了已认可音乐工程')
     original=read_json(source);project=payload if payload is not None else read_json(folder/'project.json')

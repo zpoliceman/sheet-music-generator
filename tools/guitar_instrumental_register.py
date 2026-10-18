@@ -8,6 +8,7 @@ from itertools import permutations, product
 import hashlib
 import json
 from pathlib import Path
+from workspace_location import local_path
 
 from accompaniment_analysis import SongClock
 from accompaniment_arrange import TUNING, grip_info, validate_playability
@@ -886,7 +887,7 @@ def validate_instrumental_register(shared, vocal, arrangement, replay=False):
         errors.append('instrumental_register_missing_bound_source')
     if info.get('source_path'):
         path=Path(info['source_path'])
-        if not path.is_file() or sha256(path)!=info.get('source_sha256'):
+        if not local_path(path).is_file() or sha256(path)!=info.get('source_sha256'):
             errors.append('instrumental_register_bound_source_changed')
         else:
             seed=read_json(path)
@@ -913,7 +914,7 @@ def validate_instrumental_register(shared, vocal, arrangement, replay=False):
     # 吉他器乐低把位与指型复用：新增认可工程上游绑定，纯吉他升级的缓存快照须与真实旧交付相同。
     if info.get('upstream_project'):
         upstream=Path(info['upstream_project'])
-        if not upstream.is_file() or sha256(upstream)!=info.get('upstream_project_sha256'):
+        if not local_path(upstream).is_file() or sha256(upstream)!=info.get('upstream_project_sha256'):
             errors.append('instrumental_register_upstream_project_changed')
         elif info.get('upstream_exact_notes'):
             parent=read_json(upstream)

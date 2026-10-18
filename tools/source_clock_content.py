@@ -1,5 +1,6 @@
 """首拍与首尾局部补证：稳态内容、无拍引子和实测结尾的独立证据。"""
 # 首拍与首尾局部补证：新增原声路线；既有模型／门槛／人工认可不在此修改。
+from workspace_location import local_path
 from copy import deepcopy
 import numpy as np
 import soundfile as sf
@@ -68,7 +69,7 @@ def content_grouping(candidate,tracks,duration):
 
 def envelope(source,start,end,hop=.1):
     # 首拍与首尾局部补证：新增直接读取原音绝对能量；不用相对归一后的分轨噪声冒充演奏。
-    with sf.SoundFile(source['path']) as stream:
+    with sf.SoundFile(local_path(source['path'])) as stream:
         rate=stream.samplerate;stream.seek(max(0,round(start*rate)))
         origin=stream.tell()/rate;audio=stream.read(max(0,round(end*rate)-stream.tell()),dtype='float64',always_2d=True)
     size=max(1,round(hop*rate));count=len(audio)//size
@@ -169,7 +170,7 @@ def inspect_tail(binding,candidate,start,dependencies,calibration):
                 maximum_db=float(np.max(db)) if len(db) else 0.
                 # 首拍与首尾局部补证：修改残差资格须同时验证全曲缓存的常态绝对能量；活跃真乐器仍完整参加旧三轨尾响检验。
                 # if (level is not None and not attacks and maximum_db<=POLICY['maximum_residual_dbfs']
-                with np.load(row['path'],allow_pickle=False) as data:
+                with np.load(local_path(row['path']),allow_pickle=False) as data:
                     source_level=float(20*np.log10(max(1e-9,np.percentile(data['rms'],90))))
                 if (level is not None and source_level<=POLICY['maximum_residual_dbfs'] and not attacks and maximum_db<=POLICY['maximum_residual_dbfs']
                         and maximum_db<=level+POLICY['maximum_residual_above_calibration_db']):

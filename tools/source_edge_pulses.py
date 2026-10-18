@@ -1,5 +1,6 @@
 """两曲来源补证与首次生成：用原曲末段实际瞬态验证已有拍序的延续。"""
 # 两曲来源补证与首次生成：新增只验证不挪动拍点的尾部覆盖；原曲仍演奏时不能冒充余音。
+from workspace_location import local_path
 from copy import deepcopy
 import numpy as np
 import soundfile as sf
@@ -18,7 +19,7 @@ POLICY={'version':1,'context_beats':12,'envelope_seconds':.03,'hop_seconds':.01,
 
 def original_transients(source,start,end):
     # 两曲来源补证与首次生成：新增立体声能量瞬态，不依赖漏检尾部的节拍模型或分轨攻击。
-    with sf.SoundFile(source['path']) as stream:
+    with sf.SoundFile(local_path(source['path'])) as stream:
         rate=stream.samplerate;stream.seek(max(0,round((start-.1)*rate)));origin=stream.tell()/rate
         audio=stream.read(round((end-origin)*rate),dtype='float64',always_2d=True)
     hop=round(POLICY['hop_seconds']*rate);size=round(POLICY['envelope_seconds']*rate)

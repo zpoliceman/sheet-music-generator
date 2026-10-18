@@ -81,14 +81,14 @@
 
 整理前全文与压缩前操作记录见[完整文档归档](E:/Project/Software/sheet_music_generator/reports/handoff/20261017_right_hand_choice_handoff/history_index.md)。
 
-## 当前任务：工作目录与第五版备份改名兼容检查
+## 当前任务：第一版README与现有仓库的更新教程
 
-用户已将开发目录改成E:\Project\Software\sheet_music_generator，将第五版目录改成version5-20261018-optional-chords。本轮检查虚拟环境、程序入口、原工程来源、旧配置、实际选型与播放，并核验冻结备份。认可曲谱、原配置、已存版本和冻结快照内容保持。
+用户把GitHub的9d2cca035163682c40ed54647de4e0cc2b0bd1a6作为第一版起点。本轮重写根README，介绍当前功能、实际使用方法、运行前提及目录内容，不写第五版或历史交付过程；重写更新教程，围绕现有origin/main讲解暂存、提交、同步、推送及可选版本标签，每条命令说明语法和参数。现有工程、曲谱、配置与备份保持。
 
 ## 上一步
 
-我已完成工作目录与第五版备份改名检查并修复启动环境、来源路径重放和配置编号兼容。九首工程与五套旧配置、1493项程序测试和18项实际浏览器检查通过；隔离另存的完整谱及216.88秒音频与原方案相同。8338份results、五套原配置、1457份旧文件保持，第五版40106份冻结文件校验通过。主服务继续在8766运行，实际工作目录为sheet_music_generator。[检查报告](E:/Project/Software/sheet_music_generator/reports/accompaniment/20261018_workspace_rename/report.md)保存完整范围。
+已把根README改为第一版的功能、运行前提、右手操作、新歌生成和目录说明，删除原有版本交付叙述；已有GitHub教程按origin/main重新编写，逐条解释完整更新、仅文档、标签与Release、冲突处理。25段PowerShell示例共44条命令通过语法解析，15个本地Markdown链接可定位，示例参数与三个实际脚本一致，55种候选数量按family字段核对一致。Git的HEAD仍为9d2cca0，暂存区为空，50条本地待提交路径包含之前路径迁移和本轮文档。本轮只改文档，未生成音乐或写入远程。
 
 ## 下一步
 
-用户可在新目录继续使用和开发，按已同步新路径的[GitHub教程](E:/Project/Software/sheet_music_generator/history-version/GitHub上传与持续更新教程.md)提交并持续更新代码。保留旧名称的目录联接及data/workspace_identity.json；第五版快照内容继续冻结。没有待处理的改名故障，后续音乐修改仍隔离另存并保护原成品。
+用户按history-version/GitHub上传与持续更新教程.md检查并提交本地改动，同步main后推送到已有仓库；需要对外标记维护版本时再选用v1.0.1标签和Release。后续开发从实际sheet_music_generator目录继续，保留现有曲谱、配置和本地备份，不恢复旧目录联接。文档核对证据保存在reports/documentation/20261018_v1_readme_and_updates/verification.json。

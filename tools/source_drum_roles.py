@@ -1,5 +1,6 @@
 """两曲来源补证与首次生成：以原鼓强攻击的角色分布补充拍单位证据。"""
 # 两曲来源补证与首次生成：新增独立原声方法，不修改旧选择器、旧分差或已冻结决定。
+from workspace_location import local_path
 import math
 import numpy as np
 import soundfile as sf
@@ -20,7 +21,7 @@ POLICY = {'version': 1, 'sample_rate': 22050, 'fft_size': 2048, 'hop_samples': 2
 
 def extract_drum_bands(source):
     # 两曲来源补证与首次生成：新增原鼓频带瞬态；不识别音高／和弦，不把多个分轨算成独立投票。
-    audio,rate=sf.read(source['path'],dtype='float32',always_2d=True)
+    audio,rate=sf.read(local_path(source['path']),dtype='float32',always_2d=True)
     target=POLICY['sample_rate'];common=math.gcd(rate,target)
     mono=resample_poly(audio.mean(axis=1),target//common,rate//common)
     n=POLICY['fft_size'];hop=POLICY['hop_samples']

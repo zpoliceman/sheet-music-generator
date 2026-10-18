@@ -5,6 +5,7 @@ from functools import lru_cache
 import json
 # 工作目录改名兼容：证据记录保留传入绝对路径的拼写，不将目录联接解析成另一个名字；文件摘要及完整重放保持。
 from pathlib import Path
+from workspace_location import local_path
 import numpy as np
 import soundfile as sf
 from score_export import read_json, save_json, sha256
@@ -55,7 +56,7 @@ def inspect_decay(binding, start, end, dependencies):
     source = binding['sources']['mix']
     if sha256(source['path']) != source['sha256'] or abs(end-binding['duration_seconds']) > 1e-6:
         raise ValueError('尾段必须绑定原曲完整结尾')
-    with sf.SoundFile(source['path']) as stream:
+    with sf.SoundFile(local_path(source['path'])) as stream:
         if abs(stream.frames/stream.samplerate - end) > 1e-6:
             raise ValueError('原曲实际结尾与补证范围不符')
         rate = stream.samplerate
@@ -84,7 +85,7 @@ def inspect_decay(binding, start, end, dependencies):
         meta = read_json(row['metadata_path'])
         if meta.get('version') != 1 or meta['source_sha256'] != row['source_sha256']:
             raise ValueError('尾段缓存元数据来源不符')
-        with np.load(row['path'], allow_pickle=False) as data:
+        with np.load(local_path(row['path']), allow_pickle=False) as data:
             times, flux, energy = [data[key] for key in ('times', 'flux', 'rms')]
             mask = (times >= start) & (times <= end)
             if (not np.any(mask) or times[-1] < end-.05 or not np.isfinite(flux).all()

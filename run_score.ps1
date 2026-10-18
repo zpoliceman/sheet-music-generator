@@ -28,6 +28,11 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
+. (Join-Path $projectRoot 'tools/Resolve-WorkspaceInput.ps1')
+foreach ($inputName in @('ModelReport','LyricsFile','AsrAnchor','AlignedLyrics')) {
+    $inputValue = Get-Variable -Name $inputName -ValueOnly
+    if ($inputValue) { Set-Variable -Name $inputName -Value (Resolve-WorkspaceInput -Value $inputValue -Root $projectRoot) }
+}
 $pythonPath = Join-Path $projectRoot '.venv-gpu\Scripts\python.exe'
 if (-not (Test-Path -LiteralPath $pythonPath)) { throw '缺少项目内 .venv-gpu 环境。' }
 if (-not $ModelReport) { $ModelReport = Join-Path $projectRoot 'reports\integrated_pipeline.full.json' }
@@ -35,9 +40,9 @@ $pipeline = Get-Content -LiteralPath $ModelReport -Raw -Encoding UTF8 | ConvertF
 if (-not $pipeline.run.full_song -or $pipeline.run.source_offset_seconds -ne 0) {
     throw '当前制谱入口要求完整歌曲、零偏移模型报告，防止将片段时间轴混用整首节拍。'
 }
-$summaryPath = $pipeline.run.transcription_summary
+$summaryPath = Resolve-WorkspaceInput -Value $pipeline.run.transcription_summary -Root $projectRoot
 $analysisPath = Join-Path (Split-Path -Parent $summaryPath) 'analysis.json'
-$mixAudioPath = $pipeline.run.input
+$mixAudioPath = Resolve-WorkspaceInput -Value $pipeline.run.input -Root $projectRoot
 foreach ($requiredPath in @($summaryPath, $analysisPath, $mixAudioPath)) {
     if (-not (Test-Path -LiteralPath $requiredPath -PathType Leaf)) { throw ('缺少输入：' + $requiredPath) }
 }

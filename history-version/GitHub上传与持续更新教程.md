@@ -1,650 +1,353 @@
-# 将第五版代码上传到GitHub，并持续更新：Windows详细教程
+# 将本地修改更新到现有 GitHub 仓库
 
-编写日期：2026-10-18。本文按当前电脑上的实际目录和Git状态编写。你可以用记事本、支持Markdown的编辑器或浏览器中的Markdown查看器阅读；上传到GitHub后，网站会直接排版显示本文。
+这份教程直接针对已经存在的 `zpoliceman/sheet-music-generator` 仓库。你继续在本地修改代码，通过 Git 保存一次提交，再把提交推送到 GitHub；已有提交会保留，可以继续查看和比较。
 
-本文给出两条操作路线：第4–10节用PowerShell完成首次上传，第16节用GitHub Desktop图形界面完成同一件事。选择其中一条即可；两条路线管理的是同一个项目仓库，后续可以交替使用。
+本文命令供你在 **PowerShell** 中逐步执行。编写这份教程时没有替你暂存、提交、推送、创建标签或发布版本。
 
-## 1. 先分清工作目录、本地备份和GitHub仓库
+## 一、先弄清楚当前仓库与命令写法
 
-你的日常开发目录是：
+### 当前起点
 
-```text
-E:\Project\Software\sheet_music_generator
+2026 年 10 月 18 日只读检查得到的状态如下。你执行教程时，提交编号可能已经因新的操作而改变，应以自己的命令输出为准。
+
+| 项目 | 当前值 |
+| --- | --- |
+| 本地工作目录 | `E:\Project\Software\sheet_music_generator` |
+| 本地分支 | `main` |
+| 远程名称 | `origin` |
+| 远程地址 | `https://github.com/zpoliceman/sheet-music-generator.git` |
+| 本地跟踪关系 | `main` 跟踪 `origin/main` |
+| 本地与远程已确认的起点 | `9d2cca035163682c40ed54647de4e0cc2b0bd1a6` |
+| 该提交的说明 | `release1.0-guitar-chord-accompaniment` |
+
+你提供的链接是[这次提交的页面](https://github.com/zpoliceman/sheet-music-generator/commit/9d2cca035163682c40ed54647de4e0cc2b0bd1a6)。`release1.0-guitar-chord-accompaniment` 是提交说明；在说明里写上 `release` 并不会自动创建标签或 GitHub Release（发布版本页面）。检查时，远程引用查询没有返回任何标签。
+
+理解下面四个位置，后续命令就容易对应：
+
+| 名称 | 存放什么 | 主要操作 |
+| --- | --- | --- |
+| 工作目录 | 编辑器里正在修改的实际文件 | 修改和保存文件 |
+| 暂存区 | 准备纳入下一次提交的文件内容 | `git add` |
+| 本地提交 | 保存在电脑上的项目快照及提交记录 | `git commit` |
+| GitHub 远程仓库 | 已经上传到 GitHub 的提交和分支 | `git push` |
+
+`origin` 是远程仓库的简称；`main` 是分支名；`origin/main` 是本机记录的远程分支位置，需要通过 `git fetch` 或 `git pull` 刷新。`HEAD` 表示当前检出的提交。
+
+本地已有 Git 仓库和远程关联，因此本次更新不需要重新创建仓库、重新初始化 Git，或重新添加 `origin`。继续使用当前项目目录，也不需要复制一份目录来完成每次上传。
+
+### PowerShell 与 Git 的基本语法
+
+一条 Git 命令通常由 `git`、子命令、选项、操作对象组成。例如：
+
+```powershell
+git push origin main
 ```
 
-以后继续修改代码、启动程序、执行Git命令，都在这个目录进行。你已将原来的拼写更正为`sheet_music_generator`，本文命令均使用新目录。
+其中 `git` 是程序，`push` 是上传提交的子命令，`origin` 是接收提交的远程，`main` 是要推送的本地分支。参数顺序有含义，不能随意交换。
 
-本次第五版的本地备份是：
+本教程每个代码块中的每一行都是独立命令。复制命令时不要加上 PowerShell 窗口原有的 `PS E:\...>` 提示符；执行完当前步骤并查看结果后，再执行下一步。代码中的单引号把文字作为一个参数，例如含空格的路径和中文提交说明。引号本身不会成为文件名的一部分。
 
-```text
-E:\Project\Software\sheet_music_generator\history-version\version5-20261018-optional-chords
-```
+选项通常以 `-` 或 `--` 开头，后文会解释具体用途。单独出现的 `--` 表示“选项结束，后面是文件路径”，例如 `git diff -- README.md`。命令说明中的“你的名字”“实际路径”等文字需要自行替换；本教程主流程不使用尖括号占位符，避免把说明误当成可执行参数。
 
-该目录已按你后续的更正改名为`version5-20261018-optional-chords`。它是冻结的版本快照，保存本轮程序、正式曲谱、当前编辑配置、已保存版本及清单中选取的来源依赖。以后在原开发目录继续工作，把这个备份留作恢复依据。不要在备份目录中直接开展日常修改，也不要从备份目录执行本文的首次建仓命令：该目录位于原项目的Git仓库之内，Git可能仍然指向外层项目。
+## 二、本次把整套修改上传：按顺序执行
 
-GitHub仓库是你即将创建的网上代码仓库。本文示例名称为`sheet-music-generator`，你可以选择别的名称。上传时，`tools`、`tests`、必要配置、说明和启动脚本会进入GitHub；歌曲、模型环境、生成曲谱、试验缓存和整份历史快照继续保存在电脑上。
+本轮除了 README，还保留着路径迁移相关的代码和配置改动。下面的主流程会上传当前所有应纳入仓库的修改，因此提交说明同时描述代码和文档。若只想提交 README，请先看第六节，不能把两种范围混在一起。
 
-这三者的用途不同：日常工作目录用于开发和运行，本地完整快照用于保留当前成果，GitHub用于保存代码提交历史和持续协作。上传代码后，GitHub不会自动变成你电脑上的`127.0.0.1:8766`网页服务。
+### 第 1 步：打开 PowerShell，进入项目目录
 
-2026-10-18改名检查补充：旧拼写的`E:\Project\Software\sheet_musit_generator`现在是指向新工作目录的Windows目录联接（Junction，兼容旧路径的目录入口），没有复制第二套工程。旧曲谱和音源记录仍通过它读取，请保留该联接，日常开发、提交和启动均在上面的新目录进行。`data/workspace_identity.json`保存曲谱编号的固定种子，应随代码保留，避免以后目录迁移后找不到命名配置。第五版快照内部的旧路径和旧拼写属于原始记录，不批量改写；备份校验脚本按自身所在的新目录检查文件。
-
-## 2. 当前项目已经准备到了哪一步
-
-2026-10-18检查时，本机已安装Git，实际版本是`2.55.0.windows.3`。项目根目录已有`.git`目录，当前分支名为`main`，没有任何提交、已跟踪文件或远程地址。因此，你不需要重新删除或创建`.git`，也不需要再复制一套代码来初始化。
-
-本文编写时已经补齐根目录`.gitignore`，并增加`.gitattributes`。前者决定哪些本地文件暂不进入代码仓库；后者固定Windows启动批处理的CRLF（Carriage Return and Line Feed，回车加换行）行尾，保留当前启动器已经验证过的格式。
-
-|内容|本次上传的处理方式|原因|
-|---|---|---|
-|`tools/`|上传|本项目的Python、网页、候选数据和编配代码|
-|`tests/`|上传|程序行为和保护测试|
-|`data/`中的必要审查配置|上传|保留当前程序使用的配置；`data/tools/`的本机运行时被排除|
-|`.tools/`根目录下本项目编写的`.py`脚本|上传|保留本项目辅助代码；下载的软件和其它本机资料不上传|
-|`run_*.ps1`、`启动右手选择.cmd`|上传|保留程序入口|
-|`.gitignore`、`.gitattributes`、根目录说明和任务文档|上传|让后续克隆获得同样的代码管理边界和接续说明|
-|本教程|上传|忽略规则为本文单独保留了例外|
-|`results/`、`test_outputs/`、`reports/`、`tmp/`|留在本机|这些目录含曲谱、原唱派生音频、试验数据、日志或浏览器资料|
-|`test_music/`|留在本机|原始歌曲和个人素材|
-|`.venv-gpu/`、`.runtime/`、`.cache/`、下载的便携工具|留在本机|它们是环境、软件或模型文件；版本记录用于重建环境|
-|`third_party/`|留在本机|外部模型项目和权重另行恢复，不把完整依赖下载目录混入本项目仓库|
-|`history-version/`中的版本快照|留在本机|避免把每一版的完整数据重复上传；GitHub用提交和标签记录代码版本|
-|`.env`、私钥文件|忽略|这些是本机配置或凭据，不能作为源码提交|
-
-`.gitignore`只控制Git是否收录文件，不会删除这些文件。如果某个文件已经被Git跟踪，后来才加入忽略规则，Git仍然会继续跟踪它，需要另外取消跟踪；第17节给出处理方式。[GitHub官方说明：忽略文件](https://docs.github.com/en/get-started/git-basics/ignoring-files)。
-
-本地快照中的`snapshot_manifest.json`列出真正备份的文件，`environment_versions.json`记录环境包版本，`dependency_notes.json`列明未复制环境及历史引用。源工程中的原路径和来源摘要没有为归档而改写。换电脑运行时仍需恢复素材、模型、缓存及相应路径，第15节详细说明。
-
-## 3. 理解Git操作中最常见的几个词
-
-Git是电脑上的版本管理程序，GitHub是网上保存Git仓库的平台。GitHub Desktop是操作Git的图形界面。没有联网也能在本机提交；执行推送后，网上仓库才会收到这些提交。
-
-|词语|在你的项目中具体指什么|
-|---|---|
-|工作目录|你正在修改的`sheet_music_generator`目录|
-|仓库repository|Git管理的文件和历史记录；本机历史存放在隐藏的`.git`中|
-|暂存stage|先选出本次准备记录的文件，主要用`git add`完成|
-|提交commit|把已暂存的修改记录为一个本地历史节点，并附一句说明|
-|推送push|把本地的新提交发到GitHub|
-|获取fetch|从GitHub读取最新历史，不立即改动本地工作文件|
-|拉取pull|获取远程历史，并按指定方式更新本地分支|
-|分支branch|一条开发历史，例如稳定的`main`和一个正在开发的新功能分支|
-|标签tag|给某个确定提交取一个固定版本名，例如`v5.0.0`|
-|远程origin|本机给GitHub仓库地址起的常用简称|
-
-你的日常操作会按下面的顺序进行。仅保存编辑器文件、仅暂存或仅提交，都还没有上传到GitHub。
-
-```mermaid
-flowchart LR
-    A[编辑并保存项目文件] -->|git add| B[暂存本次修改]
-    B -->|git commit| C[记录本地版本]
-    C -->|git push| D[GitHub收到代码更新]
-```
-
-## 4. 打开正确的PowerShell，并检查本机仓库
-
-在文件资源管理器打开项目根目录，在地址栏输入`powershell`后按Enter，或者打开Windows终端的PowerShell页签，再执行：
+在项目文件夹中右键打开终端，或者打开 PowerShell 后执行：
 
 ```powershell
 Set-Location -LiteralPath 'E:\Project\Software\sheet_music_generator'
-Get-Location
-git --version
-git status
-git branch --show-current
+```
+
+`Set-Location` 是 PowerShell 切换当前目录的命令，`-LiteralPath` 要求把后面的字符串按实际路径处理，不把路径中的特殊字符当作通配符。以后移动了项目，请把这里改成新的真实位置。
+
+### 第 2 步：确认分支、修改和远程
+
+```powershell
+git status --short --branch
 git remote -v
+git log -1 --oneline
 ```
 
-`Get-Location`应该显示项目根目录。`git --version`应该显示Git版本。首次提交前，`git status`显示`No commits yet`和许多未跟踪文件是正常的；当前分支应为`main`。此时`git remote -v`没有输出也正常，表示尚未连接GitHub仓库。
+`git status` 查看当前分支和文件状态。`--short` 使用简短格式，`--branch` 同时显示分支及跟踪关系。第一行应包含 `main...origin/main`；下面可能有 ` M README.md`、`?? data/workspace_paths.json` 等条目。`M` 表示修改，`A` 表示新增，`D` 表示删除，`??` 表示尚未被 Git 跟踪。前两列还区分“已经暂存”和“工作目录继续修改”的状态；暂存后常见 `M `，未暂存的修改常见 ` M`。
 
-本文代码块没有包含`PS E:\...>`这类终端提示符，你可以按顺序复制其中的命令。后面出现`YOUR_GITHUB_NAME`、`你的提交者名称`等文字时，要先替换为自己的内容。命令没有输出不一定失败；只有命令已经返回终端提示符，才能继续输入下一条。
+`git remote -v` 列出远程地址，`-v` 是详细显示选项。`origin` 下的 `(fetch)` 是获取代码使用的地址，`(push)` 是推送使用的地址；两行相同并不表示存在两个仓库。这里应当指向 `zpoliceman/sheet-music-generator.git`。
 
-### 4.1 如果出现dubious ownership错误
+`git log` 查看提交历史；`-1` 只显示最近一次提交，`--oneline` 将其压缩为“短编号和说明”一行。最初检查时，这里是 `9d2cca0 release1.0-guitar-chord-accompaniment`。如果你已经提交过新的修改，显示新的编号是正常的。
 
-本轮工具检查时，Git发现目录所有者属于Windows的Administrators组，而执行Git的用户标识不同，因此出现过`detected dubious ownership`。如果你自己的PowerShell也出现这个错误，先确认错误中的路径正是本项目，再执行一次：
+如果第一行显示其他分支或远程地址不一致，先查明原因，再继续本教程针对 `main` 的操作。
+
+### 第 3 步：获取 GitHub 上最新的分支信息
 
 ```powershell
-git config --global --add safe.directory 'E:/Project/Software/sheet_music_generator'
-git status
-```
-
-这条设置只信任指定的项目路径。没有出现所有者错误就跳过这一步，不需要反复添加。它不提交任何代码，也不会替你连接GitHub。[Git官方说明：safe.directory配置](https://git-scm.com/docs/git-config#Documentation/git-config.txt-safedirectory)。
-
-### 4.2 如果根本找不到Git仓库
-
-在当前电脑的原项目中不应出现这种情况。先检查`Get-Location`，避免把终端开到了`tools`以外的另一个项目或备份目录。只有你在将来的新位置创建了一个确实没有`.git`的独立代码目录，才需要执行：
-
-```powershell
-git init -b main
-```
-
-不要通过删除现有`.git`来“重新开始”，那会丢失之后积累的本机版本记录。[Git官方说明：初始化仓库](https://git-scm.com/docs/git-init)。
-
-## 5. 设置提交者姓名和邮箱
-
-Git需要知道这次提交由谁记录。这不是GitHub登录密码，提交者名称也不要求等于GitHub账号名。下面不使用`--global`，因此只设置当前项目：
-
-```powershell
-git config user.name '你的提交者名称'
-git config user.email '你的GitHub提交邮箱'
-git config --get user.name
-git config --get user.email
-```
-
-把名称换成你希望出现在提交记录中的名字。邮箱使用GitHub已经验证的邮箱；如果希望隐藏日常邮箱，可打开GitHub个人头像→Settings→Emails，复制页面给出的GitHub无回复邮箱，再填入命令。直接复制账号页面显示的邮箱，不要猜邮箱中的数字和用户名组合。[提交者名称说明](https://docs.github.com/en/get-started/git-basics/setting-your-username-in-git)、[提交邮箱说明](https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address)。
-
-## 6. 在提交前，核对真正准备上传的文件
-
-先查看未提交文件：
-
-```powershell
-git -c core.quotepath=false status --short
-```
-
-首次看到`?? tools/`、`?? tests/`和若干说明文件是正常的，问号表示Git还没有跟踪它们。中文文件名若显示成转义字符，上面命令中的`core.quotepath=false`会让这一次输出直接显示中文，不影响文件内容。
-
-核对几个应该被忽略的目录：
-
-```powershell
-git check-ignore -v -- test_music results test_outputs reports tmp .venv-gpu .cache 'history-version/version5-20261018-optional-chords'
-```
-
-Git应该显示对应的`.gitignore`规则。这说明这些目录仍在电脑上，但不属于本次代码上传范围。再查看代码候选清单：
-
-```powershell
-git -c core.quotepath=false ls-files --others --exclude-standard
-git add --dry-run --all
-```
-
-第二条是预演，告诉你`git add`准备收录什么，不会创建提交。正常应以`.py`、`.js`、`.css`、必要的`.json`、`.md`和启动脚本为主，不应出现整曲音频、模型权重、Python环境或成千上万份生成谱。如果出现这些目录，先检查根目录`.gitignore`有没有保存，再继续。
-
-本次快照本身约为几十GiB，而源码候选只有几MiB量级。GitHub普通仓库会警告大于50 MiB的单个文件，并阻止大于100 MiB的文件；网页上传还有单文件25 MiB限制。这也是本项目采用代码仓库、把本地数据另存的实际原因。[GitHub官方说明：大文件限制](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github)。
-
-如果将来确实要管理大模型或大音频，可另行评估Git LFS（Git Large File Storage，Git大文件存储）。本次上传不需要安装LFS，也不用改变已有歌曲和模型的保存方式。[GitHub官方说明：Git LFS](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage)。
-
-## 7. 创建第五版的第一个本地提交
-
-确认上一步文件范围正确后，在项目根目录执行：
-
-```powershell
-git add .
-git diff --cached --stat
-git diff --cached --name-only
-```
-
-`git add .`把当前目录范围内、符合忽略规则的修改放入暂存区。`--stat`显示每个文件的变化概况，`--name-only`显示本次准备提交的文件名。再次确认没有把`results`、`test_outputs`、环境或整份历史快照放进去。
-
-如果发现误暂存了一个文件，首次提交之前还没有`HEAD`，可只取消该文件的Git收录：
-
-```powershell
-git rm --cached -- '需要取消收录的文件路径'
-```
-
-`--cached`让Git只从暂存区移除记录，电脑上的文件仍保留。如果误收录的是整个目录，用`git rm -r --cached -- '目录名'`，然后补好忽略规则。不要省略`--cached`。
-
-确认暂存范围后记录第一个版本：
-
-```powershell
-git commit -m '版本5：加入可选右手型与悬停六线谱预览'
-git log --oneline -1
-git status
-```
-
-提交完成后，`git log`应显示刚才的中文说明和一串提交编号，`git status`应显示没有待提交的代码修改。忽略目录中的歌曲或缓存仍然存在，并不会因为工作区“干净”而消失。到这一步，版本只保存在本机，还没有上传。
-
-## 8. 在GitHub网站创建一个空仓库
-
-先在浏览器登录[GitHub](https://github.com/)。点击页面中的“＋”或仓库新建入口，选择New repository，填写以下内容：
-
-1. Owner选择你准备保存代码的个人账号。
-2. Repository name可填`sheet-music-generator`。
-3. Description可填“本地歌曲简谱、吉他与钢琴伴奏生成器，含可选右手型和谱面试听”。
-4. 首次个人保存建议选择Private；日后确认需要公开时再调整可见性。
-5. 不勾选自动添加README，不选择新的`.gitignore`，不在这一步生成License。
-6. 点击Create repository。
-
-这里创建空仓库，是因为本地已经有README、忽略规则和提交；远程保持为空，可以直接接收本地历史，避免两边各自生成一次互不相关的首次提交。没有在这里生成License，不会妨碍后续上传；如果将来要开源，再单独确定许可内容。[GitHub官方说明：添加已有本地代码](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github)。
-
-创建完成后，复制页面提供的HTTPS（Hypertext Transfer Protocol Secure，安全超文本传输协议）仓库地址，例如：
-
-```text
-https://github.com/YOUR_GITHUB_NAME/sheet-music-generator.git
-```
-
-`YOUR_GITHUB_NAME`必须替换为你实际的GitHub账号。地址中的账号和仓库名以网站显示的内容为准，不要把本文示例原样当成真实仓库地址。
-
-## 9. 把本机仓库连接到GitHub，并首次推送
-
-回到原项目根目录的PowerShell，确认尚无远程地址，再添加：
-
-```powershell
-git remote -v
-git remote add origin https://github.com/YOUR_GITHUB_NAME/sheet-music-generator.git
-git remote -v
-git branch --show-current
-```
-
-第二条命令只需要执行一次。`origin`是你给该GitHub地址起的简称；后续两行分别带有fetch和push的相同地址是正常的。当前分支应为`main`。
-
-如果Git提示`remote origin already exists`，先看`git remote -v`。地址正确就跳过添加步骤；地址不对时，用下面的命令更新地址，而不是重复添加：
-
-```powershell
-git remote set-url origin https://github.com/YOUR_GITHUB_NAME/sheet-music-generator.git
-git remote -v
-```
-
-确认地址正确后首次推送：
-
-```powershell
-git push -u origin main
-```
-
-Git会把本地`main`分支的提交发送到这个仓库，`-u`记录以后默认对应哪个远程分支。以后在同一分支上通常只需`git push`。
-
-### 9.1 首次登录验证应该怎样操作
-
-Windows上的Git可以使用GCM（Git Credential Manager，Git凭据管理器）进行浏览器登录。若出现登录窗口，选择浏览器登录，在GitHub页面核对账号并按提示完成授权；如果账号设置了双重验证，再完成验证码确认。GCM会通过Windows凭据管理器保存所需凭据，不需要把密码或令牌写进代码。[GitHub官方说明：缓存Git凭据](https://docs.github.com/en/get-started/git-basics/caching-your-github-credentials-in-git)。
-
-如果你的终端反复要求输入账户密码，不要把GitHub网页登录密码当作Git的访问令牌。优先检查是否安装了当前Git for Windows及其凭据管理器，或者改用第16节的GitHub Desktop登录。本文不要求你把令牌拼进远程地址，也不要求把凭据保存在`.env`中。
-
-## 10. 确认首次上传完成，并标记第五版
-
-推送完成后，回到浏览器刷新仓库页面。分支选择`main`，应看到`tools`、`tests`、启动脚本、根目录说明及本教程。页面顶部的最新提交说明应是你刚才写的第五版说明。
-
-本机再执行：
-
-```powershell
-git status -sb
-git log --oneline --decorate -3
-git rev-parse HEAD
-```
-
-状态应显示`main`对应`origin/main`。`git rev-parse HEAD`输出本机最新提交的完整编号；网站最新提交的编号应与它一致。仅看文件出现并不足以判断将来某一次修改是否推送成功，比较提交编号更明确。
-
-确认这是准备保留的第五版后，给这次提交加一个标签：
-
-```powershell
-git tag -a v5.0.0 -m '第五版：可选右手型、实时主谱及悬停六线谱预览'
-git push origin v5.0.0
-git show v5.0.0 --no-patch
-```
-
-`v5.0.0`是代码版本名，与本地备份文件夹的名字可以不同。标签固定指向创建时的提交；以后继续更新`main`，旧标签仍指向第五版。推送分支不会自动推送所有新标签，因此本文单独推送这个标签。若同名标签已经存在，先查看它，不要反复覆盖。[Git官方说明：标签](https://git-scm.com/docs/git-tag)。
-
-如果希望GitHub上有易读的发布说明，可以在仓库Releases中根据已推送的`v5.0.0`建立发布记录，写明第五版的功能和运行条件。发布记录和标签用于标识代码，不会自动包含本机未跟踪的歌曲、模型或生成曲谱。
-
-<!-- 历史版本清理、第五版备份与GitHub教程：后续章节继续说明日常更新、分支、恢复、图形界面及本项目环境。 -->
-
-## 11. 后续每次修改，怎样继续更新同一个仓库
-
-你不需要每次重新创建GitHub仓库，也不需要每次重新上传整个文件夹。继续在原项目目录开发，用新的提交记录变化即可。
-
-### 11.1 开始修改之前，先同步远程
-
-如果刚刚完成首次推送，本机与GitHub已经同步。这一步主要用于下次开工、另一台电脑推送过代码，或你在GitHub网页上改过文件的情况。
-
-```powershell
-Set-Location -LiteralPath 'E:\Project\Software\sheet_music_generator'
-git status
-git switch main
-git pull --ff-only
-```
-
-执行前先看`git status`。若存在尚未记录的重要修改，先整理并提交，或另存这些文件，再进行同步。`--ff-only`要求Git只在能够直接前进时更新分支；如果本机和网上分别产生了不同提交，Git会停止并提示你处理，而不会默默选择一边覆盖另一边。[Git官方说明：pull及快进更新](https://git-scm.com/docs/git-pull)。
-
-### 11.2 修改代码，执行与改动相应的检查
-
-例如，你以后增加候选搜索功能，就编辑相关网页或Python文件，在本机运行程序确认实际行为，再执行相关测试。下面是当前项目右手相关测试的运行示例：
-
-本项目还应遵守AGENTS.md：修改或停用原代码时，用中文任务说明保留相应注释；阶段进展写入progress.md，并更新todo.md中的上一步和下一步。涉及编配或导出时，先核对MUSIC_REQUIREMENTS.md中的要求。
-
-```powershell
-.\.venv-gpu\Scripts\python.exe -B -X utf8 -m unittest discover -s tests -p 'test_guitar_pattern*.py'
-```
-
-这条命令要求项目的`.venv-gpu`环境已经恢复。测试通过表示程序在这些测试范围内正常，不等于整曲音乐、真实手指演奏或人工听审全部通过。如果修改了编配或谱面导出，继续按`MUSIC_REQUIREMENTS.md`核验对应要求；新曲谱保存在新版本目录。
-
-需要查看页面时，在项目根目录双击`启动右手选择.cmd`。已有本机服务会被复用；服务不存在时，启动器会等待服务就绪再打开页面。普通前端静态资源修改通常需要刷新页面；修改Python服务代码后，应在保存任务结束后重新加载服务。不要为了让修改“生效”而覆盖旧曲谱。
-
-### 11.3 查看这次到底改了什么
-
-```powershell
-git status --short
-git diff --stat
-git diff
-```
-
-`git diff`显示尚未暂存的代码差异。输出较长进入分页界面时，按`q`退出查看即可。绿色或带“＋”的行通常表示新增，红色或带“－”的行表示删除。阅读差异时，核对有没有误改文件、意外加入账号凭据或把整批音乐数据放入本次提交。
-
-### 11.4 暂存、提交并推送
-
-如果这次只改了两个候选界面文件，可明确指定它们：
-
-```powershell
-git add tools/guitar_pattern_picker.js tools/guitar_pattern_picker.css
-git diff --cached --stat
-git commit -m '右手候选：增加名称搜索与预览定位'
-git push
-git status -sb
-```
-
-上面是假定将来确实完成了搜索功能的示例提交说明。根据你实际完成的修改改写这句话，不要用示例文字描述尚未实现的功能。
-
-如果本次所有改动都属于同一个明确任务，也可用`git add .`统一暂存，再阅读`git diff --cached`。已经暂存的内容不再出现在普通`git diff`中，所以“没有差异”不一定表示没有暂存内容。
-
-提交说明写清具体变化，例如“右手预览：修复窄屏按钮被遮挡”或“启动器：复用已运行的本机服务”。每完成一件可说明、可检查的事情就提交一次，后续查看历史会更容易。
-
-## 12. 功能较大时，用分支保留稳定的main
-
-小范围修改可以按第11节直接更新`main`。如果要增加另一种拍号、调整编配核心或开发需要多次试验的功能，建议先在新分支开发，完成后再合并。
-
-以下以“候选名称搜索”为例，分支名使用`codex/pattern-search`。先保证工作区没有待处理修改，再执行：
-
-```powershell
-git switch main
-git pull --ff-only
-git switch -c codex/pattern-search
-```
-
-现在你在新分支上。修改文件、执行检查后提交并首次推送该分支：
-
-```powershell
-git add tools/guitar_pattern_picker.js tools/guitar_pattern_picker.css
-git commit -m '右手候选：增加名称搜索'
-git push -u origin codex/pattern-search
-```
-
-打开GitHub仓库，选择这个新分支，再点击Compare & pull request。如果没有提示条，可进入Pull requests新建。PR（Pull Request，合并请求）是请GitHub比较两个分支、保留评审说明并安排合并的记录。
-
-创建时核对：base是`main`，compare是`codex/pattern-search`。标题写具体功能，正文说明改变了什么、为何改变、执行了什么检查和还没检查什么。检查差异没有问题后，再按网站提供的合并入口合并。本文不要求你指定他人评审，也没有替你创建任何合并请求。[GitHub官方说明：创建合并请求](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request)。
-
-网站合并完成后，本机再回到主分支并同步：
-
-```powershell
-git switch main
-git pull --ff-only
-git log --oneline --decorate -5
-```
-
-新功能合并后的代码应出现在`main`。以后若需要继续修改同一功能，可以保留旧分支或从最新主分支创建另一条分支；暂时没有必要急着删除分支。
-
-## 13. 后续怎样标记第六版或第五版的小更新
-
-提交是每次开发记录，标签是你决定保留的一个版本位置。例如第五版发布后修复了一个小问题，可以在确认后的新提交上创建`v5.0.1`；增加较完整的新功能可使用`v5.1.0`，下一大版可以使用`v6.0.0`。这些是建议的命名方式，关键是同一项目保持一致。
-
-在确认当前主分支已经完成检查、已提交且准备推送时执行：
-
-```powershell
-git status
-git log --oneline -1
-git tag -a v5.0.1 -m '第五版修订：填写本次实际修复内容'
-git push
-git push origin v5.0.1
-git tag --list
-```
-
-不要把`v5.0.0`反复移动到最新提交。保留旧标签，新增不同名称的标签，才能明确找到“最初第五版”与“后续修订版”。GitHub发布记录可以根据不同标签分别编写；在说明中写清是否只是代码修订，还是另有已经人工确认的新曲谱。[GitHub官方说明：管理发布记录](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)。
-
-## 14. 修改出错时，怎样恢复而不混淆几种操作
-
-### 14.1 只想取消暂存，代码仍然要保留
-
-已经存在至少一个提交后，使用：
-
-```powershell
-git restore --staged -- tools/guitar_pattern_picker.js
-git status --short
-```
-
-它只把文件从本次暂存范围移出，编辑器中已保存的代码仍在。不要把它与丢弃工作文件修改的操作混为一谈。首次提交前没有`HEAD`时，使用第7节的`git rm --cached`方式。[Git官方说明：restore的暂存区选项](https://git-scm.com/docs/git-restore)。
-
-### 14.2 已经提交甚至推送，发现某个提交有问题
-
-先查看历史：
-
-```powershell
-git log --oneline -10
-git show --stat 要检查的提交编号
-```
-
-确认需要撤销的是哪个具体提交，并保存当前尚未提交的工作。若需要撤销一个普通的非合并提交，可执行：
-
-```powershell
-git revert --no-edit 要撤销的提交编号
-git status
-git push
-```
-
-`git revert`会创建一个新的“撤销该修改”的提交，旧历史仍保留，适合已经推送过的普通修改。它不是删除整个项目，也不是重装某个备份。如果出现冲突，按第17节处理；尚未决定怎样处理时，可用`git revert --abort`取消这次撤销尝试。[Git官方说明：revert](https://git-scm.com/docs/git-revert)。
-
-不要在不了解当前状态时把网上的强制重置或强制推送命令直接粘进项目。本教程的日常流程不需要`reset --hard`、`clean -fd`或`push --force`。
-
-### 14.3 想查看最初第五版的代码
-
-你可以在GitHub仓库的分支／标签选择器中选`v5.0.0`，查看那次提交的代码；也可以从该标签下载源代码ZIP。ZIP只是被Git跟踪的源码，不包含本机歌曲、模型、曲谱或缓存。
-
-在本机只查看某一个旧文件，可以执行：
-
-```powershell
-git show v5.0.0:tools/guitar_pattern_picker.js
-```
-
-这只打印旧内容，不会覆盖正在编辑的文件。需要恢复整套本地成果时，先阅读第五版备份中的`BACKUP_README.md`和清单，先保留当前工作，再在新的恢复副本中处理路径与环境。不要直接把旧文件夹整体覆盖到有新修改的工作目录上。
-
-## 15. 换电脑以后，怎样下载代码并恢复程序
-
-### 15.1 用clone获取可继续更新的仓库
-
-在另一台电脑安装Git，进入你准备保存项目的父目录，再使用你自己的真实仓库地址：
-
-```powershell
-Set-Location -LiteralPath 'E:\Project\Software'
-git clone https://github.com/YOUR_GITHUB_NAME/sheet-music-generator.git sheet_music_generator
-Set-Location -LiteralPath '.\sheet_music_generator'
-git status
-git remote -v
-```
-
-执行前确认目标位置没有另一个需要保留的同名项目。`git clone`会下载代码和提交历史，并通常自动建立`origin`连接；这时不需要再执行`git init`和`git remote add origin`。如果下载的是网站的ZIP，则没有Git历史，不等于完成clone；需要持续更新时优先clone。
-
-### 15.2 恢复代码之外的运行条件
-
-这套程序依赖Python、音频处理库、模型、便携工具及原素材。当前本机环境为Python 3.11系列，实际包版本记录在第五版快照的`environment_versions.json`。`requirements-staff.txt`只列出固定排版及图形检查的附加依赖，并不是全部音频和模型依赖清单；不要以为只安装这个文件就恢复了完整程序。
-
-如果新电脑已经安装了兼容的Python 3.11，可以先在项目根目录建立同名隔离环境：
-
-```powershell
-py -3.11 -m venv .venv-gpu
-.\.venv-gpu\Scripts\python.exe --version
-```
-
-然后按项目原有README、模型说明及环境版本记录安装其余依赖。不同显卡和驱动可能需要不同的PyTorch安装来源；版本清单是恢复参考，不是可直接当作`pip install -r`输入的文件。本轮没有重新设计或验证一键安装器，也没有在一台全新电脑上完成整套安装测试。
-
-要让原来的九首默认谱和全部旧配置出现，还需从本地快照恢复`results`、选取的来源依赖和`test_outputs/accompaniment_runs/20261017_right_hand_editor`，保留相应目录结构。还需恢复模型与运行工具；这些环境目录原本就没有纳入GitHub代码上传。
-
-源工程保存了原绝对路径和来源摘要。若新电脑的磁盘或项目位置不同，不能只批量替换工程中的字符串并宣称来源验证通过；应在新工作副本中处理来源绑定并重新检查。最接近原机的恢复方式是恢复到相同路径，但即便路径相同，也需要确认所需文件、环境及摘要实际存在。
-
-环境和数据就绪后，再双击`启动右手选择.cmd`。如果启动器提示没有工程、环境缺失或来源不符，按实际错误修复对应条件；“代码成功上传／clone”本身并不证明本机音乐环境已经恢复。
-
-## 16. 不想记命令时，用GitHub Desktop图形界面
-
-这一节可替代第7–9节的首次提交与上传操作。若你已经用PowerShell上传完成，不要再创建一个同名远程仓库，直接把现有本机仓库加入Desktop即可。
-
-### 16.1 安装并加入现有本机仓库
-
-从[GitHub Desktop官方下载页](https://desktop.github.com/download/)选择Windows版本安装，登录你的GitHub账号。首次设置提交者信息时，核对姓名和邮箱与第5节一致。
-
-打开Desktop后选择File→Add local repository，路径选择：
-
-```text
-E:\Project\Software\sheet_music_generator
-```
-
-选择的是原项目根目录，不是`history-version`或第五版备份目录。这个项目已有`.git`，因此应当作为现有仓库添加；不需要在Desktop里另建一套空文件夹。[GitHub官方说明：添加现有本机仓库](https://docs.github.com/en/desktop/adding-and-cloning-repositories/adding-a-repository-from-your-local-computer-to-github-desktop)。
-
-### 16.2 用图形界面完成首次提交和发布
-
-1. 查看左侧Changes，核对主要是代码、说明和启动脚本，正式曲谱、歌曲、环境和整份快照不应出现。
-2. 点击几个文件阅读右侧差异，确认它们属于准备保存的第五版。
-3. 在Summary填写“版本5：加入可选右手型与悬停六线谱预览”。Description可以补充多区间、实时主谱及本机运行条件。
-4. 点击Commit to main，先创建本机提交。
-5. 如果还没有连接远程，点击Publish repository，填仓库名称和说明，个人保存时保留私有选项，再发布。
-6. 如果此前已经在GitHub网页创建空仓库并设置了`origin`，使用Push origin把本机提交推送到已有远程，不要再重复发布另一份。
-7. 点击在GitHub查看的入口，核对最新提交和代码文件。
-
-Desktop的提交按钮与推送按钮仍然是两步；你在本机提交后，网上仓库不会立刻变化。操作名称以当前Desktop界面为准，核心顺序始终是选择文件、写提交说明、记录本机版本、再推送。[GitHub官方说明：提交并查看差异](https://docs.github.com/en/desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project-in-github-desktop)。
-
-### 16.3 以后的更新步骤
-
-每次开始工作，先在Desktop选择正确仓库和分支，使用Fetch origin检查网上是否有更新；若显示Pull origin，在当前工作整理妥当后拉取。然后在原项目目录修改代码、测试，回到Changes查看差异，填写Summary并提交，最后点击Push origin。
-
-如果你在PowerShell中提交或切换分支，Desktop也会反映同一个仓库的状态；两种工具可以配合，但不要同时让两个窗口执行合并、提交或拉取。推送前先读取远程的新历史，避免多台电脑各自改动后互相冲突。[GitHub官方说明：Desktop推送](https://docs.github.com/en/desktop/making-changes-in-a-branch/pushing-changes-to-github-from-github-desktop)。
-
-## 17. 常见问题与对应处理
-
-### 17.1 Git提示不是内部命令或找不到git
-
-在当前电脑已检查到Git可用。若你换了电脑，需要从[Git官方Windows安装页](https://git-scm.com/install/windows)安装Git for Windows，安装后重新打开PowerShell，再运行`git --version`。旧终端未重新读取安装后的路径时，也可能暂时找不到命令。
-
-### 17.2 提示Author identity unknown
-
-Git不知道提交者信息，按第5节设置当前仓库的`user.name`和`user.email`，再执行刚才失败的提交。设置作者信息不会替你登录GitHub；作者和访问账号是两个不同的条件。
-
-### 17.3 提示src refspec main does not match any
-
-先检查：
-
-```powershell
-git branch --show-current
-git log --oneline -1
-git status
-```
-
-最常见的情况是还没有成功创建第一个提交，或当前分支并不叫`main`。本项目初始分支已是`main`，先确认第7节的提交是否成功，不要反复执行相同推送命令。
-
-### 17.4 提示仓库不存在、Repository not found或403
-
-先在浏览器中登录实际账号，直接打开远程仓库页面，再运行`git remote -v`核对账号与仓库名。如果是私有仓库，确认当前Git登录的账号有访问权限。地址正确但浏览器登录的账号与Git凭据账号不同，需要在Windows凭据管理器或Desktop中处理对应的GitHub登录。不要把账号密码或访问令牌贴到仓库地址里。
-
-### 17.5 本地提交完成，但GitHub网页没有变化
-
-运行`git status -sb`，若看到本机领先远程若干提交，说明本机有记录尚未推送，执行`git push`。若已推送，检查网页当前分支是不是`main`，并比较`git rev-parse HEAD`与网页最新提交编号。单纯刷新网页不能替代推送。
-
-### 17.6 .gitignore写好了，某个大目录仍出现在提交里
-
-如果该目录早已被Git跟踪，忽略规则不会自动取消它。先确认目录仍在本机，查看Git当前跟踪了什么：
-
-```powershell
-git ls-files -- test_outputs results
-```
-
-如果你此前误把生成数据加入仓库，且现在准备停止版本管理，可只取消其跟踪：
-
-```powershell
-git rm -r --cached -- test_outputs results
-git add .gitignore
-git diff --cached --stat
-git commit -m '仓库整理：停止跟踪生成曲谱和试验数据'
-git push
-```
-
-上述命令只适用于这些目录确实已被跟踪的情况；若没有已跟踪文件，不需要执行。如果只误收录了其中一个目录，命令里也只写那个目录。`--cached`保留本机文件。但这只能让后续提交不再包含它们，不能从早期提交中抹去已经记录的大文件。
-
-### 17.7 推送因为超过100 MiB的大文件被拒绝
-
-如果大文件只是暂存，还没有提交，使用第7节的方法取消收录并更新忽略规则。如果它只出现在“最近一次、尚未推送”的提交中，先用`git rm --cached -- '文件路径'`停止收录，再执行：
-
-```powershell
-git add .gitignore
-git commit --amend --no-edit
-git push -u origin main
-```
-
-`--amend`会改写最近一次提交，所以这一组步骤严格限于你尚未推送的最新提交。如果大文件存在于更早历史，或仓库已由多人使用，不要继续尝试随机重置历史；先保留本地成果，再针对实际历史处理。只在本机删除文件、然后新增一次提交，不能消除旧提交中已经存在的大文件。[GitHub官方说明：移除未推送提交中的大文件](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github#removing-files-from-a-repositorys-history)。
-
-### 17.8 提示non-fast-forward，或pull --ff-only拒绝继续
-
-这通常表示网上出现了本机还没有的提交。若只是本机落后且没有另外产生提交，整理好工作区后执行`git pull --ff-only`即可。若本机与网上都产生了新提交，先查看双方历史：
-
-```powershell
-git status
 git fetch origin
-git log --oneline --graph --decorate --all -15
+git log --oneline HEAD..origin/main
 ```
 
-在已经提交本机工作、并确定要把远程主分支合入当前主分支后，可以执行：
+`git fetch origin` 从 `origin` 获取新提交并更新本机的远程分支记录，不会把远程改动直接合并到正在编辑的文件。获取需要网络连接，终端可能提示你通过浏览器登录 GitHub。[Git fetch 官方说明](https://git-scm.com/docs/git-fetch)
 
-```powershell
-git merge --no-edit origin/main
-```
+第二条命令查看 `origin/main` 上存在、而当前 `HEAD` 还没有的提交。`HEAD..origin/main` 中的两个点表示这个提交范围；如果没有输出，说明本机没有发现远程领先的提交。如果有输出，先记住 GitHub 上还有更新，后面的同步步骤会处理。
 
-没有冲突时，Git会生成需要的合并结果；检查程序后再`git push`。出现冲突时按下一小节处理。若Git提示双方历史无关，常见原因是你在第8节额外勾选了远程自动生成README。这种首次上传错误不要用强制推送掩盖；保留本机历史，可以另建真正为空的新远程仓库，并用`git remote set-url`连接后推送。[GitHub官方说明：非快进错误](https://docs.github.com/en/get-started/using-git/dealing-with-non-fast-forward-errors)。
+此时工作目录还有未提交改动，不要先执行变基同步；先按下面的步骤检查并保存本地修改。
 
-### 17.9 Git提示CONFLICT
-
-先执行`git status`，Git会指出冲突文件。用编辑器打开这些文件，会看到类似下面的标记：
-
-```text
-<<<<<<< HEAD
-本机这一边的内容
-=======
-另一边的内容
->>>>>>> origin/main
-```
-
-阅读两边真实修改，保留需要的最终内容，删除这些冲突标记，再保存。随后把已解决的文件暂存并提交：
-
-```powershell
-git add '已经处理的文件路径'
-git status
-git commit -m '合并远程更新并解决冲突'
-git push
-```
-
-如果正在进行的是前一节的merge，但你尚未决定怎样解决，可以在继续编辑前执行`git merge --abort`退出这次合并。如果正在进行的是revert，则使用`git revert --abort`。先用`git status`确认当前是哪一种操作，不要混用取消命令。
-
-### 17.10 出现LF或CRLF提示，或者中文文件名显示奇怪
-
-Git的行尾转换提示通常不是上传失败。项目中的`.gitattributes`已经要求`.cmd`文件在检出时使用Windows行尾；保留这份文件，保留启动器中的UTF-8代码页设置。本项目曾实际遇到批处理中文注释解析问题，所以不要随意删除这些设置。
-
-终端中文文件名显示为转义形式时，可临时用`git -c core.quotepath=false status --short`查看。这只是Git输出形式变化，不表示中文文件损坏。如果文件正文出现乱码，应另查编辑器保存编码，不能仅靠重命名解决。
-
-## 18. 针对这个项目，每次更新前后确认哪些内容
-
-开始修改时，确认自己仍在原开发目录、当前分支正确，重要本地修改已经记录或另存。修改完成后，先运行对应测试，再在网页检查实际受影响的操作。
-
-例如只改右手候选界面，重点确认默认谱能读、悬停不改歌、点击才应用、主谱与片段试听更新、原配置仍可载入；若修改编配，另按音乐要求检查实际音符、时值、按弦、来源和旧成果。代码测试通过与整曲听感通过分开记录。
-
-上传前阅读`git diff --cached --stat`和本次文件列表，保证提交内容属于这次任务。提交后查看说明和编号，推送后在网站上核对同一编号。稳定到需要保留一版时，再创建一个新的标签，不需要每改一行就复制几十GiB的快照。
-
-`progress.md`、`todo.md`和`HANDOFF.md`也属于代码仓库的接续资料。更新它们时，明确写出已经做了什么、实际检查了什么、还没完成什么。大日志和真实音乐证据仍保存在本机`reports`；如果将来需要在GitHub展示某个例子，可以单独整理一份精简、不带原始素材的公开示例，再明确选择是否提交。
-
-## 19. 可以保存下来反复使用的日常命令
-
-下面是你已经完成首次上传以后、每次开始新任务的常用顺序。仅在`git status`确认工作整理妥当后继续切换和拉取：
-
-```powershell
-Set-Location -LiteralPath 'E:\Project\Software\sheet_music_generator'
-git status
-git switch main
-git pull --ff-only
-```
-
-修改、测试并核对差异后，再执行下面几条。提交说明改成这次实际完成的内容：
+### 第 4 步：查看准备上传的内容
 
 ```powershell
 git diff --stat
-git add .
-git diff --cached --stat
-git commit -m '填写本次实际修改说明'
-git push
-git status -sb
+git diff -- README.md
+git add --dry-run -A
 ```
 
-第一次使用时按第4–10节逐步操作；以后这组日常命令通常足够。遇到Git错误时，先保留错误原文、`git status`、当前分支名及`git remote -v`中的仓库地址，按第17节对应处理。不要复制或分享任何密码、私钥或访问令牌。
+`git diff --stat` 汇总工作目录相对暂存区的改动，用文件名和增删行数帮助你判断范围。它不展示未跟踪文件的正文，也不代替后面的暂存区检查。
 
-## 20. 本文依据与本轮实际完成范围
+`git diff -- README.md` 只查看 README 的未暂存修改，`--` 后面是文件路径。带 `-` 的行是删除内容，带 `+` 的行是新增内容。如果 Git 打开了可翻页界面，按空格翻页，按 `q` 退出查看；退出查看不会撤销文件修改。
 
-本文已按2026-10-18可读取的GitHub及Git官方文档核对。各节链接直接指向支持对应操作的官方页面；网站界面名称以后可能调整，命令和本机状态也应以你执行时的实际输出为准。
+`git add --dry-run -A` 预览一次“暂存所有改动”的操作。`--dry-run` 只报告计划，不修改暂存区；`-A` 表示纳入整个工作树内的新增、修改和删除。确认清单中的代码和文档都是本次准备上传的内容。[Git add 官方说明](https://git-scm.com/docs/git-add)
 
-本轮已经完成本机目录清理、第五版快照、忽略规则准备和源码候选预检，并编写了本教程。没有替你设置Git作者、创建远程仓库、提交、建立标签、登录GitHub或推送任何代码；这些需要你按本文填入自己的账号并执行。截图或代码存在于本机，不代表网上仓库已经建立。
+当前 `.gitignore` 会忽略模型、歌曲、生成结果及本地备份。忽略规则只对尚未跟踪的文件起作用，已经被跟踪的文件仍会进入修改清单；不要仅凭文件夹很大或存在忽略规则就跳过清单检查。
 
-本轮备份是否完整，以第五版目录中的`snapshot_manifest.json`和独立校验结果为准。备份里的历史报告有少量早已失效的旧路径引用，已经在`dependency_notes.json`列出；当前九首曲谱在删除旧版本后的实际来源读取已逐首检查。文件完整性检查不替代新的音乐验收，已认可曲谱和待听审版本继续保留原状态。
+### 第 5 步：把确认过的修改加入暂存区
+
+```powershell
+git add -A
+```
+
+`add` 将内容加入暂存区；`-A` 包含新增、修改和删除。本次它会同时纳入 README、教程、开发记录及路径迁移代码，不只是当前打开的文档。
+
+这一步不会上传网络，也不会删除被忽略的歌曲或曲谱。它记录的是执行这一刻的文件内容；如果随后又修改了文件，需要重新执行 `git add` 才能把新内容纳入这次提交。
+
+### 第 6 步：检查真正准备提交的内容
+
+```powershell
+git diff --cached --stat
+git diff --cached --check
+git diff --cached -- README.md
+```
+
+`--cached` 要求比较“暂存区与当前提交”，所以这里看到的才是下一次提交实际包含的内容。第一条显示全部暂存文件的统计；第二条检查空白字符错误和冲突标记，正常时通常没有输出；第三条检查已暂存的 README 正文。
+
+`--check` 不是程序功能测试，不会证明模型或音乐生成正确。如果第一条包含了自己不准备提交的文件，先调整暂存范围，不要直接提交。取消某个文件暂存的方法见第六节。
+
+### 第 7 步：保存为一次本地提交
+
+```powershell
+git commit -m '修复路径迁移并完善第一版使用说明'
+```
+
+`commit` 把暂存区内容保存为一次本地提交；`-m` 后面的字符串就是这次提交的说明。说明可以按你的实际改动调整，这里同时描述路径修复和文档完善，便于以后从记录中找到原因。[Git commit 官方说明](https://git-scm.com/docs/git-commit)
+
+提交完成时，Git 会给出新的提交编号和文件统计。旧的 `9d2cca0` 仍在历史中；新提交保存后续变化，不会把原提交改名或覆盖。此时 GitHub 页面还没有更新，因为新提交只保存在本机。
+
+### 第 8 步：确认工作目录已经干净
+
+```powershell
+git status --short
+```
+
+这次只使用 `--short`，不要求显示分支。**主流程中应当没有任何输出**，表示没有剩余的未提交文件或未跟踪文件。被 `.gitignore` 正常忽略的本地数据不会列在这里。
+
+如果仍有文件，先确认它们是否属于本次修改：需要一起保存的文件应重新暂存并提交；其他未完成工作应妥善保存后再继续。不要在还有未处理改动时直接执行下一步变基。
+
+### 第 9 步：同步 GitHub 上的最新提交
+
+```powershell
+git pull --rebase origin main
+```
+
+`pull` 先获取远程提交，再把指定分支的内容同步到当前分支。`--rebase` 要求把尚未上传的本地提交重新接到远程最新提交之后；`origin main` 指定从哪个远程、哪个分支同步。执行前应确认当前仍是 `main` 且工作目录干净。[Git pull 官方说明](https://git-scm.com/docs/git-pull)
+
+如果 GitHub 没有新提交，终端会提示已经是最新状态。如果远程有新提交，Git 会尝试把本地提交接到它们后面；本地提交编号可能因此改变，这是变基的正常结果。
+
+如果 Git 报告冲突，停在这里，按第六节解决后再继续。如果本次同步引入了其他人的代码修改，应在推送前完成相应功能检查。
+
+### 第 10 步：推送到现有 GitHub 仓库
+
+```powershell
+git push origin main
+```
+
+`push` 把本地分支的提交发送到远程；`origin` 指定现有仓库，`main` 指定推送的分支。当前 `main` 已经跟踪 `origin/main`，所以这里不需要重新设置上游。常见成功输出会显示两个提交编号，以及 `main -> main`。[Git push 官方说明](https://git-scm.com/docs/git-push)
+
+它上传的是 Git 提交包含的文件，不会把整个磁盘目录、被忽略的曲谱或模型自动打包上传。推送完成后，GitHub 仓库的 `main` 首页就会显示新的 README。
+
+如果终端提示远程又有新提交而拒绝推送，保持已经提交的本地工作，重新执行第 8、9、10 步；出现冲突时先解决冲突。日常更新不需要强制推送。
+
+## 三、确认更新确实到了 GitHub
+
+推送后执行：
+
+```powershell
+git status --short --branch
+git log -1 --oneline
+git rev-parse HEAD
+git ls-remote origin refs/heads/main
+```
+
+第一条应显示 `main...origin/main`，没有待提交文件，也没有 `ahead`（本地领先）或 `behind`（本地落后）计数。第二条显示新的提交说明。
+
+`git rev-parse HEAD` 输出当前本地提交的完整编号。`rev-parse` 把提交名称解析为对象编号，`HEAD` 指当前提交。
+
+`git ls-remote origin refs/heads/main` 直接查询远程 `main` 的引用。`ls-remote` 列出远程引用，`origin` 指仓库，`refs/heads/main` 是 `main` 分支的完整引用名。输出第一列的完整编号应与上一条相同；如果其他人在这期间又上传了内容，远程可能进一步前进，应重新获取后查看差异。
+
+然后在浏览器打开[仓库首页](https://github.com/zpoliceman/sheet-music-generator)，选择 `main`，检查 README 正文和最新提交。你给出的 `9d2cca0` 链接始终指向原提交，不会自动跳成新版本；需要查看最新内容时，应打开仓库首页或新提交链接。
+
+到这里，本次源码更新已经完成。创建标签或 GitHub Release 是可选步骤，不影响 README 已经上传的事实。
+
+## 四、以后每次更新怎么做
+
+如果工作目录是干净的，开始修改前先执行 `git pull --rebase origin main`，取得最新代码；如果已经修改了文件，按照第二节先检查、提交，再同步。
+
+日常更新继续使用第二节的同一套步骤：确认目录和分支，获取远程信息，查看差异，暂存并检查，提交，同步，推送，最后核对远程。提交说明改成本次实际内容，例如“增加右手候选筛选”或“修复保存后整曲播放器”。
+
+每次提交尽量对应一个能够说明清楚、已经检查过的改动。你可以积累几次本地提交后再推送，推送会把当前分支中尚未上传的提交一起发送；未暂存、未提交的文件不会随着推送上传。
+
+GitHub 上传源码与程序运行是两件事。`git push` 不会替你启动本机的 8766 网页，也不会部署一个供其他人访问的在线网站。更新代码后，本机程序是否需要重启，取决于改动是否涉及正在运行的服务。
+
+## 五、需要标记版本时，再创建标签和 Release
+
+提交、标签和 Release 分别解决不同问题：提交保存代码变化；标签给某个提交一个固定名称；GitHub Release 在标签基础上提供版本说明和可选附件。仅修改仓库内容时，提交和推送已经够用。
+
+### 给维护更新加一个标签
+
+如果把第一版的这次维护更新称为 `v1.0.1`，在主流程推送成功、并确认当前 `HEAD` 正是要发布的提交后执行：
+
+```powershell
+git tag -a v1.0.1 -m '第一版维护更新：路径修复与文档完善'
+git push origin v1.0.1
+```
+
+第一条中的 `tag` 创建标签，`-a` 创建带说明的标签，`v1.0.1` 是你选择的标签名，`-m` 后面是标签说明。没有额外给出提交编号时，Git 把标签放在当前 `HEAD` 上。`v1.0.1` 只是本教程建议的维护版本名称，不是程序必须使用的固定字符串。[Git tag 官方说明](https://git-scm.com/docs/git-tag)
+
+第二条把刚创建的标签推送到 `origin`。这里最后一个参数是标签名，而不是 `main`；创建本地标签后，不会因为它与分支关联就自动出现在 GitHub。
+
+标签用于固定一个已经确认的提交。若 `v1.0.1` 已经存在，先检查它是否就是需要的版本；新的一次更新应选用另一个名称，例如 `v1.0.2`。不要把已发布标签反复移动到新提交。
+
+如果你希望给最初的 `9d2cca0` 也补上正式 `v1.0.0` 标签，可以单独执行下面两条；这不是完成当前更新的必要步骤：
+
+```powershell
+git tag -a v1.0.0 9d2cca035163682c40ed54647de4e0cc2b0bd1a6 -m '第一版：吉他和弦伴奏'
+git push origin v1.0.0
+```
+
+这里在标签名后明确写出原提交的完整编号，因此 `v1.0.0` 指向原始第一版，而不是指向当前最新代码。其他选项与前一个示例相同。只有确认这个标签尚未存在、且希望补充该标记时才执行。
+
+### 在 GitHub 网页发布版本说明
+
+1. 打开仓库，进入 **Releases**。如果没有现成版本，可以从仓库右侧的发布入口进入。
+2. 点击创建新发布的按钮，通常显示为 **Draft a new release**。
+3. 在标签选择处选择已经推送的 `v1.0.1`。先确认标签指向正确提交，不要在不确定的情况下另建一个同名或近似标签。
+4. 填写标题，例如“v1.0.1：第一版维护更新”，再写清楚本次功能变化、修复和使用注意事项。源码压缩包会由 GitHub 根据标签提供，不必把整个本地运行目录作为附件上传。
+5. 确认内容后发布，通常使用 **Publish release** 按钮。需要先保留草稿时，使用保存草稿按钮。
+
+GitHub 网页按钮的位置或语言可能变化，具体以[GitHub 管理发布版本官方说明](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)为准。Release 是代码版本的发布页，不会把本机网页服务变成在线应用。
+
+## 六、只改文档、取消暂存和处理冲突
+
+### 如果只想上传 README
+
+本次主流程的 `git add -A` 会纳入全部有效改动。如果你明确只想提交 README，可以把暂存步骤改成：
+
+```powershell
+git diff --cached --stat
+git add -- README.md
+git diff --cached --stat
+git diff --cached -- README.md
+git commit -m 'docs: 完善第一版 README'
+```
+
+第一条先检查是否已经暂存了其他文件；如果有，先妥善处理原有暂存内容，再按这条分支操作。第二条中的 `--` 表示后面是文件名，所以只把 README 当前内容加入暂存区。第三、四条再次检查，确认提交范围确实只有 README。第五条提交该文件；说明中的 `docs:` 是一种便于阅读的文档提交前缀，不是 Git 必须识别的参数。
+
+这组命令不会自动纳入教程，也不会纳入仍在工作目录中的路径修复。若要把教程一并暂存，可以在检查提交之前执行：
+
+```powershell
+git add -- 'history-version/GitHub上传与持续更新教程.md'
+```
+
+这仍然是 `add` 加文件路径的语法，中文路径由单引号包成一个参数。随后重新查看暂存区，再提交；此时提交包含 README 和教程。
+
+**只提交文档后，其他代码仍可能处于未提交状态。** 这时不要照抄主流程中“工作目录干净”的结论，也不要直接执行要求干净目录的变基。先完成其他改动的保存或隔离，再恢复同步步骤。若远程没有新提交，推送本地已有提交本身可以在存在其他未提交文件时执行；那些未提交文件仍不会被上传。
+
+这也是本轮推荐完整更新流程的原因：本地的路径迁移属于程序修改，应该在检查后与文档一起进入仓库，才能让 GitHub 上的代码与使用说明对应。
+
+### 不小心暂存了不想提交的文件
+
+例如只想把 README 从暂存区拿出来：
+
+```powershell
+git restore --staged -- README.md
+```
+
+`restore` 在这里恢复的是暂存区内容；`--staged` 指定只调整暂存区，默认参考当前 `HEAD`；`--` 后面是文件。此命令会取消 README 的暂存，**保留工作目录中已经编辑好的 README**。处理后用 `git status --short` 和 `git diff --cached --stat` 再看一次范围。[Git restore 官方说明](https://git-scm.com/docs/git-restore)
+
+### 同步时出现冲突
+
+如果 `git pull --rebase origin main` 提示冲突，Git 会停在发生冲突的提交。先执行：
+
+```powershell
+git status
+```
+
+不带简短选项的 `status` 会显示完整状态、冲突文件和变基进度。用编辑器打开列出的文件，找到 `<<<<<<<`、`=======`、`>>>>>>>` 标记，对照本地和远程改动，整理出最终要保留的内容，并删除标记。变基过程中的两侧名称容易误解，应直接阅读文件内容，不能只凭“我的版本”“对方版本”整份覆盖。
+
+假如需要处理的是 README，编辑保存后执行：
+
+```powershell
+git add -- README.md
+git rebase --continue
+```
+
+第一条把解决后的文件加入暂存区；实际有多个冲突文件时，每个文件都需要解决并暂存。`git rebase --continue` 继续当前变基过程；`--continue` 的意思是使用已经解决的结果继续处理。若随后打开提交说明编辑器，保存说明并关闭编辑器。还有下一处冲突时，重复检查、编辑和继续的过程。
+
+如果不确定如何解决，想回到本次变基之前的状态，可以执行：
+
+```powershell
+git rebase --abort
+```
+
+`--abort` 取消正在进行的变基，返回变基开始前的分支状态；主流程要求变基前已经提交，因此这些本地提交仍然保留。取消后重新检查状态，再决定如何同步，不要在冲突未解决时继续推送。处理方法见 [Git rebase 官方说明](https://git-scm.com/docs/git-rebase)。
+
+### Git 第一次提交时要求填写身份
+
+只有当 Git 明确提示作者姓名或邮箱缺失时，才需要补充：
+
+```powershell
+git config user.name '你的名字'
+git config user.email '你的GitHub提交邮箱'
+```
+
+`config` 修改 Git 配置；`user.name` 是提交作者显示名，`user.email` 是提交邮箱。这里没有 `--global`，因此只为当前仓库设置。请把示例文字换成自己的信息；邮箱也可以使用 GitHub 提供的隐私邮箱。作者信息不是 GitHub 登录凭据，设置它不能代替网络登录。
+
+## 七、哪些文件会上 GitHub，哪些仍然只在本机
+
+当前规则适合“源码仓库与本机运行数据分开保存”的使用方式。
+
+| 通常纳入仓库 | 通常仅留在本机 |
+| --- | --- |
+| `tools/`、`tests/`、必要的 `data/` 配置、PowerShell 启动脚本 | `.venv-gpu/`、`.runtime/`、模型缓存、第三方运行目录 |
+| README、音乐要求、任务与接续说明 | `test_music/` 中的歌曲和歌词 |
+| `history-version/GitHub上传与持续更新教程.md` | `results/`、`test_outputs/`、`reports/` 中的曲谱、音频、配置和运行数据 |
+| 本项目编写的 `.tools/` 顶层 Python 辅助脚本 | `history-version/` 中的完整本地备份及临时目录 |
+
+以实际 `.gitignore` 和暂存清单为准，表格不是对任意新文件都自动生效的承诺。不要使用强制添加去绕过规则上传整套本机歌曲、环境或备份；如果以后确实需要公开示例数据，应先单独设计示例目录和许可范围。
+
+忽略文件不会被删除，但也不会因为推送代码而获得远程备份。已有曲谱、右手配置、原歌曲和模型环境需要继续做本地或独立存储备份。`data/workspace_paths.json` 与 `data/workspace_identity.json` 属于程序使用的配置，应随当前代码检查和保存；它们不是模型缓存。
+
+在另一台电脑上克隆仓库后，能取得已经提交的代码和文档，不能仅靠克隆自动恢复这台电脑的歌曲、曲谱和 Python 环境。新的运行环境仍需单独部署；本项目当前没有完整覆盖全部依赖的一键安装清单。
+
+## 八、常见提示应该怎样处理
+
+**提示 `nothing to commit`。** Git 没有发现能够提交的已暂存改动。先确认文件已经在编辑器中保存、PowerShell 确实位于当前项目目录，再用 `git status --short --branch` 查看。不要为了制造新提交而重复复制文件。
+
+**提示 `non-fast-forward` 或远程包含本地没有的提交。** GitHub 上的分支前进了。先确保本地修改已经保存为提交且工作目录干净，再执行主流程中的 `git pull --rebase origin main`，解决可能的冲突，最后重新推送。
+
+**弹出 GitHub 登录。** 这是远程身份验证，与 `user.name` 和 `user.email` 无关。使用终端或凭据管理工具打开的正规登录流程；如果要求令牌，按照 [GitHub 官方认证文档](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)处理。不要把密码或令牌写入 README、远程地址或项目配置。
+
+**出现 LF（Line Feed，换行）与 CRLF（Carriage Return and Line Feed，回车换行）的行尾提示。** Git 在说明文本的换行格式；单纯的换行转换提示不代表推送失败。项目已有 `.gitattributes` 约束 Windows 启动文件，不要因为这个提示批量改写全部文件。是否成功应看命令最终结果和远程编号。
+
+**上传成功，但网页仍显示原提交内容。** 先确认浏览器打开的是仓库的 `main` 首页，而不是固定的 `9d2cca0` 提交页面；再比较第三节的本地与远程完整编号，必要时刷新页面。
+
+**GitHub 上看不到自己的曲谱和音频。** 如果它们位于当前忽略目录，这是代码仓库的正常范围。请在本机继续保存这些数据；上传源码不等于上传或公开歌曲成品。
+
+**终端显示 `Everything up-to-date`，但编辑器里还有修改。** `push` 只发送已经产生的提交。先看 `git status`，按暂存、提交、同步、推送的顺序处理工作目录中的修改。

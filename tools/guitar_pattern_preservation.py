@@ -1,6 +1,7 @@
 """4/4可选右手与实时谱面试听：未选择时原样另存当前交付，不重新编配或排版。"""
 # 4/4可选右手与实时谱面试听：新增窄范围保留入口，仅接受当前正常索引中的工程和无修改请求。
 from pathlib import Path
+from workspace_location import local_path
 from urllib.parse import unquote
 import re
 import shutil
@@ -16,7 +17,7 @@ def frozen_delivery_request(args):
     if not getattr(args,'edited_project',None):return False
     allowed={'edited_project','output','analysis_dir','report'}
     if any(name not in allowed and value not in (None,False,[],()) for name,value in vars(args).items()):return False
-    source=Path(args.edited_project).resolve()
+    source=local_path(args.edited_project).resolve()
     index=ROOT/'results/accompaniment/index.html'
     if not index.is_file():return False
     text=index.read_text(encoding='utf-8').split('<details>')[0]
@@ -27,7 +28,7 @@ def frozen_delivery_request(args):
 def copy_frozen_delivery(project_path, output):
     # 4/4可选右手与实时谱面试听：新增真正的零修改另存；原曲来源及所有交付文件逐字节核查。
     from revise_guitar_selection import validate_parent,verify_sources
-    source=Path(project_path).resolve();output=require_isolated_output(output,ROOT)
+    source=local_path(project_path).resolve();output=require_isolated_output(output,ROOT)
     if source.parent==output or source.parent in output.parents:
         raise ValueError('原样副本须另存于原工程以外')
     if output.exists() and any(output.iterdir()):raise ValueError('输出目录已有内容，请另存新版本')

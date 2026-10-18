@@ -10,6 +10,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+from workspace_location import local_path
 import sys
 
 import numpy as np
@@ -23,7 +24,7 @@ DEFAULT_RULES = {"pitch_tolerance_semitones": 0.65, "short_note_seconds": 0.09,
 
 def hash_file(path):
     h = hashlib.sha256()
-    with Path(path).open("rb") as stream:
+    with local_path(path).open("rb") as stream:
         for data in iter(lambda: stream.read(1024 * 1024), b""):
             h.update(data)
     return h.hexdigest()
@@ -349,7 +350,7 @@ def main():
     if args.input is None:
         current = json.loads((ROOT / "reports/integrated_pipeline.full.json").read_text(encoding="utf-8-sig"))
         args.input = Path(current["run"]["transcription_summary"]).parent / "analysis.json"
-    args.input = args.input.resolve()
+    args.input = local_path(args.input).resolve()
     output = args.output_dir.resolve()
     if output == args.input.parent:
         raise ValueError("Refined outputs must be separate from original analysis")
@@ -362,7 +363,7 @@ def main():
         with np.load(npz, allow_pickle=False) as archive:
             arrays = {key: archive[key] for key in archive.files}
     audio = audio_rate = None
-    audio_path = Path(original["source"]["path"])
+    audio_path = local_path(original["source"]["path"])
     if audio_path.exists():
         import soundfile as sf
         audio, audio_rate = sf.read(audio_path, dtype="float32", always_2d=True)

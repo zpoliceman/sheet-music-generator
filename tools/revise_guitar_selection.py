@@ -2,6 +2,7 @@
 # 4/4可选右手与实时谱面试听：新增实际修改入口，与局部预览复用统一编译器。
 from copy import deepcopy
 from pathlib import Path
+from workspace_location import local_path
 import argparse
 import shutil
 
@@ -45,7 +46,7 @@ def validate_parent(project, path):
         from guitar_source_bass_acceptance import require_changed_bass_source
         audit = project['local_lyric_revision']
         ancestor = Path(audit.get('source_project', '__missing_lyric_source__'))
-        if audit.get('output_music_sha256') != lyric_fingerprint(music_payload(project)) or not ancestor.is_file() or sha256(ancestor) != audit.get('source_project_sha256'):
+        if audit.get('output_music_sha256') != lyric_fingerprint(music_payload(project)) or not local_path(ancestor).is_file() or sha256(ancestor) != audit.get('source_project_sha256'):
             raise ValueError('已认可局部词音的实际内容或父工程改变')
         original = read_json(ancestor)
         if (project['arrangements'] != original['arrangements'] or project['shared_analysis'] != original['shared_analysis']
@@ -79,7 +80,7 @@ def bind_selection(revised, source, source_sha, bindings):
 
 def revise_selection(project_path, output, plan=None, feature_cache=None):
     # 4/4可选右手与实时谱面试听：新增仅允许空隔离目录，普通重导不改变已保存型。
-    source = Path(project_path).resolve()
+    source = local_path(project_path).resolve()
     output = require_isolated_output(output, ROOT)
     if output == source.parent or source.parent in output.parents:
         raise ValueError('右手新版本须在原工程目录以外另存')

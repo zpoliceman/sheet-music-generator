@@ -2,6 +2,7 @@
 # 多区间右手配置与网页完整成品：新增磁盘持久化，绑定真实来源摘要；配置和曲谱版本分别保存。
 from copy import deepcopy
 from pathlib import Path
+from workspace_location import local_path
 import re
 import time
 import uuid
@@ -17,7 +18,7 @@ def editor_workspace(root, explicit=None):
     selected = explicit
     if selected is None:
         selected = read_json(memory)['workspace'] if memory.is_file() else 'test_outputs/accompaniment_runs/right_hand_editor'
-    selected = Path(selected)
+    selected = local_path(selected)
     if not selected.is_absolute(): selected = root/selected
     return require_isolated_output(selected, root)
 

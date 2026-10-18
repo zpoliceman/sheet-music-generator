@@ -2,6 +2,7 @@
 # 完整乐句与实际时长复用：新增公开冻结重导入口，禁止调用音高、节拍、和弦或编配器。
 from copy import deepcopy
 from pathlib import Path
+from workspace_location import local_path
 import shutil
 
 from score_export import read_json, save_json, sha256
@@ -36,7 +37,7 @@ def verify_reading_source(project, source):
         protected_baseline(project, source)
         origin = project.get('readability_source', {})
         ancestor = Path(origin.get('project', ''))
-        if not ancestor.is_file() or sha256(ancestor) != origin.get('project_sha256'):
+        if not local_path(ancestor).is_file() or sha256(ancestor) != origin.get('project_sha256'):
             raise ValueError('冻结阅读的词音来源已改变或缺失')
         base = read_json(ancestor)
         if (base['accepted_vocal_project'] != voice or
@@ -53,7 +54,7 @@ def verify_reading_source(project, source):
 
 def revise_reading(project_path, output):
     # 完整乐句与实际时长复用：新增原来源验证与新目录限制，候选不能覆盖原曲谱。
-    source = Path(project_path).resolve(); directory = source.parent
+    source = local_path(project_path).resolve(); directory = source.parent
     output = require_isolated_output(output, ROOT)
     if output == directory or directory in output.parents:
         raise ValueError('阅读副本必须放在原工程之外，避免递归复制或覆盖')

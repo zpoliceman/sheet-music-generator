@@ -10,6 +10,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
+from workspace_location import local_path
 from refine_transcription import refine_analysis, hash_file
 
 
@@ -122,7 +123,7 @@ class RefinementRegression(unittest.TestCase):
         integrated = ROOT / "reports/integrated_pipeline.full.json"
         if not old.exists() or not integrated.exists():
             self.skipTest("Local real-audio regression assets are unavailable")
-        latest = Path(json.loads(integrated.read_text(encoding="utf-8-sig"))["run"]["transcription_summary"]).parent / "analysis.json"
+        latest = local_path(json.loads(integrated.read_text(encoding="utf-8-sig"))["run"]["transcription_summary"]).parent / "analysis.json"
         for path in [old, latest]:
             with self.subTest(path=str(path)):
                 before = hash_file(path)

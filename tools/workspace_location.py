@@ -1,5 +1,7 @@
 """工作目录改名兼容：固定曲谱身份，并确认启动器连接的是当前工作区。"""
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
+from functools import lru_cache
+import os
 import hashlib
 import json
 
@@ -24,3 +26,39 @@ def same_workspace(health, root):
         return False
     value = health.get('workspace_root')
     return isinstance(value, str) and bool(value) and Path(value).resolve() == Path(root).resolve()
+
+
+@lru_cache(maxsize=8)
+def historical_roots(root):
+    """读取历史根目录；当前工作目录始终由代码所在位置确定。"""
+    settings = Path(root)/'data/workspace_paths.json'
+    if not settings.is_file():
+        return ()
+    record = json.loads(settings.read_text(encoding='utf-8-sig'))
+    values = record.get('historical_roots')
+    if record.get('version') != 1 or not isinstance(values, list) or not all(isinstance(p, str) and PureWindowsPath(p).is_absolute() for p in values):
+        raise ValueError('历史路径映射配置无效。')
+    return tuple(PureWindowsPath(p) for p in values)
+
+
+def local_path(value, root=None):
+    """在文件读取入口返回实际路径，不修改工程中的原始字符串或摘要。"""
+    if not isinstance(value, (str, os.PathLike)):
+        return value
+    root = Path(root) if root is not None else Path(__file__).resolve().parents[1]
+    raw = os.fspath(value)
+    if isinstance(raw, bytes):
+        return value
+    original = Path(value)
+    for previous in historical_roots(root):
+        try:
+            relative = PureWindowsPath(raw).relative_to(previous)
+        except ValueError:
+            continue
+        if '..' in relative.parts:
+            raise ValueError('历史路径不能越出当前工程。')
+        actual = root.joinpath(*relative.parts)
+        if not actual.resolve().is_relative_to(root.resolve()):
+            raise ValueError('历史路径指向工程外部，拒绝访问。')
+        return actual
+    return original

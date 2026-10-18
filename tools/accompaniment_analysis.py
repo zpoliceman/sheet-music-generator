@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 from dataclasses import dataclass
 from pathlib import Path
+from workspace_location import local_path
 import math
 import time
 import numpy as np
@@ -158,7 +159,7 @@ def extract_features(source, cache_dir, name):
     import librosa
     import soundfile as sf
     from threadpoolctl import threadpool_limits
-    cache_dir = Path(cache_dir); cache_dir.mkdir(parents=True, exist_ok=True)
+    cache_dir = local_path(cache_dir); cache_dir.mkdir(parents=True, exist_ok=True)
     digest = sha256(source['path'])
     if digest != source['sha256']:
         raise ValueError(f'{name}分轨已改变，需重新绑定来源。')
@@ -171,7 +172,7 @@ def extract_features(source, cache_dir, name):
         arrays = np.load(target)
         return Features(arrays['times'], arrays['activations'], arrays['rms'], arrays['flux'], meta['attacks'], source)
     started = time.perf_counter()
-    wave, sr = sf.read(source['path'], always_2d=True, dtype='float32')
+    wave, sr = sf.read(local_path(source['path']), always_2d=True, dtype='float32')
     with threadpool_limits(limits=4):
         mono = librosa.resample(wave.mean(axis=1), orig_sr=sr, target_sr=SR)
         n_bins = (108-LOW_MIDI) * 3 + 1

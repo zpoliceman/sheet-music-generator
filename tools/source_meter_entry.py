@@ -1,6 +1,7 @@
 """默认入口原曲节拍强制复核：未经来源校正的旧谱不能直接进入编配或排版复制。"""
 from copy import deepcopy
 from pathlib import Path
+from workspace_location import local_path
 import math
 # 默认入口原曲节拍强制复核：修改，旧仅指纹导入保留；人工复核须直接核对真实映射点，用户覆盖字段不能让检查短路。
 # from score_export import sha256
@@ -16,13 +17,13 @@ CLOCK_LAYERS=('source_meter_rebuild_correction','continuous_meter_correction','s
 # 默认入口原曲节拍强制复核：新增实际来源和整份人声重放核验；所有分支在输出／复制前执行。
 def inspect_source_meter(vocal,binding):
     original=Path(binding['vocal_project'])
-    if not original.is_file() or sha256(original)!=binding['vocal_project_sha256']:
+    if not local_path(original).is_file() or sha256(original)!=binding['vocal_project_sha256']:
         raise ValueError('节拍前置检查：原人声来源已改变。')
     checked={}
     for name,source in binding['sources'].items():
         path=Path(source['path']);key=(str(path.resolve()),source['sha256'])
         if key not in checked:
-            checked[key]=path.is_file() and sha256(path)==source['sha256']
+            checked[key]=local_path(path).is_file() and sha256(path)==source['sha256']
         if not checked[key]:raise ValueError('节拍前置检查：原音轨来源已改变：'+name)
     if not validate_vocal_snapshot(vocal,binding):
         raise ValueError('节拍前置检查：人声／拍轴不能由原来源重建，拒绝覆盖或继续编配。')

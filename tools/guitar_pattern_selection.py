@@ -4,6 +4,7 @@ from copy import deepcopy
 from functools import lru_cache
 from itertools import product
 from pathlib import Path
+from workspace_location import local_path
 import json
 import re
 
@@ -499,7 +500,7 @@ def source_project(project):
     # 4/4可选右手与实时谱面试听：新增每版绑定真实父工程，拒绝自比、缺文件、变内容与循环。
     source = project.get('right_hand_selection_source', {})
     path = Path(source.get('project', '__missing_selection_source__'))
-    if not path.is_file() or sha256(path) != source.get('project_sha256'):
+    if not local_path(path).is_file() or sha256(path) != source.get('project_sha256'):
         raise ValueError('右手选型原工程缺失或改变')
     baseline = read_json(path)
     if has_selection(baseline) and baseline.get('right_hand_selection_source') == source:

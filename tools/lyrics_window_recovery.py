@@ -1,5 +1,6 @@
 """第四首《日落大道》男声跨歌曲验证：新增长缺锚窗局部ASR恢复，原文/原锚点只读。"""
 from pathlib import Path
+from workspace_location import local_path
 import copy,math,time
 MAX_WINDOW_SECONDS=24.; MAX_RETRY_CROPS=4; OVERLAP_SECONDS=4.
 
@@ -82,7 +83,7 @@ def recover_long_gaps(reference,anchor,plan,output,match_lines,text_cost,boundar
     eligible=[job for job in plan['jobs'] if retry_windows(job)]
     if not eligible:return result,evidence
     if file_sha256(Path(reference['source']['path']))!=reference['source']['sha256']:raise ValueError('局部ASR源SHA失配')
-    output=Path(output);output.mkdir(parents=True,exist_ok=True);info=sf.info(reference['source']['path']);source_offset=reference['source'].get('offset_seconds',0.)
+    output=Path(output);output.mkdir(parents=True,exist_ok=True);info=sf.info(local_path(reference['source']['path']));source_offset=reference['source'].get('offset_seconds',0.)
     for job in eligible:
         # 第四首《日落大道》男声跨歌曲验证：修改实际重试使用声学空隙，原循环保留。
         # for start,end in retry_windows(job):
@@ -91,7 +92,7 @@ def recover_long_gaps(reference,anchor,plan,output,match_lines,text_cost,boundar
             attempt={'original_job_id':job['job_id'],'line_indices':job['line_indices'],'start_seconds':start,'end_seconds':end};started=time.perf_counter()
             try:
                 first=max(0,math.floor((start-source_offset)*info.samplerate));last=min(info.frames,math.ceil((end-source_offset)*info.samplerate))
-                audio,rate=sf.read(reference['source']['path'],start=first,stop=last,dtype='float32',always_2d=True)
+                audio,rate=sf.read(local_path(reference['source']['path']),start=first,stop=last,dtype='float32',always_2d=True)
                 folder=output/f'crop_{len(evidence["attempts"]):02d}';folder.mkdir(parents=True,exist_ok=True);path=folder/'vocals.wav';sf.write(path,audio,rate,subtype='FLOAT')
                 source={'path':str(path.resolve()),'sha256':file_sha256(path),'sample_rate':rate,'channels':info.channels,'duration_seconds':len(audio)/rate,'offset_seconds':first/rate+source_offset}
                 # 中文版本冻结与英文融合验证：注释保留被替换的原实现。

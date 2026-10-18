@@ -2,6 +2,7 @@
 # 局部两拍过渡听辨修订：新增独立记谱分组层；不把人工局部答案写入自动选拍器，不重编任何音符。
 from copy import deepcopy
 from pathlib import Path
+from workspace_location import local_path
 import shutil
 from score_export import read_json, save_json, sha256
 from accompaniment_analysis import SongClock
@@ -77,8 +78,8 @@ def verify_revision(project, verify_source=True):
     revision=project.get(KEY)
     if not revision or revision.get('version')!=1:raise ValueError('缺少局部小节复核来源')
     source=Path(revision['source_project']);review_path=Path(revision['review'])
-    if not source.is_file() or sha256(source)!=revision['source_project_sha256']:raise ValueError('原音乐工程缺失或改变')
-    if not review_path.is_file() or sha256(review_path)!=revision['review_sha256']:raise ValueError('小节听辨记录缺失或改变')
+    if not local_path(source).is_file() or sha256(source)!=revision['source_project_sha256']:raise ValueError('原音乐工程缺失或改变')
+    if not local_path(review_path).is_file() or sha256(review_path)!=revision['review_sha256']:raise ValueError('小节听辨记录缺失或改变')
     base=read_json(source);review=read_json(review_path)
     if review.get('source_project_sha256')!=sha256(source) or review.get('mix_sha256')!=base['shared_analysis']['input_binding']['sources']['mix']['sha256']:
         raise ValueError('听辨不属于当前原曲／工程')

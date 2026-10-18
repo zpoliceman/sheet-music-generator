@@ -3,6 +3,7 @@
 from copy import deepcopy
 import math
 from pathlib import Path
+from workspace_location import local_path
 import numpy as np
 import soundfile as sf
 from score_export import read_json,save_json,sha256
@@ -58,7 +59,7 @@ def prepare_words(base_path,binding,plan_path,anchor_path,reference_path,output)
     records=[]
     for i,job in enumerate(jobs):
         folder=output/('job_'+str(i));folder.mkdir()
-        with sf.SoundFile(source['path']) as stream:
+        with sf.SoundFile(local_path(source['path'])) as stream:
             rate=stream.samplerate;first=max(0,math.floor(job['start_seconds']*rate));last=min(stream.frames,math.ceil(job['end_seconds']*rate))
             stream.seek(first);audio=stream.read(last-first,dtype='float32',always_2d=True)
         crop=folder/'vocals.wav';sf.write(crop,audio,rate,subtype='FLOAT')
@@ -100,9 +101,9 @@ def validate_words(artifact,binding):
     for job in artifact['jobs']:
         source=job['crop'];raw=read_json(job['raw_alignment_path']);values=read_json(job['characters_path'])
         if raw['source']!=source:raise ValueError('局部词音原始模型来源不一致')
-        with sf.SoundFile(binding['sources']['vocals']['path']) as stream:
+        with sf.SoundFile(local_path(binding['sources']['vocals']['path'])) as stream:
             stream.seek(round(source['offset_seconds']*stream.samplerate));audio=stream.read(round(source['duration_seconds']*stream.samplerate),dtype='float32',always_2d=True)
-        crop,rate=sf.read(source['path'],dtype='float32',always_2d=True)
+        crop,rate=sf.read(local_path(source['path']),dtype='float32',always_2d=True)
         if rate!=source['sample_rate'] or not np.array_equal(audio,crop):raise ValueError('局部字音裁片不是绑定原唱对应PCM')
         states=raw['results'][0]['phoneme_states']
         for char in values:

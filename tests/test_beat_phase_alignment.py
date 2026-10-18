@@ -3,6 +3,7 @@ from copy import deepcopy
 from pathlib import Path
 import sys,json,unittest
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
+from workspace_location import local_path
 from beat_phase_alignment import (phase_review,apply_phase_timing,nucleus_onsets,derive_phase_vocal,
                                  validate_reviewed_beats,validate_beat_synchrony,validate_piano_beats)
 from accompaniment_rebar import validate_vocal_snapshot
@@ -55,7 +56,7 @@ class PhaseReviewTests(unittest.TestCase):
     def setUpClass(cls):
         cls.project=json.loads((ROOT/'results/accompaniment/雨天_v11_小节划分纠正/project.json').read_text(encoding='utf-8'))
         cls.base=cls.project['accepted_vocal_project'];cls.binding=cls.project['shared_analysis']['input_binding']
-        cls.source=json.loads(Path(cls.binding['vocal_project']).read_text(encoding='utf-8'))
+        cls.source=json.loads(local_path(cls.binding['vocal_project']).read_text(encoding='utf-8'))
         cls.correction={'version':1,'source_vocal_project_sha256':cls.binding['vocal_project_sha256'],
                         'source_audio_sha256':cls.binding['sources']['mix']['sha256'],
                         'base_grid_correction':cls.base['grid_correction'],
@@ -103,7 +104,7 @@ class PhaseReviewTests(unittest.TestCase):
         self.assertEqual(sum(n.get('grace',False) for n in self.vocal['quantized_notes']),15)
 
     def test_read_only_source_and_one_text_correction(self):
-        self.assertEqual(self.source,json.loads(Path(self.binding['vocal_project']).read_text(encoding='utf-8')))
+        self.assertEqual(self.source,json.loads(local_path(self.binding['vocal_project']).read_text(encoding='utf-8')))
         a=[x['text'] for x in self.source['lyrics']['characters']];b=[x['text'] for x in self.vocal['lyrics']['characters']]
         self.assertEqual([(i,x,y) for i,(x,y) in enumerate(zip(a,b)) if x!=y],[(15,'剩','想')])
 

@@ -1,6 +1,7 @@
 """钢琴同步已认可词音：同步导出钢琴，逐文件保持已认可简谱、吉他和原唱数据。"""
 # 钢琴同步已认可词音：新增通用受保护重导；不会调用原曲识别或全曲重新编配。
 from pathlib import Path
+from workspace_location import local_path
 import shutil
 from copy import deepcopy
 
@@ -11,7 +12,7 @@ from piano_harmony_readability import assess_piano_labels, fingerprint, source_p
 
 def protected_files(source):
     # 钢琴同步已认可词音：新增三个目录的实际文件清单，复制后要求逐字节相同且无额外文件。
-    source = Path(source)
+    source = local_path(source)
     return {str(p.relative_to(source)): sha256(p) for folder in ('guitar', 'vocal', 'audio')
             for p in (source / folder).rglob('*') if p.is_file()}
 
@@ -29,7 +30,7 @@ def check_sync_project(project):
     # 钢琴同步已认可词音：新增实际局部差异白名单；只允许有原声证据的生成低音省略与派生和声标记。
     audit = project.get('piano_sync_revision', {})
     source_path = Path(audit.get('source_project', ''))
-    if not source_path.is_file() or sha256(source_path) != audit.get('source_project_sha256'):
+    if not local_path(source_path).is_file() or sha256(source_path) != audit.get('source_project_sha256'):
         raise ValueError('钢琴同步认可原工程已改变或缺失。')
     original = read_json(source_path)
     if any(project[key] != original[key] for key in ('accepted_vocal_project', 'shared_analysis')):
@@ -85,7 +86,7 @@ def export_preserved_piano_sync(project_path, output):
     if not physical['valid']:
         raise ValueError('同步钢琴实际可演奏性失败：' + str(physical['errors']))
     save_json(output / 'piano_playability.json', physical)
-    source = Path(project['piano_sync_revision']['source_project']).parent
+    source = local_path(project['piano_sync_revision']['source_project']).parent
     for folder in ('guitar', 'vocal', 'audio'):
         shutil.copytree(source / folder, output / folder, dirs_exist_ok=True)
     observed = protected_files(output)

@@ -8,6 +8,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+from workspace_location import local_path
 from itertools import combinations
 
 import numpy as np
@@ -199,7 +200,7 @@ def _source_phrases(project, timeline):
     path = project.get('time_only_revision', {}).get('ancestor_project_path')
     if path:
         file = Path(path)
-        raw = file.read_bytes()
+        raw = local_path(file).read_bytes()
         expected = project['time_only_revision'].get('ancestor_project_sha256')
         if expected and hashlib.sha256(raw).hexdigest() != expected:
             raise ValueError('祖先工程签名已改变，不能借用旧乐句族')

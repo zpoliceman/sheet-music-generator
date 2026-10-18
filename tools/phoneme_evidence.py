@@ -5,6 +5,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+from workspace_location import local_path
 
 # 字音归属修复：新增普通话声母识别；单音素音节不因m/n等标签丢失核音。
 INITIALS = frozenset('b p m f d t n l g k h j q x zh ch sh r z c s y y0 w'.split())
@@ -13,14 +14,14 @@ VOICED_INITIALS = frozenset('m n l r y y0 w'.split())
 # 字音归属修复：新增只读哈希与JSON接口，缓存证据必须可追溯。
 def sha256(path):
     digest = hashlib.sha256()
-    with Path(path).open('rb') as stream:
+    with local_path(path).open('rb') as stream:
         for block in iter(lambda: stream.read(1024 * 1024), b''):
             digest.update(block)
     return digest.hexdigest()
 
 
 def read_json(path):
-    return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    return json.loads(local_path(path).read_text(encoding='utf-8-sig'))
 
 # 字音归属修复：新增音素的全局秒坐标与发音角色；不按文字长度分摊时间。
 def character_phonemes(states, offset):
@@ -97,7 +98,7 @@ def enrich(lyrics, report):
                 raise ValueError('原音素文件与裁剪音频哈希不一致。')
             if abs(raw['source'].get('offset_seconds', 0) - crop.get('offset_seconds', 0)) > 1e-6:
                 raise ValueError('原音素文件裁剪坐标不一致。')
-            if not Path(crop['path']).is_file() or sha256(crop['path']) != crop['sha256']:
+            if not local_path(crop['path']).is_file() or sha256(crop['path']) != crop['sha256']:
                 raise ValueError('音素裁剪音频不存在或字节被修改。')
             values = raw.get('results', [])
             if len(values) != 1:

@@ -9,6 +9,7 @@ import json
 import math
 import re  # 中文版本冻结与英文融合验证：新增中英文分段匹配所需正则。
 from pathlib import Path
+from workspace_location import local_path
 import time
 import traceback
 import unicodedata
@@ -470,13 +471,13 @@ def main():
                     if job['status'] != 'candidate_window':
                         continue
                     phase = time.perf_counter()
-                    info = sf.info(source['path'])
+                    info = sf.info(local_path(source['path']))
                     offset = source.get('offset_seconds', 0.)
                     first = max(0, math.floor((job['start_seconds']-offset)*info.samplerate))
                     last = min(info.frames, math.ceil((job['end_seconds']-offset)*info.samplerate))
                     crop = output/'crops'/f"phrase_{job['job_id']:03d}.wav"
                     crop.parent.mkdir(parents=True, exist_ok=True)
-                    audio, rate = sf.read(source['path'], start=first, stop=last, dtype='float32', always_2d=True)
+                    audio, rate = sf.read(local_path(source['path']), start=first, stop=last, dtype='float32', always_2d=True)
                     sf.write(crop, audio, rate, subtype='FLOAT')
                     local = {**reference, 'text': job['reference_text'],
                              'lines': [reference['lines'][i] for i in job['line_indices']],

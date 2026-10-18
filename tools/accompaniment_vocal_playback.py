@@ -1,6 +1,7 @@
 """结构稳定伴奏与人声合播：真实人声共同时钟试听与离线浏览器播放器。"""
 # 结构稳定伴奏与人声合播：新增源人声重采样/起点补偿，仅写新交付目录。
 from pathlib import Path
+from workspace_location import local_path
 import base64
 import hashlib
 import json
@@ -37,7 +38,7 @@ def prepare_vocals(output,shared,vocal):
     source=shared['input_binding']['sources']['vocals']
     if sha256(source['path'])!=source['sha256']:raise ValueError('合播人声来源指纹已改变')
     shift=int(vocal['notation'].get('transpose_semitones',0))
-    samples,sr=sf.read(source['path'],always_2d=True,dtype='float32')
+    samples,sr=sf.read(local_path(source['path']),always_2d=True,dtype='float32')
     # 结构稳定伴奏与人声合播：新增显式目标调支持；原人声只读，转换试听另存。
     if shift:
         import librosa
@@ -133,7 +134,7 @@ def validate_singing_preview(folder,shared,vocal):
     # 结构稳定伴奏与人声合播：新增从原人声重新构造样本验证，不能仅信偏移元数据。
     source = shared['input_binding']['sources']['vocals']
     if sha256(source['path']) != source['sha256']: errors.append('original_voice_source_changed')
-    original,osr=sf.read(source['path'],always_2d=True,dtype='float32')
+    original,osr=sf.read(local_path(source['path']),always_2d=True,dtype='float32')
     shift=int(vocal['notation'].get('transpose_semitones',0))
     if shift:
         import librosa

@@ -3,6 +3,7 @@
 from copy import deepcopy
 from collections import defaultdict
 from pathlib import Path
+from workspace_location import local_path
 import argparse
 import base64
 import html
@@ -721,7 +722,7 @@ def export_revision(project_path, output, instruments=None, preserve_audio_from=
     source = binding['sources']['vocals']
     if score.sha256(source['path']) != source['sha256']:
         raise ValueError('合播原唱来源已改变')
-    raw, rate = sf.read(source['path'], dtype='float32', always_2d=True)
+    raw, rate = sf.read(local_path(source['path']), dtype='float32', always_2d=True)
     original_voice, placement = align_samples(raw, rate, 22050, source.get('offset_seconds', 0.), math.ceil(duration * 22050))
     # 最小拍轴与词音伴奏修复：新增统一试听增益，分离原唱允许浮点峰值大于1，写16bit前不能截掉瞬态；原始文件保持。
     voice_scale = min(1., .97 / max(1e-9, float(np.max(abs(original_voice)))))
@@ -1113,7 +1114,7 @@ def refresh_original_singer(project_path, output):
     for instrument, arrangement in ((i, a) for i, a in project['arrangements'].items() if (output / i / 'score.mid').is_file()):
         if not export.validate_midi(output / instrument / 'score.mid', arrangement, voice)['valid']:
             raise ValueError('音乐已改变，不能仅更新原唱编码')
-    raw, rate = sf.read(source['path'], dtype='float32', always_2d=True)
+    raw, rate = sf.read(local_path(source['path']), dtype='float32', always_2d=True)
     # 吉他编配规则闭环修复：修改原仅时间修订来源，兼容已确认旧拍轴原曲时长。
     # duration = voice['time_only_revision']['source_duration_seconds']
     duration = voice.get('time_only_revision', {}).get('source_duration_seconds', project['shared_analysis']['input_binding']['sources']['mix']['duration_seconds'])

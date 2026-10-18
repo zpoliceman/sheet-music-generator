@@ -3,6 +3,7 @@
 from copy import deepcopy
 # 工作目录改名兼容：文件仍逐个验证摘要，证据保留原绝对路径名称以便重放历史记录。
 from pathlib import Path
+from workspace_location import local_path
 import math
 import numpy as np
 from scipy.ndimage import gaussian_filter1d, median_filter
@@ -35,7 +36,7 @@ def extract_source_onsets(binding, cache):
     import librosa
     import soundfile as sf
     from threadpoolctl import threadpool_limits
-    cache = Path(cache); cache.mkdir(parents=True, exist_ok=True)
+    cache = Path(cache); local_path(cache).mkdir(parents=True, exist_ok=True)
     sources = binding['sources']; rows = {}
     backing = next((name for name in ('accompaniment', 'other', 'mix') if name in sources), None)
     if backing is None:
@@ -47,13 +48,13 @@ def extract_source_onsets(binding, cache):
                 raise ValueError('独立源节拍输入已改变：' + name)
             token = 'source_onsets_v1_' + source['sha256'][:20]
             metadata, archive = cache / (token + '.json'), cache / (token + '.npz')
-            if metadata.exists() and archive.exists():
+            if local_path(metadata).exists() and local_path(archive).exists():
                 saved = read_json(metadata)
                 if saved['policy'] != POLICY or saved['source_sha256'] != source['sha256']:
                     raise ValueError('独立源攻击缓存版本／指纹不一致。')
                 peaks = saved['peaks']
             else:
-                wave, rate = sf.read(source['path'], always_2d=True, dtype='float32')
+                wave, rate = sf.read(local_path(source['path']), always_2d=True, dtype='float32')
                 mono = librosa.resample(wave.mean(axis=1), orig_sr=rate, target_sr=POLICY['sample_rate'])
                 magnitude = np.abs(librosa.stft(mono, n_fft=POLICY['fft'], hop_length=POLICY['hop']))
                 frequency = librosa.fft_frequencies(sr=POLICY['sample_rate'], n_fft=POLICY['fft'])
@@ -71,8 +72,8 @@ def extract_source_onsets(binding, cache):
                     arrays[label] = flux
                     peaks[label] = [{'seconds': float(times[i]) + float(source.get('offset_seconds', 0)),
                                      'strength': float(flux[i])} for i in indexes]
-                np.savez_compressed(archive, **arrays)
-                save_json(metadata, {'policy': deepcopy(POLICY), 'source_sha256': source['sha256'], 'peaks': peaks})
+                np.savez_compressed(local_path(archive), **arrays)
+                save_json(local_path(metadata), {'policy': deepcopy(POLICY), 'source_sha256': source['sha256'], 'peaks': peaks})
             for band, attacks in peaks.items():
                 rows[name + '_' + band] = {'source': name, 'band': band, 'attacks': attacks,
                     'source_sha256': source['sha256'], 'cache_path': str(metadata.absolute())}

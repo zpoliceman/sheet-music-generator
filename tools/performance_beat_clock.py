@@ -1,6 +1,7 @@
 """连续唱段拍轴与原唱同步修复：保留记谱骨架，联合原轨规则脉冲和实际演唱重估物理拍秒。"""
 from copy import deepcopy
 from pathlib import Path
+from workspace_location import local_path
 from collections import defaultdict
 import math
 import numpy as np
@@ -38,7 +39,7 @@ POLICY = {'version': VERSION, 'window_quarters': 8., 'window_step_quarters': 2.,
 def copy_features(binding, cache, preferred=()):
     from shutil import copy2
     root = Path(__file__).resolve().parents[1]
-    cache = Path(cache).resolve()
+    cache = local_path(cache).resolve()
     if not cache.is_relative_to(root / 'test_outputs/accompaniment_runs'):
         raise ValueError('演奏拍轴缓存必须在本项目独立分析目录中')
     cache.mkdir(parents=True, exist_ok=True)

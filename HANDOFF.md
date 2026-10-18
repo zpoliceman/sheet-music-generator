@@ -6,15 +6,15 @@
 
 主项目是本地自动乐谱生成器：原曲与缓存分析→人声简谱／歌词→同一和声下的吉他、钢琴两套伴奏及原唱合播。当前阶段是伴奏与阅读，完整指弹独奏、独奏五线谱和网站／小程序尚未启动。稳定总体目标见todo.md。
 
-**2026-10-18工作目录和第五版名称更正已检查并修复。** 实际根目录为E:\Project\Software\sheet_music_generator，第五版为version5-20261018-optional-chords。原虚拟环境路径已修正，8766从新目录运行，启动器重复执行复用同一进程。旧名称sheet_musit_generator是指向新目录的Windows目录联接，供不可改写的旧工程绝对路径读取；请保留，日常使用新目录。data/workspace_identity.json保存原曲谱编号种子，应随代码保留，不是文件访问位置。
+**2026-10-18旧目录兼容联接已彻底移除。** 实际根目录为E:\Project\Software\sheet_music_generator，第五版为version5-20261018-optional-chords。用户随后明确要求不保留旧名称入口，之前的联接方案已被本轮取代，不要重新创建。Python与PowerShell在文件读取入口依据data/workspace_paths.json解析历史来源，原工程和冻结备份内容保持。data/workspace_identity.json中的旧值仅作为编号种子，不访问旧目录，继续保留以找回原命名配置。
 
-九曲来源及五套旧配置兼容，1493项最终测试、18项实际浏览器检查及一版隔离完整保存通过。新保存62小节、707音，人声／共享分析／双乐器编配与原四区间版本一致，216.88秒音频采样也一致；8338份results、5份原配置及1457份旧版本文件保持。改名后的第五版40106份文件完整校验通过，冻结内容未改写。[目录改名报告](E:/Project/Software/sheet_music_generator/reports/accompaniment/20261018_workspace_rename/report.md)与[总核对](E:/Project/Software/sheet_music_generator/reports/accompaniment/20261018_workspace_rename/verification.json)列明实际入口；没有重新执行整首模型识别或新增音乐发布。专用隐藏浏览器与8767已关闭，用户8766仍运行。
+本轮1500项完整测试、九曲真实来源与五套原配置、18项浏览器检查通过。新62小节707音的完整保存及原已存版本重导均与旧方案全部音乐、216.88秒音频采样相同；正式PowerShell原样另存也通过。8338份results、5份原配置及1457份旧文件保持；第五版40106份冻结文件完整校验通过。24个环境启动文件及安装摘要已迁移，当前Git能识别新根目录和main分支，用户已经设置远程，不要沿用旧报告中“没有远程”的历史状态。[移除旧联接报告](E:/Project/Software/sheet_music_generator/reports/accompaniment/20261018_without_legacy_link/report.md)及verification.json为当前证据。8766从新目录运行，本轮测试浏览器和8767已关闭；没有替用户提交、推送或发布音乐。
 
 **2026-10-18旧版本清理、第五版备份和GitHub教程已经完成。** 用户明确授权删除的verision3-20261014-temporary-right、version4-20261016-temporary-right及version1-chinese-sheetmusic已经从实际history-version删除；第二版与20261014_general_music_rejected保留。MUSIC_REQUIREMENTS的R35当前备份指向version5-20261018-optional-chords，旧路径只作历史，不能再以旧保护文字要求用户重复确认已授权清理。
 
 第五版约30.3GiB，保存代码、正式成品、当前编辑目录及所需来源，独立清单覆盖40106份文件；环境、模型缓存和整个试验目录不整份重复复制，恢复范围见备份内BACKUP_README和dependency_notes。首轮检查发现三套静态回溯成品未选入，已补567文件并核验，37页480个本地链接保持。[备份入口](E:/Project/Software/sheet_music_generator/history-version/version5-20261018-optional-chords/BACKUP_INDEX.html)、[本轮报告](E:/Project/Software/sheet_music_generator/reports/accompaniment/20261018_version5_backup/report.md)、[最终核对](E:/Project/Software/sheet_music_generator/reports/accompaniment/20261018_version5_backup/verification.json)记录实际范围。九首当前来源读取及原8338个results文件、5套配置、1457个已存版本保护通过，8766服务保持。
 
-[GitHub上传与持续更新教程](E:/Project/Software/sheet_music_generator/history-version/GitHub上传与持续更新教程.md)有20节，含本机首次上传、日常更新、分支标签、恢复及Desktop路线。38段PowerShell语法与320份约4.8MiB代码的隔离暂存／检出通过；根.gitignore排除本机数据，.gitattributes保持.cmd行尾，README已有入口。实际.git仍无提交、索引和远程，没有替用户上传；后续从原项目目录继续，不在冻结快照中开发。本轮没有新音乐验收或发布。
+[GitHub上传与持续更新教程](E:/Project/Software/sheet_music_generator/history-version/GitHub上传与持续更新教程.md)现按已有origin/main重写，逐条解释检查、暂存、提交、同步、推送、可选标签和Release。2026-10-18已只读确认本地main与远程main均为9d2cca035163682c40ed54647de4e0cc2b0bd1a6，origin为zpoliceman/sheet-music-generator；release1.0-guitar-chord-accompaniment是提交说明，远程查询未返回标签。根README已改为第一版功能、运行前提、使用方法及目录介绍，不再叙述版本交付过程。之前首次上传教程中“没有提交和远程”的记录已失效。本轮仅改文档，不替用户暂存、提交、推送或创建标签；此前路径迁移代码仍待用户按教程上传。25段PowerShell示例语法、15个本地链接、脚本参数及候选数量已核对，暂存区仍为空；证据见[本轮文档核对](E:/Project/Software/sheet_music_generator/reports/documentation/20261018_v1_readme_and_updates/verification.json)，没有执行新音乐验收。
 
 **2026-10-18右手候选悬停六线谱预览已经完成。** 刷新8766后点击“右手型”，鼠标移到名称上即可在候选右侧查看C和弦原节奏示意，55型全部支持；点击或按Enter才应用，Escape关闭，触屏先点名称再点“应用此手型”。保留原select作为唯一实际选择值，分类／区间／清空同步，主谱、试听和保存仍走原入口。不要把悬停变成选型或向/api/preview发送请求。
 

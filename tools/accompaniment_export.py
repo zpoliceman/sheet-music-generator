@@ -8,6 +8,7 @@ import json
 import math
 import os
 from pathlib import Path
+from workspace_location import local_path
 import re
 from urllib.parse import quote
 import xml.etree.ElementTree as ET
@@ -77,8 +78,8 @@ def instrumental_guitar_row(shared,vocal,first,last):
 
 # 和弦弹唱与伴奏编配：新增谱面链接编码，兼容中文目录及另存输出。
 def relative_url(path, base):
-    try:return quote(Path(os.path.relpath(Path(path).resolve(),Path(base).resolve())).as_posix(),safe='/')
-    except ValueError:return Path(path).resolve().as_uri()
+    try:return quote(Path(os.path.relpath(local_path(path).resolve(),Path(base).resolve())).as_posix(),safe='/')
+    except ValueError:return local_path(path).resolve().as_uri()
 
 
 # 和弦弹唱与伴奏编配：新增和弦符号的实际音高与扩展规范，不把指型当钢琴音高。

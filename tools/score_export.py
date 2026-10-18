@@ -15,6 +15,7 @@ import time
 import xml.etree.ElementTree as ET
 from collections import defaultdict  # 通用段落强拍与乐句节奏修复：新增简谱连音组绘图索引。
 from pathlib import Path
+from workspace_location import local_path
 # 小节划分与拍速层级纠错：新增实际四分拍速度的统一读取，显示与报告不引用未解释的检测脉冲。
 from metrical_timing import selected_quarter_tempo
 
@@ -28,7 +29,7 @@ if hasattr(sys.stderr, "reconfigure"):
 
 # 歌词对齐与真实制谱：新增独立产物读写和内容指纹，不覆盖音频或原始分析。
 def read_json(path):
-    return json.loads(Path(path).read_text(encoding="utf-8-sig"))
+    return json.loads(local_path(path).read_text(encoding="utf-8-sig"))
 
 def save_json(path, value):
     path = Path(path)
@@ -37,7 +38,7 @@ def save_json(path, value):
 
 def sha256(path):
     digest = hashlib.sha256()
-    with Path(path).open("rb") as stream:
+    with local_path(path).open("rb") as stream:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()

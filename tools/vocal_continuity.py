@@ -1,4 +1,5 @@
 """人声连续音值与长休止漏音通用修复：复核原声局部平台及连续字尾，不改变拍轴。"""
+from workspace_location import local_path
 from collections import defaultdict
 from copy import deepcopy
 import hashlib
@@ -36,7 +37,7 @@ class SourceVerifier:
             source = binding['sources'][name]
             if sha256(source['path']) != source['sha256']:
                 raise ValueError('漏音复核的原音轨指纹已改变。')
-            data, rate = sf.read(source['path'], dtype='float32', always_2d=True)
+            data, rate = sf.read(local_path(source['path']), dtype='float32', always_2d=True)
             self.audio[name] = data.mean(axis=1)
             self.rates[name] = rate
             self.offsets[name] = source.get('offset_seconds', 0.)

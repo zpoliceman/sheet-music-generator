@@ -8,6 +8,7 @@ import json
 import math
 import os
 from pathlib import Path
+from workspace_location import local_path
 import time
 import traceback
 
@@ -20,13 +21,13 @@ os.environ.setdefault("MPLCONFIGDIR", str(ROOT / ".cache" / "matplotlib"))
 
 
 def read_json(path: Path) -> dict:
-    return json.loads(path.read_text(encoding="utf-8-sig"))
+    return json.loads(local_path(path).read_text(encoding="utf-8-sig"))
 
 
 # 歌词对齐与真实制谱：新增流式哈希与原始秒时间核验，保留整首时间轴。
 def file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
-    with path.open("rb") as stream:
+    with local_path(path).open("rb") as stream:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
@@ -96,7 +97,7 @@ def transcribe(source: dict, model_name: str, output: Path, force: bool, languag
     torch.cuda.synchronize()
     timings["model_load_seconds"] = time.perf_counter() - started
     started = time.perf_counter()
-    audio, rate = sf.read(source["path"], dtype="float32", always_2d=True)
+    audio, rate = sf.read(local_path(source["path"]), dtype="float32", always_2d=True)
     mono = audio.mean(axis=1)
     factor = math.gcd(rate, 16000)
     if rate != 16000:

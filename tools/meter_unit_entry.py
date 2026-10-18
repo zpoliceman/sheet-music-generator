@@ -3,6 +3,7 @@
 from copy import deepcopy
 # 工作目录改名兼容：证据记录保留传入绝对路径的拼写，不将目录联接解析成另一个名字；文件摘要及完整重放保持。
 from pathlib import Path
+from workspace_location import local_path
 import numpy as np
 from score_export import read_json, save_json, sha256, TempoMap
 from source_meter_selection import select_meter, fingerprint
@@ -24,7 +25,7 @@ def inspect_unit_decision(project, evidence_path, selection_path, quarter_scale,
     for role, source in binding['sources'].items():
         if sha256(source['path']) != source['sha256']:
             raise ValueError('原声文件已改变：' + role)
-    with np.load(archive, allow_pickle=False) as stored:
+    with np.load(local_path(archive), allow_pickle=False) as stored:
         arrays = {key: stored[key].copy() for key in stored.files}
     actual = select_meter(meta, arrays)
     sealed = read_json(selection_path)

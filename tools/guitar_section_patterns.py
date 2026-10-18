@@ -1,5 +1,6 @@
 """演唱段稳定右手型：整段选简单型，原和声配音，保护器乐及已认可时间轴。"""
 # 演唱段稳定右手型：新增通用段落规划；根音弦变化不换型，不重识别人声／和弦。
+from workspace_location import local_path
 from collections import Counter
 from copy import deepcopy
 from itertools import product
@@ -368,9 +369,9 @@ def assess_section_patterns(project, baseline=None):
         from pathlib import Path
         source=project.get('vocal_pattern_source',{})
         path=Path(source.get('project','__missing_pattern_source__'))
-        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=source.get('project_sha256'):
+        if not local_path(path).is_file() or hashlib.sha256(local_path(path).read_bytes()).hexdigest()!=source.get('project_sha256'):
             errors.append('stable_pattern_source_missing_or_changed')
-        else:baseline=json.loads(path.read_text(encoding='utf-8-sig'))
+        else:baseline=json.loads(local_path(path).read_text(encoding='utf-8-sig'))
     if not plan or plan.get('policy')!=POLICY or guitar['configuration'].get('stable_vocal_patterns')!=POLICY:
         return {'valid':False,'errors':['stable_pattern_plan_missing_or_obsolete']}
     for section in plan['sections']:

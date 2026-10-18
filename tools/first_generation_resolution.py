@@ -5,6 +5,7 @@ from functools import lru_cache
 import json
 # 工作目录改名兼容：证据记录保留传入绝对路径的拼写，不将目录联接解析成另一个名字；文件摘要及完整重放保持。
 from pathlib import Path
+from workspace_location import local_path
 import numpy as np
 import soundfile as sf
 from score_export import read_json,save_json,sha256
@@ -31,7 +32,7 @@ def inspect_unarticulated_tail(binding,start,dependencies):
     end=float(binding['duration_seconds']);source=binding['sources']['mix']
     if sha256(source['path'])!=source['sha256']:
         raise ValueError('末段原混音已改变')
-    with sf.SoundFile(source['path']) as stream:
+    with sf.SoundFile(local_path(source['path'])) as stream:
         rate=stream.samplerate
         if abs(stream.frames/rate-end)>1e-6:
             raise ValueError('原混音末端时长不符')
@@ -59,7 +60,7 @@ def inspect_unarticulated_tail(binding,start,dependencies):
         issue.append('insufficient_tail_source_caches')
     for row in dependencies:
         meta=read_json(row['metadata_path'])
-        with np.load(row['path'],allow_pickle=False) as stored:
+        with np.load(local_path(row['path']),allow_pickle=False) as stored:
             at,flux,rms=[stored[key] for key in ('times','flux','rms')]
             local=(at>=start)&(at<=end)
             if not local.any() or at[-1]<end-.05:

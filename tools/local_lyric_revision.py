@@ -5,6 +5,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+from workspace_location import local_path
 from accompaniment_analysis import SongClock
 from score_export import attach_lyrics, sha256
 from source_timing_revision import rebuild_events
@@ -60,13 +61,13 @@ def apply_local_lyric_review(project, review):
     if not review.get('evidence_files'):
         raise ValueError('局部修订缺少可复核原声证据。')
     for item in review['evidence_files']:
-        if not Path(item['path']).is_file() or sha256(item['path']) != item['sha256']:
+        if not local_path(item['path']).is_file() or sha256(item['path']) != item['sha256']:
             raise ValueError('局部修订证据文件缺失或已改变。')
     # 两处我局部词音核对：新增只从绑定的对象型JSON读取听辨身份，数组或其它证据不冒充听辨。
     listener_ids = set()
     for item in review['evidence_files']:
         if Path(item['path']).suffix == '.json':
-            evidence = json.loads(Path(item['path']).read_text('utf-8-sig'))
+            evidence = json.loads(local_path(item['path']).read_text('utf-8-sig'))
             if isinstance(evidence, dict) and evidence.get('review_id'):
                 listener_ids.add(evidence['review_id'])
     result = deepcopy(project)
@@ -123,7 +124,7 @@ def apply_local_lyric_review(project, review):
                 owner = motion.get('owner')
                 listener = motion.get('listener_review_id')
                 # 两处我局部词音核对：修改重复解析证据，原对象假设式保留；兼容数组型声学观察。
-                # bound_listener = any(json.loads(Path(item['path']).read_text('utf-8-sig')).get('review_id') == listener
+                # bound_listener = any(json.loads(local_path(item['path']).read_text('utf-8-sig')).get('review_id') == listener
                 #                      for item in review['evidence_files'] if Path(item['path']).suffix == '.json')
                 bound_listener = listener in listener_ids
                 if (owner not in owners or owner in motions or motion.get('kind') != 'short_falling_glide'
@@ -263,7 +264,7 @@ def export_preserved_local_project(project_path, output):
     if audit.get('output_music_sha256') != fingerprint(music_payload(project)):
         raise ValueError('局部词音修订已失效，不能沿用旧验收或重新编配覆盖。')
     original_path = Path(audit.get('source_project', ''))
-    if not original_path.is_file() or sha256(original_path) != audit.get('source_project_sha256'):
+    if not local_path(original_path).is_file() or sha256(original_path) != audit.get('source_project_sha256'):
         raise ValueError('局部词音修订的认可原稿已改变或缺失。')
     original = read_json(original_path)
     if (project['arrangements'] != original['arrangements'] or project['shared_analysis'] != original['shared_analysis']

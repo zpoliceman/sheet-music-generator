@@ -2,6 +2,7 @@
 # 歌词自动加载与伴随声部音区保护：新增通用清单；不按歌名或历史目录搜索文件，声明过的修正丢失必须报错。
 from copy import deepcopy
 from pathlib import Path
+from workspace_location import local_path
 from score_export import read_json, save_json, sha256
 from source_meter_selection import fingerprint
 
@@ -64,7 +65,7 @@ def read_bundle(shared_path):
         raise ValueError('共享分析的必需文件与清单不一致')
     for key in ('word_correction', 'companion_reference'):
         record = bundle.get(key)
-        if record and (not Path(record['path']).is_file() or sha256(record['path']) != record['sha256']):
+        if record and (not local_path(record['path']).is_file() or sha256(record['path']) != record['sha256']):
             raise ValueError('分析清单中的必需文件缺失或已经改变：' + key)
     return bundle
 
@@ -99,7 +100,7 @@ def resolve_words(shared_path, explicit_path=None):
     if correction is None:
         return Path(explicit_path).resolve() if explicit_path is not None else None
     candidate = Path(correction['path'])
-    if not candidate.is_file() or sha256(candidate) != correction['sha256']:
+    if not local_path(candidate).is_file() or sha256(candidate) != correction['sha256']:
         raise ValueError('分析清单中的必需歌词修正缺失或已改变，不能退回旧词位')
     if explicit_path is not None and sha256(explicit_path) != correction['sha256']:
         raise ValueError('明确指定的歌词修正与分析清单冲突')
