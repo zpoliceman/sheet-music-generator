@@ -1,0 +1,6407 @@
+{
+  "schema_version": 1,
+  "task": "常用指型与器乐独奏",
+  "strings_order": "6_to_1",
+  "fret_origin": "nut_or_capo_is_zero",
+  "tuning_midi_6_to_1": [
+    40,
+    45,
+    50,
+    55,
+    59,
+    64
+  ],
+  "source_database": {
+    "url": "https://github.com/tombatossals/chords-db",
+    "license": "MIT",
+    "raw_sha256": "cfe439962b2f444d2c341b1f0261403b4c3a3416e321147286fc608922699974",
+    "license_file": "guitar_common_grips_LICENSE.txt"
+  },
+  "method": "教学基础指型优先；开源库低把位开放/常用横按变体经实际音高和手部覆盖校验后入库；非歌曲使用频率统计。",
+  "entries": [
+    {
+      "root_pc": 0,
+      "quality": "",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.fender.com/articles/chords/learn-how-to-play-c-guitar-chord"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0001"
+    },
+    {
+      "root_pc": 0,
+      "quality": "",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://www.fender.com/articles/chords/learn-how-to-play-c-guitar-chord"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0002"
+    },
+    {
+      "root_pc": 0,
+      "quality": "",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0003"
+    },
+    {
+      "root_pc": 0,
+      "quality": "7",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        2,
+        3,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0004"
+    },
+    {
+      "root_pc": 0,
+      "quality": "add9",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        2,
+        0,
+        3,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0005"
+    },
+    {
+      "root_pc": 0,
+      "quality": "add9",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        2,
+        0,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://www.fender.com/articles/chords/learn-how-to-play-c-guitar-chord"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0006"
+    },
+    {
+      "root_pc": 0,
+      "quality": "maj7",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        2,
+        0,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0007"
+    },
+    {
+      "root_pc": 0,
+      "quality": "sus2",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        0,
+        0,
+        1,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0008"
+    },
+    {
+      "root_pc": 0,
+      "quality": "sus2",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        0,
+        0,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0009"
+    },
+    {
+      "root_pc": 2,
+      "quality": "",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        2,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0010"
+    },
+    {
+      "root_pc": 2,
+      "quality": "",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        -1,
+        0,
+        2,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0011"
+    },
+    {
+      "root_pc": 2,
+      "quality": "7",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        2,
+        1,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0012"
+    },
+    {
+      "root_pc": 2,
+      "quality": "m",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        2,
+        3,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0013"
+    },
+    {
+      "root_pc": 2,
+      "quality": "m7",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        2,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0014"
+    },
+    {
+      "root_pc": 2,
+      "quality": "sus2",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        2,
+        3,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0015"
+    },
+    {
+      "root_pc": 2,
+      "quality": "sus4",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        2,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0016"
+    },
+    {
+      "root_pc": 4,
+      "quality": "",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0017"
+    },
+    {
+      "root_pc": 4,
+      "quality": "7",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        0,
+        1,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0018"
+    },
+    {
+      "root_pc": 4,
+      "quality": "m",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 1,
+      "id": "common_grip_0019"
+    },
+    {
+      "root_pc": 4,
+      "quality": "m7",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 1,
+      "id": "common_grip_0020"
+    },
+    {
+      "root_pc": 4,
+      "quality": "m7",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        0,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0021"
+    },
+    {
+      "root_pc": 4,
+      "quality": "sus4",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 1,
+      "id": "common_grip_0022"
+    },
+    {
+      "root_pc": 5,
+      "quality": "maj7",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        3,
+        2,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0023"
+    },
+    {
+      "root_pc": 5,
+      "quality": "maj7",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        3,
+        2,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0024"
+    },
+    {
+      "root_pc": 7,
+      "quality": "",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0025"
+    },
+    {
+      "root_pc": 7,
+      "quality": "",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        0,
+        0,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0026"
+    },
+    {
+      "root_pc": 7,
+      "quality": "",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0027"
+    },
+    {
+      "root_pc": 7,
+      "quality": "",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        2,
+        0,
+        0,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0028"
+    },
+    {
+      "root_pc": 7,
+      "quality": "7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0029"
+    },
+    {
+      "root_pc": 7,
+      "quality": "add9",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        -1,
+        0,
+        2,
+        0,
+        3
+      ],
+      "source_urls": [
+        "https://www.justinguitar.com/chords/g-add9"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0030"
+    },
+    {
+      "root_pc": 9,
+      "quality": "",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 1,
+      "id": "common_grip_0031"
+    },
+    {
+      "root_pc": 9,
+      "quality": "7",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        0,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0032"
+    },
+    {
+      "root_pc": 9,
+      "quality": "7sus4",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        0,
+        3,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0033"
+    },
+    {
+      "root_pc": 9,
+      "quality": "m",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords/amin"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0034"
+    },
+    {
+      "root_pc": 9,
+      "quality": "m7",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        0,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0035"
+    },
+    {
+      "root_pc": 9,
+      "quality": "m7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        0,
+        2,
+        0,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0036"
+    },
+    {
+      "root_pc": 9,
+      "quality": "sus2",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        2,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 1,
+      "id": "common_grip_0037"
+    },
+    {
+      "root_pc": 9,
+      "quality": "sus4",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        2,
+        3,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db",
+        "https://www.justinguitar.com/chords"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0038"
+    },
+    {
+      "root_pc": 11,
+      "quality": "7",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        1,
+        2,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "essential_open",
+      "priority": 0,
+      "max_fret": 2,
+      "finger_count": 4,
+      "id": "common_grip_0039"
+    },
+    {
+      "root_pc": 5,
+      "quality": "",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        3,
+        2,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 1,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0040"
+    },
+    {
+      "root_pc": 5,
+      "quality": "",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        3,
+        3,
+        2,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 1,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0041"
+    },
+    {
+      "root_pc": 11,
+      "quality": "",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        4,
+        4,
+        4,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 1,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0042"
+    },
+    {
+      "root_pc": 11,
+      "quality": "m",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        4,
+        4,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 1,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0043"
+    },
+    {
+      "root_pc": 11,
+      "quality": "m7",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        4,
+        2,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 1,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0044"
+    },
+    {
+      "root_pc": 0,
+      "quality": "6",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0045"
+    },
+    {
+      "root_pc": 0,
+      "quality": "add9",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        0,
+        0,
+        3,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0046"
+    },
+    {
+      "root_pc": 0,
+      "quality": "m",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        1,
+        0,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0047"
+    },
+    {
+      "root_pc": 0,
+      "quality": "m9",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        0,
+        3,
+        4,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0048"
+    },
+    {
+      "root_pc": 0,
+      "quality": "madd9",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        1,
+        0,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0049"
+    },
+    {
+      "root_pc": 0,
+      "quality": "maj7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        2,
+        0,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0050"
+    },
+    {
+      "root_pc": 0,
+      "quality": "maj9",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 1,
+      "id": "common_grip_0051"
+    },
+    {
+      "root_pc": 0,
+      "quality": "sus2",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        0,
+        0,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0052"
+    },
+    {
+      "root_pc": 0,
+      "quality": "sus4",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        3,
+        0,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0053"
+    },
+    {
+      "root_pc": 2,
+      "quality": "6",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        2,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0054"
+    },
+    {
+      "root_pc": 2,
+      "quality": "7sus4",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        2,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0055"
+    },
+    {
+      "root_pc": 2,
+      "quality": "aug",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        3,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0056"
+    },
+    {
+      "root_pc": 2,
+      "quality": "dim",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        1,
+        -1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 1,
+      "finger_count": 1,
+      "id": "common_grip_0057"
+    },
+    {
+      "root_pc": 2,
+      "quality": "dim7",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 1,
+      "finger_count": 2,
+      "id": "common_grip_0058"
+    },
+    {
+      "root_pc": 2,
+      "quality": "m6",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        2,
+        0,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0059"
+    },
+    {
+      "root_pc": 2,
+      "quality": "m7b5",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 1,
+      "finger_count": 1,
+      "id": "common_grip_0060"
+    },
+    {
+      "root_pc": 2,
+      "quality": "m9",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        0,
+        0,
+        2,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0061"
+    },
+    {
+      "root_pc": 2,
+      "quality": "maj7",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        2,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 1,
+      "id": "common_grip_0062"
+    },
+    {
+      "root_pc": 3,
+      "quality": "9",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        1,
+        0,
+        2,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0063"
+    },
+    {
+      "root_pc": 4,
+      "quality": "6",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        1,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 4,
+      "id": "common_grip_0064"
+    },
+    {
+      "root_pc": 4,
+      "quality": "6",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        4,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0065"
+    },
+    {
+      "root_pc": 4,
+      "quality": "7sus4",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        0,
+        2,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0066"
+    },
+    {
+      "root_pc": 4,
+      "quality": "9",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        0,
+        1,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0067"
+    },
+    {
+      "root_pc": 4,
+      "quality": "add9",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        1,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 4,
+      "id": "common_grip_0068"
+    },
+    {
+      "root_pc": 4,
+      "quality": "aug",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        3,
+        2,
+        1,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0069"
+    },
+    {
+      "root_pc": 4,
+      "quality": "dim7",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        1,
+        2,
+        0,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0070"
+    },
+    {
+      "root_pc": 4,
+      "quality": "m6",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        0,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0071"
+    },
+    {
+      "root_pc": 4,
+      "quality": "m6",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        4,
+        2,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0072"
+    },
+    {
+      "root_pc": 4,
+      "quality": "m7",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        -1,
+        0,
+        0,
+        0,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 0,
+      "finger_count": 0,
+      "id": "common_grip_0073"
+    },
+    {
+      "root_pc": 4,
+      "quality": "m7",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        0,
+        3,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0074"
+    },
+    {
+      "root_pc": 4,
+      "quality": "m7",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        4,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0075"
+    },
+    {
+      "root_pc": 4,
+      "quality": "m9",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0076"
+    },
+    {
+      "root_pc": 4,
+      "quality": "m9",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        2,
+        0,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0077"
+    },
+    {
+      "root_pc": 4,
+      "quality": "maj7",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        1,
+        1,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0078"
+    },
+    {
+      "root_pc": 4,
+      "quality": "maj9",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        0,
+        2,
+        1,
+        1,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0079"
+    },
+    {
+      "root_pc": 5,
+      "quality": "dim7",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        -1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 1,
+      "finger_count": 3,
+      "id": "common_grip_0080"
+    },
+    {
+      "root_pc": 5,
+      "quality": "m6",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        -1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 1,
+      "finger_count": 2,
+      "id": "common_grip_0081"
+    },
+    {
+      "root_pc": 5,
+      "quality": "m7b5",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        -1,
+        1,
+        1,
+        0,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 1,
+      "finger_count": 1,
+      "id": "common_grip_0082"
+    },
+    {
+      "root_pc": 5,
+      "quality": "m9",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        3,
+        0,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0083"
+    },
+    {
+      "root_pc": 5,
+      "quality": "maj9",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        0,
+        2,
+        0,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0084"
+    },
+    {
+      "root_pc": 6,
+      "quality": "dim",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        0,
+        -1,
+        2,
+        1,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0085"
+    },
+    {
+      "root_pc": 6,
+      "quality": "m7b5",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 4,
+      "id": "common_grip_0086"
+    },
+    {
+      "root_pc": 6,
+      "quality": "m9",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        0,
+        2,
+        1,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 4,
+      "id": "common_grip_0087"
+    },
+    {
+      "root_pc": 7,
+      "quality": "6",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0088"
+    },
+    {
+      "root_pc": 7,
+      "quality": "7sus4",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        0,
+        0,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0089"
+    },
+    {
+      "root_pc": 7,
+      "quality": "9",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0090"
+    },
+    {
+      "root_pc": 7,
+      "quality": "add9",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        0,
+        0,
+        2,
+        0,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0091"
+    },
+    {
+      "root_pc": 7,
+      "quality": "aug",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        2,
+        1,
+        0,
+        0,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0092"
+    },
+    {
+      "root_pc": 7,
+      "quality": "dim7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        -1,
+        2,
+        3,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0093"
+    },
+    {
+      "root_pc": 7,
+      "quality": "dim7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        1,
+        -1,
+        3,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0094"
+    },
+    {
+      "root_pc": 7,
+      "quality": "m",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        1,
+        0,
+        0,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0095"
+    },
+    {
+      "root_pc": 7,
+      "quality": "m9",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        0,
+        0,
+        3,
+        3,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0096"
+    },
+    {
+      "root_pc": 7,
+      "quality": "maj7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0097"
+    },
+    {
+      "root_pc": 7,
+      "quality": "maj9",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0098"
+    },
+    {
+      "root_pc": 7,
+      "quality": "sus2",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        0,
+        0,
+        0,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0099"
+    },
+    {
+      "root_pc": 7,
+      "quality": "sus4",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        0,
+        0,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0100"
+    },
+    {
+      "root_pc": 8,
+      "quality": "dim7",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 1,
+      "finger_count": 2,
+      "id": "common_grip_0101"
+    },
+    {
+      "root_pc": 8,
+      "quality": "m7b5",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        0,
+        1,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0102"
+    },
+    {
+      "root_pc": 8,
+      "quality": "m9",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        1,
+        1,
+        1,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0103"
+    },
+    {
+      "root_pc": 9,
+      "quality": "6",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        2,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 1,
+      "id": "common_grip_0104"
+    },
+    {
+      "root_pc": 9,
+      "quality": "7",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        2,
+        2,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0105"
+    },
+    {
+      "root_pc": 9,
+      "quality": "9",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        4,
+        2,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0106"
+    },
+    {
+      "root_pc": 9,
+      "quality": "add9",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        4,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 2,
+      "id": "common_grip_0107"
+    },
+    {
+      "root_pc": 9,
+      "quality": "aug",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        3,
+        2,
+        2,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0108"
+    },
+    {
+      "root_pc": 9,
+      "quality": "dim",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        1,
+        2,
+        1,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0109"
+    },
+    {
+      "root_pc": 9,
+      "quality": "dim7",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        1,
+        2,
+        1,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0110"
+    },
+    {
+      "root_pc": 9,
+      "quality": "m6",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        2,
+        1,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 4,
+      "id": "common_grip_0111"
+    },
+    {
+      "root_pc": 9,
+      "quality": "m7",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        2,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0112"
+    },
+    {
+      "root_pc": 9,
+      "quality": "m7b5",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        1,
+        0,
+        1,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 1,
+      "finger_count": 2,
+      "id": "common_grip_0113"
+    },
+    {
+      "root_pc": 9,
+      "quality": "m9",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        4,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0114"
+    },
+    {
+      "root_pc": 9,
+      "quality": "madd9",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        4,
+        1,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0115"
+    },
+    {
+      "root_pc": 9,
+      "quality": "maj7",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        1,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0116"
+    },
+    {
+      "root_pc": 9,
+      "quality": "maj7",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        2,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 2,
+      "id": "common_grip_0117"
+    },
+    {
+      "root_pc": 9,
+      "quality": "maj9",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        4,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0118"
+    },
+    {
+      "root_pc": 9,
+      "quality": "sus2",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        2,
+        4,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 4,
+      "finger_count": 2,
+      "id": "common_grip_0119"
+    },
+    {
+      "root_pc": 9,
+      "quality": "sus4",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        -1,
+        0,
+        0,
+        -1,
+        3,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 1,
+      "id": "common_grip_0120"
+    },
+    {
+      "root_pc": 10,
+      "quality": "9",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 1,
+      "finger_count": 2,
+      "id": "common_grip_0121"
+    },
+    {
+      "root_pc": 10,
+      "quality": "add9",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        0,
+        3,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0122"
+    },
+    {
+      "root_pc": 10,
+      "quality": "dim7",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        2,
+        0,
+        2,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0123"
+    },
+    {
+      "root_pc": 10,
+      "quality": "maj9",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        1,
+        0,
+        2,
+        1,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0124"
+    },
+    {
+      "root_pc": 11,
+      "quality": "6",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        1,
+        1,
+        0,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0125"
+    },
+    {
+      "root_pc": 11,
+      "quality": "7sus4",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 1,
+      "id": "common_grip_0126"
+    },
+    {
+      "root_pc": 11,
+      "quality": "aug",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        1,
+        0,
+        0,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0127"
+    },
+    {
+      "root_pc": 11,
+      "quality": "dim",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        0,
+        -1,
+        0,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0128"
+    },
+    {
+      "root_pc": 11,
+      "quality": "m6",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        2,
+        0,
+        1,
+        0,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 4,
+      "id": "common_grip_0129"
+    },
+    {
+      "root_pc": 11,
+      "quality": "m9",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        0,
+        2,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "open_extension",
+      "priority": 2,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0130"
+    },
+    {
+      "root_pc": 0,
+      "quality": "",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        5,
+        5,
+        5,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0131"
+    },
+    {
+      "root_pc": 0,
+      "quality": "7",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        5,
+        3,
+        5,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0132"
+    },
+    {
+      "root_pc": 0,
+      "quality": "7sus4",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        3,
+        3,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0133"
+    },
+    {
+      "root_pc": 0,
+      "quality": "7sus4",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        5,
+        3,
+        6,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0134"
+    },
+    {
+      "root_pc": 0,
+      "quality": "aug",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        2,
+        1,
+        1,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0135"
+    },
+    {
+      "root_pc": 0,
+      "quality": "dim7",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        4,
+        2,
+        4,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0136"
+    },
+    {
+      "root_pc": 0,
+      "quality": "m",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        5,
+        5,
+        4,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0137"
+    },
+    {
+      "root_pc": 0,
+      "quality": "m6",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        1,
+        2,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0138"
+    },
+    {
+      "root_pc": 0,
+      "quality": "m7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        5,
+        3,
+        4,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0139"
+    },
+    {
+      "root_pc": 0,
+      "quality": "m7b5",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        4,
+        5,
+        4,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0140"
+    },
+    {
+      "root_pc": 0,
+      "quality": "maj7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        5,
+        4,
+        5,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0141"
+    },
+    {
+      "root_pc": 0,
+      "quality": "sus2",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        5,
+        5,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0142"
+    },
+    {
+      "root_pc": 0,
+      "quality": "sus4",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        5,
+        5,
+        6,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0143"
+    },
+    {
+      "root_pc": 1,
+      "quality": "",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        3,
+        1,
+        2,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0144"
+    },
+    {
+      "root_pc": 1,
+      "quality": "",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        4,
+        6,
+        6,
+        6,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0145"
+    },
+    {
+      "root_pc": 1,
+      "quality": "7",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        6,
+        4,
+        6,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0146"
+    },
+    {
+      "root_pc": 1,
+      "quality": "7sus4",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        4,
+        4,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0147"
+    },
+    {
+      "root_pc": 1,
+      "quality": "7sus4",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        4,
+        6,
+        4,
+        7,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 3,
+      "id": "common_grip_0148"
+    },
+    {
+      "root_pc": 1,
+      "quality": "add9",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        3,
+        1,
+        4,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0149"
+    },
+    {
+      "root_pc": 1,
+      "quality": "dim7",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        5,
+        3,
+        5,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0150"
+    },
+    {
+      "root_pc": 1,
+      "quality": "m",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        4,
+        6,
+        6,
+        5,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0151"
+    },
+    {
+      "root_pc": 1,
+      "quality": "m6",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        2,
+        3,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0152"
+    },
+    {
+      "root_pc": 1,
+      "quality": "m7",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        6,
+        4,
+        5,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0153"
+    },
+    {
+      "root_pc": 1,
+      "quality": "maj7",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        3,
+        1,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0154"
+    },
+    {
+      "root_pc": 1,
+      "quality": "maj7",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        4,
+        6,
+        5,
+        6,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0155"
+    },
+    {
+      "root_pc": 1,
+      "quality": "maj9",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        1,
+        1,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 2,
+      "id": "common_grip_0156"
+    },
+    {
+      "root_pc": 1,
+      "quality": "sus2",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        4,
+        6,
+        6,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0157"
+    },
+    {
+      "root_pc": 1,
+      "quality": "sus4",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        4,
+        6,
+        6,
+        7,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 4,
+      "id": "common_grip_0158"
+    },
+    {
+      "root_pc": 2,
+      "quality": "",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        5,
+        4,
+        2,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0159"
+    },
+    {
+      "root_pc": 2,
+      "quality": "add9",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        5,
+        4,
+        2,
+        5,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0160"
+    },
+    {
+      "root_pc": 2,
+      "quality": "aug",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        5,
+        4,
+        3,
+        3,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0161"
+    },
+    {
+      "root_pc": 2,
+      "quality": "dim7",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        5,
+        6,
+        4,
+        6,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0162"
+    },
+    {
+      "root_pc": 2,
+      "quality": "m6",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        5,
+        3,
+        4,
+        3,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0163"
+    },
+    {
+      "root_pc": 2,
+      "quality": "m7b5",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        5,
+        3,
+        5,
+        3,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0164"
+    },
+    {
+      "root_pc": 2,
+      "quality": "maj7",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        5,
+        4,
+        2,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0165"
+    },
+    {
+      "root_pc": 2,
+      "quality": "maj9",
+      "bass_pc": 2,
+      "frets_6_to_1": [
+        -1,
+        5,
+        2,
+        2,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 2,
+      "id": "common_grip_0166"
+    },
+    {
+      "root_pc": 2,
+      "quality": "sus2",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        2,
+        2,
+        3,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0167"
+    },
+    {
+      "root_pc": 3,
+      "quality": "",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        6,
+        5,
+        3,
+        4,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0168"
+    },
+    {
+      "root_pc": 3,
+      "quality": "6",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        1,
+        3,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0169"
+    },
+    {
+      "root_pc": 3,
+      "quality": "7sus4",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        6,
+        6,
+        6,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0170"
+    },
+    {
+      "root_pc": 3,
+      "quality": "add9",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        6,
+        5,
+        3,
+        6,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0171"
+    },
+    {
+      "root_pc": 3,
+      "quality": "aug",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        6,
+        5,
+        4,
+        4,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0172"
+    },
+    {
+      "root_pc": 3,
+      "quality": "m6",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        1,
+        3,
+        1,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0173"
+    },
+    {
+      "root_pc": 3,
+      "quality": "m6",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        6,
+        4,
+        5,
+        4,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0174"
+    },
+    {
+      "root_pc": 3,
+      "quality": "m7b5",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        1,
+        2,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 2,
+      "finger_count": 4,
+      "id": "common_grip_0175"
+    },
+    {
+      "root_pc": 3,
+      "quality": "maj7",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        1,
+        3,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0176"
+    },
+    {
+      "root_pc": 3,
+      "quality": "maj7",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        6,
+        5,
+        3,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0177"
+    },
+    {
+      "root_pc": 3,
+      "quality": "maj9",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        6,
+        3,
+        3,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 2,
+      "id": "common_grip_0178"
+    },
+    {
+      "root_pc": 3,
+      "quality": "sus2",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        1,
+        1,
+        3,
+        4,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0179"
+    },
+    {
+      "root_pc": 4,
+      "quality": "",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        -1,
+        7,
+        6,
+        4,
+        5,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 4,
+      "id": "common_grip_0180"
+    },
+    {
+      "root_pc": 4,
+      "quality": "9",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        -1,
+        2,
+        4,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0181"
+    },
+    {
+      "root_pc": 4,
+      "quality": "add9",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        -1,
+        7,
+        6,
+        4,
+        7,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 4,
+      "id": "common_grip_0182"
+    },
+    {
+      "root_pc": 4,
+      "quality": "maj7",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        2,
+        4,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0183"
+    },
+    {
+      "root_pc": 4,
+      "quality": "maj7",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        -1,
+        7,
+        6,
+        4,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 3,
+      "id": "common_grip_0184"
+    },
+    {
+      "root_pc": 4,
+      "quality": "maj9",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        2,
+        2,
+        4,
+        4,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0185"
+    },
+    {
+      "root_pc": 4,
+      "quality": "sus2",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        2,
+        2,
+        4,
+        5,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0186"
+    },
+    {
+      "root_pc": 5,
+      "quality": "6",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        3,
+        5,
+        3,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0187"
+    },
+    {
+      "root_pc": 5,
+      "quality": "6",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        -1,
+        3,
+        2,
+        3,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0188"
+    },
+    {
+      "root_pc": 5,
+      "quality": "7",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        3,
+        5,
+        4,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0189"
+    },
+    {
+      "root_pc": 5,
+      "quality": "7",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        3,
+        1,
+        2,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0190"
+    },
+    {
+      "root_pc": 5,
+      "quality": "7sus4",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        3,
+        1,
+        3,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0191"
+    },
+    {
+      "root_pc": 5,
+      "quality": "9",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        3,
+        1,
+        2,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0192"
+    },
+    {
+      "root_pc": 5,
+      "quality": "dim7",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        3,
+        4,
+        3,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0193"
+    },
+    {
+      "root_pc": 5,
+      "quality": "m",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        3,
+        3,
+        1,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0194"
+    },
+    {
+      "root_pc": 5,
+      "quality": "m6",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        3,
+        5,
+        3,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0195"
+    },
+    {
+      "root_pc": 5,
+      "quality": "m7",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        3,
+        1,
+        1,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0196"
+    },
+    {
+      "root_pc": 5,
+      "quality": "m7b5",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        3,
+        4,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0197"
+    },
+    {
+      "root_pc": 5,
+      "quality": "m9",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        3,
+        1,
+        1,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0198"
+    },
+    {
+      "root_pc": 5,
+      "quality": "madd9",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        3,
+        1,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0199"
+    },
+    {
+      "root_pc": 5,
+      "quality": "maj7",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        3,
+        5,
+        5,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0200"
+    },
+    {
+      "root_pc": 5,
+      "quality": "maj7",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        3,
+        2,
+        2,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0201"
+    },
+    {
+      "root_pc": 5,
+      "quality": "sus2",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        3,
+        3,
+        -1,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0202"
+    },
+    {
+      "root_pc": 5,
+      "quality": "sus2",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        3,
+        3,
+        5,
+        6,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0203"
+    },
+    {
+      "root_pc": 5,
+      "quality": "sus4",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        3,
+        3,
+        3,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0204"
+    },
+    {
+      "root_pc": 6,
+      "quality": "",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        4,
+        6,
+        7,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 4,
+      "id": "common_grip_0205"
+    },
+    {
+      "root_pc": 6,
+      "quality": "",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        4,
+        4,
+        3,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0206"
+    },
+    {
+      "root_pc": 6,
+      "quality": "6",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        4,
+        6,
+        4,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0207"
+    },
+    {
+      "root_pc": 6,
+      "quality": "6",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        -1,
+        4,
+        3,
+        4,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0208"
+    },
+    {
+      "root_pc": 6,
+      "quality": "7",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        4,
+        6,
+        5,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0209"
+    },
+    {
+      "root_pc": 6,
+      "quality": "7",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        4,
+        2,
+        3,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0210"
+    },
+    {
+      "root_pc": 6,
+      "quality": "7sus4",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        4,
+        2,
+        4,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0211"
+    },
+    {
+      "root_pc": 6,
+      "quality": "9",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        4,
+        2,
+        3,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0212"
+    },
+    {
+      "root_pc": 6,
+      "quality": "add9",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        1,
+        -1,
+        1,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 2,
+      "finger_count": 4,
+      "id": "common_grip_0213"
+    },
+    {
+      "root_pc": 6,
+      "quality": "aug",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        4,
+        3,
+        3,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 2,
+      "id": "common_grip_0214"
+    },
+    {
+      "root_pc": 6,
+      "quality": "dim7",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        -1,
+        1,
+        2,
+        1,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0215"
+    },
+    {
+      "root_pc": 6,
+      "quality": "dim7",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        3,
+        4,
+        2,
+        4,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0216"
+    },
+    {
+      "root_pc": 6,
+      "quality": "m",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        4,
+        6,
+        7,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 4,
+      "id": "common_grip_0217"
+    },
+    {
+      "root_pc": 6,
+      "quality": "m",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        4,
+        4,
+        2,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0218"
+    },
+    {
+      "root_pc": 6,
+      "quality": "m6",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        4,
+        6,
+        4,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0219"
+    },
+    {
+      "root_pc": 6,
+      "quality": "m7",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        4,
+        2,
+        2,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 2,
+      "id": "common_grip_0220"
+    },
+    {
+      "root_pc": 6,
+      "quality": "m7b5",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        4,
+        5,
+        5,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0221"
+    },
+    {
+      "root_pc": 6,
+      "quality": "m9",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        4,
+        2,
+        2,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0222"
+    },
+    {
+      "root_pc": 6,
+      "quality": "madd9",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        4,
+        2,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0223"
+    },
+    {
+      "root_pc": 6,
+      "quality": "madd9",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        4,
+        4,
+        2,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0224"
+    },
+    {
+      "root_pc": 6,
+      "quality": "maj7",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        4,
+        6,
+        6,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0225"
+    },
+    {
+      "root_pc": 6,
+      "quality": "maj7",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        4,
+        3,
+        3,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0226"
+    },
+    {
+      "root_pc": 6,
+      "quality": "maj9",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        -1,
+        3,
+        3,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0227"
+    },
+    {
+      "root_pc": 6,
+      "quality": "maj9",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        1,
+        3,
+        1,
+        2,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0228"
+    },
+    {
+      "root_pc": 6,
+      "quality": "sus2",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        4,
+        4,
+        6,
+        7,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 3,
+      "id": "common_grip_0229"
+    },
+    {
+      "root_pc": 6,
+      "quality": "sus4",
+      "bass_pc": 1,
+      "frets_6_to_1": [
+        -1,
+        4,
+        4,
+        6,
+        7,
+        7
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 4,
+      "id": "common_grip_0230"
+    },
+    {
+      "root_pc": 6,
+      "quality": "sus4",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        4,
+        4,
+        4,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0231"
+    },
+    {
+      "root_pc": 7,
+      "quality": "",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        5,
+        5,
+        4,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0232"
+    },
+    {
+      "root_pc": 7,
+      "quality": "7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        5,
+        3,
+        4,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0233"
+    },
+    {
+      "root_pc": 7,
+      "quality": "7sus4",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        5,
+        3,
+        5,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0234"
+    },
+    {
+      "root_pc": 7,
+      "quality": "9",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        2,
+        3,
+        2,
+        3,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0235"
+    },
+    {
+      "root_pc": 7,
+      "quality": "9",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        5,
+        3,
+        4,
+        3,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0236"
+    },
+    {
+      "root_pc": 7,
+      "quality": "aug",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        5,
+        4,
+        4,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 2,
+      "id": "common_grip_0237"
+    },
+    {
+      "root_pc": 7,
+      "quality": "dim7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        4,
+        5,
+        3,
+        5,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0238"
+    },
+    {
+      "root_pc": 7,
+      "quality": "m",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        5,
+        5,
+        3,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0239"
+    },
+    {
+      "root_pc": 7,
+      "quality": "m6",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        5,
+        5,
+        3,
+        5,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0240"
+    },
+    {
+      "root_pc": 7,
+      "quality": "m7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        5,
+        3,
+        3,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 2,
+      "id": "common_grip_0241"
+    },
+    {
+      "root_pc": 7,
+      "quality": "m9",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        5,
+        3,
+        3,
+        3,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0242"
+    },
+    {
+      "root_pc": 7,
+      "quality": "madd9",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        5,
+        3,
+        3,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0243"
+    },
+    {
+      "root_pc": 7,
+      "quality": "maj7",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        5,
+        4,
+        4,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0244"
+    },
+    {
+      "root_pc": 7,
+      "quality": "maj9",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        2,
+        4,
+        2,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0245"
+    },
+    {
+      "root_pc": 7,
+      "quality": "sus4",
+      "bass_pc": 7,
+      "frets_6_to_1": [
+        3,
+        5,
+        5,
+        5,
+        3,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0246"
+    },
+    {
+      "root_pc": 8,
+      "quality": "",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        3,
+        1,
+        1,
+        1,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0247"
+    },
+    {
+      "root_pc": 8,
+      "quality": "",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        6,
+        5,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0248"
+    },
+    {
+      "root_pc": 8,
+      "quality": "6",
+      "bass_pc": 0,
+      "frets_6_to_1": [
+        -1,
+        3,
+        1,
+        1,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0249"
+    },
+    {
+      "root_pc": 8,
+      "quality": "7",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 2,
+      "finger_count": 2,
+      "id": "common_grip_0250"
+    },
+    {
+      "root_pc": 8,
+      "quality": "7",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        4,
+        5,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0251"
+    },
+    {
+      "root_pc": 8,
+      "quality": "7sus4",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        1,
+        1,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 2,
+      "finger_count": 3,
+      "id": "common_grip_0252"
+    },
+    {
+      "root_pc": 8,
+      "quality": "7sus4",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        4,
+        6,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0253"
+    },
+    {
+      "root_pc": 8,
+      "quality": "9",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        3,
+        4,
+        3,
+        4,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0254"
+    },
+    {
+      "root_pc": 8,
+      "quality": "9",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        4,
+        5,
+        4,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0255"
+    },
+    {
+      "root_pc": 8,
+      "quality": "aug",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        3,
+        2,
+        1,
+        1,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0256"
+    },
+    {
+      "root_pc": 8,
+      "quality": "dim7",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        -1,
+        3,
+        4,
+        3,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0257"
+    },
+    {
+      "root_pc": 8,
+      "quality": "m",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        6,
+        4,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0258"
+    },
+    {
+      "root_pc": 8,
+      "quality": "m6",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        6,
+        4,
+        6,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0259"
+    },
+    {
+      "root_pc": 8,
+      "quality": "m7",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        4,
+        4,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 2,
+      "id": "common_grip_0260"
+    },
+    {
+      "root_pc": 8,
+      "quality": "m9",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        4,
+        4,
+        4,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0261"
+    },
+    {
+      "root_pc": 8,
+      "quality": "madd9",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        6,
+        4,
+        4,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0262"
+    },
+    {
+      "root_pc": 8,
+      "quality": "madd9",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        6,
+        4,
+        4,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0263"
+    },
+    {
+      "root_pc": 8,
+      "quality": "maj7",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        5,
+        5,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0264"
+    },
+    {
+      "root_pc": 8,
+      "quality": "maj9",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        1,
+        1,
+        1,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 2,
+      "id": "common_grip_0265"
+    },
+    {
+      "root_pc": 8,
+      "quality": "maj9",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        3,
+        5,
+        3,
+        4,
+        3
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0266"
+    },
+    {
+      "root_pc": 8,
+      "quality": "sus2",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        6,
+        -1,
+        4,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0267"
+    },
+    {
+      "root_pc": 8,
+      "quality": "sus4",
+      "bass_pc": 3,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        1,
+        1,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0268"
+    },
+    {
+      "root_pc": 8,
+      "quality": "sus4",
+      "bass_pc": 8,
+      "frets_6_to_1": [
+        4,
+        6,
+        6,
+        6,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0269"
+    },
+    {
+      "root_pc": 9,
+      "quality": "aug",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        5,
+        4,
+        3,
+        2,
+        2,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0270"
+    },
+    {
+      "root_pc": 9,
+      "quality": "dim7",
+      "bass_pc": 9,
+      "frets_6_to_1": [
+        5,
+        -1,
+        4,
+        5,
+        4,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0271"
+    },
+    {
+      "root_pc": 10,
+      "quality": "",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        3,
+        3,
+        3,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0272"
+    },
+    {
+      "root_pc": 10,
+      "quality": "",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        6,
+        5,
+        3,
+        3,
+        3,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0273"
+    },
+    {
+      "root_pc": 10,
+      "quality": "7",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        3,
+        1,
+        3,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0274"
+    },
+    {
+      "root_pc": 10,
+      "quality": "7sus4",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        3,
+        3,
+        4,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0275"
+    },
+    {
+      "root_pc": 10,
+      "quality": "7sus4",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        3,
+        1,
+        4,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0276"
+    },
+    {
+      "root_pc": 10,
+      "quality": "aug",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        6,
+        5,
+        4,
+        3,
+        3,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0277"
+    },
+    {
+      "root_pc": 10,
+      "quality": "m",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        3,
+        3,
+        2,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0278"
+    },
+    {
+      "root_pc": 10,
+      "quality": "m7",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        3,
+        1,
+        2,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0279"
+    },
+    {
+      "root_pc": 10,
+      "quality": "m7b5",
+      "bass_pc": 4,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        2,
+        3,
+        2,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0280"
+    },
+    {
+      "root_pc": 10,
+      "quality": "m9",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        6,
+        4,
+        -1,
+        5,
+        6,
+        4
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0281"
+    },
+    {
+      "root_pc": 10,
+      "quality": "maj7",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        3,
+        3,
+        3,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 2,
+      "id": "common_grip_0282"
+    },
+    {
+      "root_pc": 10,
+      "quality": "maj7",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        3,
+        2,
+        3,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0283"
+    },
+    {
+      "root_pc": 10,
+      "quality": "maj9",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        6,
+        3,
+        3,
+        3,
+        3,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0284"
+    },
+    {
+      "root_pc": 10,
+      "quality": "sus2",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        1,
+        1,
+        3,
+        3,
+        1,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 3,
+      "id": "common_grip_0285"
+    },
+    {
+      "root_pc": 10,
+      "quality": "sus2",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        6,
+        3,
+        3,
+        5,
+        6,
+        -1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 4,
+      "id": "common_grip_0286"
+    },
+    {
+      "root_pc": 10,
+      "quality": "sus4",
+      "bass_pc": 5,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        3,
+        3,
+        4,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 3,
+      "id": "common_grip_0287"
+    },
+    {
+      "root_pc": 10,
+      "quality": "sus4",
+      "bass_pc": 10,
+      "frets_6_to_1": [
+        -1,
+        1,
+        3,
+        3,
+        4,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0288"
+    },
+    {
+      "root_pc": 11,
+      "quality": "",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        4,
+        4,
+        4,
+        7
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 2,
+      "id": "common_grip_0289"
+    },
+    {
+      "root_pc": 11,
+      "quality": "",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        2,
+        4,
+        4,
+        4,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0290"
+    },
+    {
+      "root_pc": 11,
+      "quality": "7",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        4,
+        4,
+        4,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 2,
+      "id": "common_grip_0291"
+    },
+    {
+      "root_pc": 11,
+      "quality": "7",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        2,
+        4,
+        2,
+        4,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0292"
+    },
+    {
+      "root_pc": 11,
+      "quality": "7sus4",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        4,
+        4,
+        5,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0293"
+    },
+    {
+      "root_pc": 11,
+      "quality": "7sus4",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        2,
+        4,
+        2,
+        5,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 3,
+      "id": "common_grip_0294"
+    },
+    {
+      "root_pc": 11,
+      "quality": "9",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        7,
+        4,
+        4,
+        6,
+        4,
+        5
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 4,
+      "id": "common_grip_0295"
+    },
+    {
+      "root_pc": 11,
+      "quality": "dim7",
+      "bass_pc": 11,
+      "frets_6_to_1": [
+        -1,
+        2,
+        3,
+        1,
+        3,
+        1
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 3,
+      "finger_count": 4,
+      "id": "common_grip_0296"
+    },
+    {
+      "root_pc": 11,
+      "quality": "m",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        2,
+        4,
+        4,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0297"
+    },
+    {
+      "root_pc": 11,
+      "quality": "m7",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        2,
+        4,
+        2,
+        3,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0298"
+    },
+    {
+      "root_pc": 11,
+      "quality": "maj7",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        4,
+        4,
+        4,
+        6
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 6,
+      "finger_count": 2,
+      "id": "common_grip_0299"
+    },
+    {
+      "root_pc": 11,
+      "quality": "maj7",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        2,
+        4,
+        3,
+        4,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 4,
+      "id": "common_grip_0300"
+    },
+    {
+      "root_pc": 11,
+      "quality": "sus2",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        2,
+        4,
+        4,
+        2,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 4,
+      "finger_count": 3,
+      "id": "common_grip_0301"
+    },
+    {
+      "root_pc": 11,
+      "quality": "sus4",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        -1,
+        -1,
+        4,
+        4,
+        5,
+        7
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 7,
+      "finger_count": 3,
+      "id": "common_grip_0302"
+    },
+    {
+      "root_pc": 11,
+      "quality": "sus4",
+      "bass_pc": 6,
+      "frets_6_to_1": [
+        2,
+        2,
+        4,
+        4,
+        5,
+        2
+      ],
+      "source_urls": [
+        "https://github.com/tombatossals/chords-db"
+      ],
+      "tier": "common_barre",
+      "priority": 3,
+      "max_fret": 5,
+      "finger_count": 4,
+      "id": "common_grip_0303"
+    }
+  ]
+}

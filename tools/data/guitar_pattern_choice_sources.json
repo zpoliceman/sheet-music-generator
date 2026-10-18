@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "_comment": "扫弦延音简化与右手候选扩充：新增原教学来源与实阅范围登记。",
+  "sources": {
+    "ggf_fingerpicking": {
+      "title": "Aaron Matthies：8 Essential Fingerpicking Patterns",
+      "url": "https://guitargearfinder.com/lessons/fingerpicking-patterns/",
+      "review": "实阅第1、2、3、5、6型TAB；第1及5与旧候选重复，未再次添加；第2确切音序、第3交替低音与第6分离弦合拨适配。"
+    },
+    "nga_fingerpicking": {
+      "title": "National Guitar Academy：10 Awesome Guitar Fingerpicking Patterns",
+      "url": "https://nationalguitaracademy.com/guides/exercises/guitar-fingerpicking-patterns/",
+      "review": "实阅编号4／5／6／11／12／14谱图；常用旧上行／合拨不重复添加；采用全弦往返、交替低音原则及其明确教学变体。"
+    },
+    "achieve_rhythm": {
+      "title": "实现音乐工作室：吉他节奏组合的运用",
+      "url": "https://achievems.com/rhythm/",
+      "review": "逐拍文字给出八分交替、三种省略八分型、两种省略十六分型及全／二分时值；4/4、空挥及T132指法明确。"
+    },
+    "guitartricks_t213": {
+      "title": "Collin Hill：Fingerpicking Patterns For Beginners",
+      "url": "https://www.guitartricks.com/tutorial/2848",
+      "review": "公开课程介绍明确T123与T213；仅用公开文字的手指顺序，不声称读取付费谱页。"
+    },
+    "blitz_pima": {
+      "title": "Marco Cirillo：23 Epic Fingerpicking Patterns",
+      "url": "https://www.blitzguitar.com/23-epic-fingerpicking-patterns-and-how-to-actually-use-them/",
+      "review": "公开文字Pima、六音往返、合拨与Travis原则，4/4八音延伸及反向／高音变体明确标为本项目教学适配，不宣称与原付费谱逐音相同。"
+    },
+    "fender_travis": {
+      "title": "Fender：Learn the Travis Picking Guitar Technique",
+      "url": "https://www.fender.com/articles/techniques/travis-picking-on-guitar",
+      "review": "拇指交替低弦、高弦独立拨弦，公开文字明确五／四弦练习。B2在本项目表示另一条可用低弦，不保证总为五音。"
+    },
+    "versatile_bossa": {
+      "title": "The Versatile Guitarist：Play the Bossa Nova for Guitar in 5 Easy Steps",
+      "url": "https://www.theversatileguitarist.com/blog/bossanovaguitarin5steps",
+      "review": "实阅Step5：低音在1／3拍，合拨在2／3&／4&，第4拍无新起音。高弦组由234适配为123以兼容4弦根音，保留确切4/4节奏；不是声称所有巴萨诺瓦均使用该型。"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+# 兼容性与样曲验证：新增本地工具、环境、缓存与私人音频忽略规则。
+.tools/
+.runtime/
+.venv*/
+.cache/
+third_party/
+test_music/
+test_outputs/converted/
+test_outputs/samples/
+__pycache__/
+*.pyc
+
+# 兼容性与样曲验证：新增真实歌曲模型输出及本地运行日志忽略规则。
+artifacts/
+test_outputs/demucs/
+test_outputs/rosvot/
+test_outputs/transcription/
+*.log
+
+
+# 兼容性与样曲验证：新增人声分离及独立模型运行音频忽略规则。
+test_outputs/separated/
+test_outputs/runs/
+
+
+# 歌词对齐与真实制谱：新增含私人歌词及真实歌曲乐谱的派生输出忽略规则。
+test_outputs/lyrics/
+test_outputs/refined/
+test_outputs/scores/
+test_outputs/score_runs/
+
+# 历史版本清理、第五版备份与GitHub教程：新增源码仓库边界，生成数据和本地快照继续保存在电脑上。
+/reports/
+/results/
+/test_outputs/
+/tmp/
+/history-version/*
+!/history-version/GitHub上传与持续更新教程.md
+/data/tools/
+
+# 历史版本清理、第五版备份与GitHub教程：新增仅保留本项目编写的工具脚本，便携软件和下载目录不上传。
+!/.tools/
+/.tools/*
+!/.tools/*.py
+
+# 历史版本清理、第五版备份与GitHub教程：新增本机凭据及临时文件忽略，示例配置仍允许提交。
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+Thumbs.db
+Desktop.ini
+.DS_Store

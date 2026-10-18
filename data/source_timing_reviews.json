@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "reviews": {
+    "cf42a099aa104cdefa77528ec0410e674755ebe9f279f241bfee1aff849f0377": {
+      "version": 1,
+      "review_id": "20261015_user_phase_A_and_unmetered_head",
+      "reviewer": "user",
+      "date": "2026-10-15",
+      "mix_sha256": "cf42a099aa104cdefa77528ec0410e674755ebe9f279f241bfee1aff849f0377",
+      "notation_meter": [
+        4,
+        4
+      ],
+      "reviewed_phase_sample_seconds": [
+        29.0,
+        46.0
+      ],
+      "sample_sha256": "40ae157ed6b18d8854c0c77e3b26ea5a8e8a51943c2a4cec78b14af7db4ccda9",
+      "sample_path": "E:\\Project\\Software\\sheet_musit_generator\\test_outputs\\accompaniment_runs\\20261015_minimal_clock_lyric_accompaniment\\phase_review\\A_original_with_count.wav",
+      "answer": "A组更吻合",
+      "basis": "用户对相同原曲A/B数拍试听的明确听辨，仅确认该段四拍分组",
+      "downbeat_seconds": [
+        30.52,
+        34.44,
+        38.32,
+        42.2
+      ],
+      "unmetered_ranges": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 12.0,
+          "basis": "用户确认环境音或引子，没有稳定拍子",
+          "source_sample": "E:\\Project\\Software\\sheet_musit_generator\\test_outputs\\accompaniment_runs\\20261015_minimal_clock_lyric_accompaniment\\phase_review\\original_first_16_seconds.wav",
+          "source_sample_sha256": "a01d8b207caffea4feb64c922714e58be27938527bb22825fb4644a8370b68f1"
+        }
+      ],
+      "whole_song_confirmed": false
+    }
+  }
+}

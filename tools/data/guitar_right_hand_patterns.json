@@ -1,0 +1,789 @@
+{
+  "schema_version": 1,
+  "task_note": "常用右手伴奏型：新增有来源的演奏类型与本项目规范化节奏示例；不是整曲谱复制或常见程度排名。",
+  "ppq": 480,
+  "legend": {
+    "B": "当前和弦或斜线低音的实际低音弦",
+    "B2": "当前手型可按住的另一个和弦低音，不必是五音",
+    "1": "一弦，非音级或品数",
+    "2": "二弦",
+    "3": "三弦",
+    "D": "向下扫",
+    "U": "向上扫",
+    "-": "本格不攻击，前音按持续规则保留",
+    "+": "同刻合拨，区别于扫弦"
+  },
+  "sources": [
+    {
+      "id": "fender_travis",
+      "url": "https://www.fender.com/articles/techniques/travis-picking-on-guitar",
+      "verified_content": "拇指交替低音、食中指高音切分、低音与高音同时合拨；正文已读，图片谱未逐音抄录。"
+    },
+    {
+      "id": "justin_folk",
+      "url": "https://www.justinguitar.com/modules/folk-fingerstyle",
+      "verified_content": "官方课程涵盖多种民谣分解、无名指与Travis；索引已读，动态课页没有可读逐音谱。"
+    },
+    {
+      "id": "justin_strum",
+      "url": "https://www.justinguitar.com/advanced_search?q=strum",
+      "verified_content": "原作者索引正文列出正拍下扫、反拍上扫、两种带上扫节奏及Old Faithful；空扫保持手臂摆动。"
+    },
+    {
+      "id": "fender_rhythm",
+      "url": "https://www.fender.com/articles/techniques/killer-rhythm-without-practice",
+      "verified_content": "节拍、细分、上下扫与律动练习。"
+    },
+    {
+      "id": "justin_dynamics",
+      "url": "https://www.justinguitar.com/songs/olivia-rodrigo-drivers-license-chords-tabs-guitar-lesson-sg-061",
+      "verified_content": "钢琴流行曲的吉他改编：分解接近原织体，扫弦可用于段落力度变化；教学明确部分扫弦为个人编配。"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "arp_4_4_up",
+      "name": "两组低音上行分解",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "B",
+        "3",
+        "2",
+        "1",
+        "B",
+        "3",
+        "2",
+        "1"
+      ],
+      "accent_slots": [
+        0,
+        4
+      ],
+      "default_candidate": true,
+      "source_ids": [
+        "justin_folk"
+      ],
+      "evidence": "类型来自民谣分解教学，具体八格是本项目规范示例"
+    },
+    {
+      "id": "arp_4_4_roll",
+      "name": "环绕分解（B3231323）",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "B",
+        "3",
+        "2",
+        "3",
+        "1",
+        "3",
+        "2",
+        "3"
+      ],
+      "accent_slots": [
+        0,
+        4
+      ],
+      "default_candidate": true,
+      "source_ids": [
+        "justin_folk"
+      ],
+      "evidence": "本项目规范化的常见环绕分解示例，B随和弦适配，不是固定五弦"
+    },
+    {
+      "id": "arp_4_4_return",
+      "name": "上行后回落分解",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "B",
+        "3",
+        "2",
+        "1",
+        "2",
+        "3",
+        "2",
+        "1"
+      ],
+      "accent_slots": [
+        0,
+        4
+      ],
+      "default_candidate": false,
+      "source_ids": [
+        "justin_folk"
+      ],
+      "evidence": "本项目规范示例"
+    },
+    {
+      "id": "arp_4_4_alternate",
+      "name": "交替低音上行分解",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "B",
+        "3",
+        "2",
+        "1",
+        "B2",
+        "3",
+        "2",
+        "1"
+      ],
+      "accent_slots": [
+        0,
+        4
+      ],
+      "default_candidate": false,
+      "source_ids": [
+        "fender_travis"
+      ],
+      "evidence": "交替低音类型有原作者依据，本八格为简化编配示例"
+    },
+    {
+      "id": "arp_4_4_travis",
+      "name": "交替拇指与反拍高音",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "B",
+        "2",
+        "B2",
+        "3",
+        "B",
+        "2",
+        "B2",
+        "3"
+      ],
+      "accent_slots": [
+        0,
+        4
+      ],
+      "default_candidate": false,
+      "source_ids": [
+        "fender_travis"
+      ],
+      "evidence": "原作者的交替拇指概念，本项目规范示例，未声称抄录其图谱"
+    },
+    {
+      "id": "arp_4_4_pinch",
+      "name": "低音与高音合拨穿插",
+      "family": "pinch_arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "B+1",
+        "3",
+        "2",
+        "3",
+        "B+1",
+        "3",
+        "2",
+        "3"
+      ],
+      "accent_slots": [
+        0,
+        4
+      ],
+      "default_candidate": false,
+      "source_ids": [
+        "fender_travis"
+      ],
+      "evidence": "合拨技术有原作者依据，具体八格为本项目示例"
+    },
+    {
+      "id": "arp_4_4_sparse",
+      "name": "四分音符低音与分解",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 480,
+      "slots": [
+        "B",
+        "3",
+        "2",
+        "1"
+      ],
+      "accent_slots": [
+        0,
+        2
+      ],
+      "default_candidate": true,
+      "source_ids": [
+        "justin_folk"
+      ],
+      "evidence": "稀疏织体的本项目规范示例"
+    },
+    {
+      "id": "pinch_4_4_quarters",
+      "name": "低音与三高音交替合拨",
+      "family": "pinch_arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 480,
+      "slots": [
+        "B",
+        "1+2+3",
+        "B2",
+        "1+2+3"
+      ],
+      "accent_slots": [
+        0,
+        2
+      ],
+      "default_candidate": false,
+      "source_ids": [
+        "fender_travis"
+      ],
+      "evidence": "本项目规范示例；合拨不标扫弦箭头"
+    },
+    {
+      "id": "strum_4_4_quarters",
+      "name": "四拍下扫",
+      "family": "strum",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "D",
+        "-",
+        "D",
+        "-",
+        "D",
+        "-",
+        "D",
+        "-"
+      ],
+      "accent_slots": [
+        0,
+        4
+      ],
+      "default_candidate": false,
+      "requires_strum_evidence": true,
+      "source_ids": [
+        "fender_rhythm"
+      ],
+      "evidence": "基础正拍下扫规范示例"
+    },
+    {
+      "id": "strum_4_4_alternate",
+      "name": "八分上下交替扫",
+      "family": "strum",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "D",
+        "U",
+        "D",
+        "U",
+        "D",
+        "U",
+        "D",
+        "U"
+      ],
+      "accent_slots": [
+        2,
+        6
+      ],
+      "default_candidate": false,
+      "requires_strum_evidence": true,
+      "source_ids": [
+        "fender_rhythm",
+        "justin_strum"
+      ],
+      "evidence": "均匀八分细分规范示例，力度与刷弦范围另控制"
+    },
+    {
+      "id": "strum_4_4_up_after_2",
+      "name": "第二拍后加上扫",
+      "family": "strum",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "D",
+        "-",
+        "D",
+        "U",
+        "D",
+        "-",
+        "D",
+        "-"
+      ],
+      "accent_slots": [
+        2,
+        6
+      ],
+      "default_candidate": false,
+      "requires_strum_evidence": true,
+      "source_ids": [
+        "justin_strum"
+      ],
+      "evidence": "原作者索引正文可核对的第一种节奏"
+    },
+    {
+      "id": "strum_4_4_two_ups",
+      "name": "第二三拍后加上扫",
+      "family": "strum",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "D",
+        "-",
+        "D",
+        "U",
+        "D",
+        "U",
+        "D",
+        "-"
+      ],
+      "accent_slots": [
+        2,
+        6
+      ],
+      "default_candidate": false,
+      "requires_strum_evidence": true,
+      "source_ids": [
+        "justin_strum"
+      ],
+      "evidence": "原作者索引正文可核对的第二种节奏"
+    },
+    {
+      "id": "strum_4_4_old_faithful",
+      "name": "Old Faithful省略第三拍下扫",
+      "family": "strum",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "D",
+        "-",
+        "D",
+        "U",
+        "-",
+        "U",
+        "D",
+        "-"
+      ],
+      "accent_slots": [
+        2,
+        6
+      ],
+      "default_candidate": false,
+      "requires_strum_evidence": true,
+      "source_ids": [
+        "justin_strum"
+      ],
+      "evidence": "Justin正文为1、2、2&、3&、4；末格没有额外上扫"
+    },
+    {
+      "id": "strum_4_4_old_faithful_up",
+      "name": "Old Faithful末尾加上扫变体",
+      "family": "strum",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "D",
+        "-",
+        "D",
+        "U",
+        "-",
+        "U",
+        "D",
+        "U"
+      ],
+      "accent_slots": [
+        2,
+        6
+      ],
+      "default_candidate": false,
+      "requires_strum_evidence": true,
+      "source_ids": [
+        "justin_strum"
+      ],
+      "evidence": "本项目增加末格上扫的变体，不冒称Justin原文精确谱"
+    },
+    {
+      "id": "strum_4_4_down_eighths",
+      "name": "八分连续下扫",
+      "family": "strum",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "D",
+        "D",
+        "D",
+        "D",
+        "D",
+        "D",
+        "D",
+        "D"
+      ],
+      "accent_slots": [
+        2,
+        6
+      ],
+      "default_candidate": false,
+      "requires_strum_evidence": true,
+      "source_ids": [
+        "justin_dynamics"
+      ],
+      "evidence": "原作者具体歌曲教学提及全下扫八分，是否使用由原曲与编配目的决定"
+    },
+    {
+      "id": "hybrid_4_4_bass_brush",
+      "name": "低音与高音区轻扫混合",
+      "family": "bass_strum",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "B",
+        "-",
+        "D",
+        "U",
+        "B2",
+        "-",
+        "D",
+        "U"
+      ],
+      "accent_slots": [
+        0,
+        4
+      ],
+      "default_candidate": false,
+      "requires_strum_evidence": true,
+      "source_ids": [
+        "fender_rhythm",
+        "fender_travis"
+      ],
+      "evidence": "两种基本技术的本项目混合示例"
+    },
+    {
+      "id": "arp_3_4",
+      "name": "三拍上行回落分解",
+      "family": "arpeggio",
+      "meter": [
+        3,
+        4
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "B",
+        "3",
+        "2",
+        "1",
+        "2",
+        "3"
+      ],
+      "accent_slots": [
+        0,
+        2,
+        4
+      ],
+      "default_candidate": false,
+      "source_ids": [
+        "justin_folk"
+      ],
+      "evidence": "本项目三拍规范示例；不适用于当前4/4雨天"
+    },
+    {
+      "id": "arp_6_8",
+      "name": "复合两拍上行回落分解",
+      "family": "arpeggio",
+      "meter": [
+        6,
+        8
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "B",
+        "3",
+        "2",
+        "1",
+        "2",
+        "3"
+      ],
+      "accent_slots": [
+        0,
+        3
+      ],
+      "default_candidate": false,
+      "source_ids": [
+        "justin_folk"
+      ],
+      "evidence": "本项目复合两拍示例，分组1-2-3与4-5-6，不能用3/4重音替代"
+    },
+    {
+      "id": "strum_6_8",
+      "name": "复合两拍上下扫",
+      "family": "strum",
+      "meter": [
+        6,
+        8
+      ],
+      "step_ticks": 240,
+      "slots": [
+        "D",
+        "-",
+        "U",
+        "D",
+        "-",
+        "U"
+      ],
+      "accent_slots": [
+        0,
+        3
+      ],
+      "default_candidate": false,
+      "requires_strum_evidence": true,
+      "source_ids": [
+        "fender_rhythm"
+      ],
+      "evidence": "本项目复合拍示例；不适用于当前4/4雨天"
+    },
+    {
+      "id": "arp_4_4_sixteenth_up",
+      "name": "规整十六分上行",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 120,
+      "slots": [
+        "B",
+        "3",
+        "2",
+        "1",
+        "B",
+        "3",
+        "2",
+        "1",
+        "B",
+        "3",
+        "2",
+        "1",
+        "B",
+        "3",
+        "2",
+        "1"
+      ],
+      "accent_slots": [
+        0,
+        8
+      ],
+      "default_candidate": false,
+      "structured_candidate": true,
+      "source_ids": [
+        "justin_folk",
+        "fender_rhythm"
+      ],
+      "evidence": "结构稳定伴奏与人声合播：新增按民谣分解与节拍细分原则的本项目规范示例，不冒称原作者逐音谱"
+    },
+    {
+      "id": "arp_4_4_sixteenth_roll",
+      "name": "规整十六分环绕",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 120,
+      "slots": [
+        "B",
+        "3",
+        "2",
+        "3",
+        "1",
+        "3",
+        "2",
+        "3",
+        "B",
+        "3",
+        "2",
+        "3",
+        "1",
+        "3",
+        "2",
+        "3"
+      ],
+      "accent_slots": [
+        0,
+        8
+      ],
+      "default_candidate": false,
+      "structured_candidate": true,
+      "source_ids": [
+        "justin_folk",
+        "fender_rhythm"
+      ],
+      "evidence": "结构稳定伴奏与人声合播：新增按民谣分解与节拍细分原则的本项目规范示例，不冒称原作者逐音谱"
+    },
+    {
+      "id": "arp_4_4_mixed_front",
+      "name": "每拍八分接两十六分",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 120,
+      "slots": [
+        "B",
+        "-",
+        "3",
+        "2",
+        "3",
+        "-",
+        "2",
+        "1",
+        "B",
+        "-",
+        "3",
+        "2",
+        "3",
+        "-",
+        "2",
+        "1"
+      ],
+      "accent_slots": [
+        0,
+        8
+      ],
+      "default_candidate": false,
+      "structured_candidate": true,
+      "source_ids": [
+        "justin_folk",
+        "fender_rhythm"
+      ],
+      "evidence": "结构稳定伴奏与人声合播：新增按民谣分解与节拍细分原则的本项目规范示例，不冒称原作者逐音谱"
+    },
+    {
+      "id": "arp_4_4_mixed_back",
+      "name": "每拍两十六分接八分",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 120,
+      "slots": [
+        "B",
+        "3",
+        "2",
+        "-",
+        "1",
+        "3",
+        "2",
+        "-",
+        "B",
+        "3",
+        "2",
+        "-",
+        "1",
+        "3",
+        "2",
+        "-"
+      ],
+      "accent_slots": [
+        0,
+        8
+      ],
+      "default_candidate": false,
+      "structured_candidate": true,
+      "source_ids": [
+        "justin_folk",
+        "fender_rhythm"
+      ],
+      "evidence": "结构稳定伴奏与人声合播：新增按民谣分解与节拍细分原则的本项目规范示例，不冒称原作者逐音谱"
+    },
+    {
+      "id": "arp_4_4_mixed_halves",
+      "name": "前两拍八分后两拍十六分",
+      "family": "arpeggio",
+      "meter": [
+        4,
+        4
+      ],
+      "step_ticks": 120,
+      "slots": [
+        "B",
+        "-",
+        "3",
+        "-",
+        "2",
+        "-",
+        "1",
+        "-",
+        "B",
+        "3",
+        "2",
+        "3",
+        "1",
+        "3",
+        "2",
+        "3"
+      ],
+      "accent_slots": [
+        0,
+        8
+      ],
+      "default_candidate": false,
+      "structured_candidate": true,
+      "source_ids": [
+        "justin_folk",
+        "fender_rhythm"
+      ],
+      "evidence": "结构稳定伴奏与人声合播：新增按民谣分解与节拍细分原则的本项目规范示例，不冒称原作者逐音谱"
+    }
+  ]
+}

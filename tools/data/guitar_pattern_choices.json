@@ -1,0 +1,3447 @@
+{
+  "version": 1,
+  "_comment": "4/4可选右手与实时谱面试听：显式选择用候选；旧默认库保持。来源为20261017中文流行歌曲谱本调研，实际兼容性逐工程核查。",
+  "ppq": 480,
+  "patterns": [
+    {
+      "id": "A01",
+      "name": "两组上行分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        }
+      ],
+      "source_ids": [],
+      "evidence": "existing_library_and_user_example",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A02",
+      "name": "反向高弦分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [],
+      "evidence": "user_example_bass_adapted",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A03",
+      "name": "第三拍留空分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        }
+      ],
+      "source_ids": [],
+      "evidence": "user_example_bass_adapted",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A04",
+      "name": "高弦回旋",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [
+        "lvxing_tianhong",
+        "yueliang"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A05",
+      "name": "二三弦往返",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [
+        "qilixiang_zhongxian"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A06",
+      "name": "中音区回旋",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        }
+      ],
+      "source_ids": [
+        "naxiehuaer"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A07",
+      "name": "四二三弦循环",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [
+        "nanshannan"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A08",
+      "name": "三音加保持",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "no_attack",
+          "token": "-"
+        }
+      ],
+      "source_ids": [
+        "dongxiaojie_laoyao"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A09",
+      "name": "前半展开后半留白",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "no_attack",
+          "token": "-"
+        }
+      ],
+      "source_ids": [
+        "xiaoxingyun"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A10",
+      "name": "跨第三拍延续",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        }
+      ],
+      "source_ids": [
+        "xiaoxingyun"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A11",
+      "name": "中低弦十六分循环",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 120,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 360,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 600,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 840,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1080,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1320,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1560,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        }
+      ],
+      "source_ids": [
+        "nanfang"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A12",
+      "name": "十六分高弦回旋",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 120,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 360,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 600,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 840,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1080,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1320,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 1560,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [
+        "beijiaer_public"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A13",
+      "name": "两拍八分接十六分",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 120,
+          "action_span_ticks": 120,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 360,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 600,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 840,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1080,
+          "action_span_ticks": 120,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1320,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1560,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [
+        "pingfan_shanshan"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "arpeggio",
+      "uniform": true
+    },
+    {
+      "id": "A14",
+      "name": "一二弦合拨穿插",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [
+        "daoxiang",
+        "qingtian_beginner"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "pinch",
+      "uniform": true
+    },
+    {
+      "id": "A15",
+      "name": "二三弦合拨穿插",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "2+3"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "2+3"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        }
+      ],
+      "source_ids": [
+        "banma_xiaolei"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "pinch",
+      "uniform": true
+    },
+    {
+      "id": "A16",
+      "name": "高音弦组轮换",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "2+3"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        }
+      ],
+      "source_ids": [
+        "banma_ningmeng"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "pinch",
+      "uniform": true
+    },
+    {
+      "id": "A17",
+      "name": "单低音加连续高音合拨",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [
+        "yueliang"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "pinch",
+      "uniform": true
+    },
+    {
+      "id": "A18",
+      "name": "四音合拨后分解延续",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "B+1+2+3"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [
+        "haikuotiankong"
+      ],
+      "evidence": "family_based_editorial_variant",
+      "family": "pinch",
+      "uniform": true
+    },
+    {
+      "id": "A19",
+      "name": "高音合拨切分",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "2+3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "2+3"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "2+3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        }
+      ],
+      "source_ids": [
+        "yekong"
+      ],
+      "evidence": "family_based_editorial_variant",
+      "family": "pinch",
+      "uniform": true
+    },
+    {
+      "id": "A20",
+      "name": "交替低音与高音块",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2+3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2+3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2+3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2+3"
+        }
+      ],
+      "source_ids": [
+        "tongnian_shenlan"
+      ],
+      "evidence": "family_based_editorial_variant",
+      "family": "pinch",
+      "uniform": true
+    },
+    {
+      "id": "A21",
+      "name": "拍头低高合拨的混合分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 120,
+          "action": "pinch",
+          "token": "B+1"
+        },
+        {
+          "onset_tick": 120,
+          "action_span_ticks": 120,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 360,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 600,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 840,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 120,
+          "action": "pinch",
+          "token": "B+1"
+        },
+        {
+          "onset_tick": 1080,
+          "action_span_ticks": 120,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1320,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1560,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [
+        "waimian"
+      ],
+      "evidence": "family_based_editorial_variant",
+      "family": "pinch",
+      "uniform": true
+    },
+    {
+      "id": "S01",
+      "name": "四拍下扫",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 480,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 480,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 480,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 480,
+          "action": "strum",
+          "token": "DA"
+        }
+      ],
+      "source_ids": [],
+      "evidence": "existing_library",
+      "family": "strum",
+      "uniform": true
+    },
+    {
+      "id": "S02",
+      "name": "八分全下分弦组",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        }
+      ],
+      "source_ids": [
+        "qingtian_simple"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "strum",
+      "uniform": true
+    },
+    {
+      "id": "S03",
+      "name": "四分加前八后十六",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 480,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 840,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 480,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "haikuotiankong"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "strum",
+      "uniform": false
+    },
+    {
+      "id": "S04",
+      "name": "每拍前八后十六分弦组",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 360,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 840,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1320,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "qilixiang_shanshan"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "strum",
+      "uniform": false
+    },
+    {
+      "id": "S05",
+      "name": "低弦双下接宽扫",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 840,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "hongse"
+      ],
+      "evidence": "normalized_from_score",
+      "family": "strum",
+      "uniform": false
+    },
+    {
+      "id": "S06",
+      "name": "正反十六分混合扫弦",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 480,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 840,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 1080,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "daoxiang",
+        "xiaoxingyun"
+      ],
+      "evidence": "family_based_editorial_variant",
+      "family": "strum",
+      "uniform": false
+    },
+    {
+      "id": "S07",
+      "name": "用户指定首拍与第四拍扫弦",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 480,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 480,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [],
+      "evidence": "user_confirmed_beats_2_3_assumed_no_attack",
+      "family": "strum",
+      "uniform": false
+    },
+    {
+      "id": "S08",
+      "name": "句尾切分扫弦长保持",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 720,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 1200,
+          "action": "strum",
+          "token": "DA"
+        }
+      ],
+      "source_ids": [
+        "haikuotiankong"
+      ],
+      "evidence": "family_based_editorial_variant",
+      "family": "strum",
+      "uniform": false
+    },
+    {
+      "id": "A22",
+      "name": "高音一弦穿插分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        }
+      ],
+      "source_ids": [
+        "ggf_fingerpicking"
+      ],
+      "evidence": "reviewed_tab_pattern_2",
+      "family": "arpeggio",
+      "uniform": true,
+      "description": "B1413121：第一弦穿插在低音和内弦之间。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A23",
+      "name": "三三二交替低音分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        }
+      ],
+      "source_ids": [
+        "ggf_fingerpicking"
+      ],
+      "evidence": "adapted_tab_pattern_3_bass_mapping",
+      "family": "arpeggio",
+      "uniform": true,
+      "description": "B32／B232／B22，八分音符按三三二分组；B2是另一条低弦。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A24",
+      "name": "三一二交错分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm"
+      ],
+      "evidence": "public_text_T132_string_mapping",
+      "family": "arpeggio",
+      "uniform": true,
+      "description": "B312／B312：低音后拨三、一、二弦。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A25",
+      "name": "二三一交错分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        }
+      ],
+      "source_ids": [
+        "guitartricks_t213"
+      ],
+      "evidence": "public_text_T213_string_mapping",
+      "family": "arpeggio",
+      "uniform": true,
+      "description": "B231／B231：T213手指顺序对应低音、二、三、一弦。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A26",
+      "name": "一三二交错分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm",
+        "blitz_pima"
+      ],
+      "evidence": "educational_permutation",
+      "family": "arpeggio",
+      "uniform": true,
+      "description": "B132／B132：四指分解的高弦反向变体。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A27",
+      "name": "高音往返八分分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        }
+      ],
+      "source_ids": [
+        "blitz_pima"
+      ],
+      "evidence": "educational_4_4_extension_of_Pimami",
+      "family": "arpeggio",
+      "uniform": true,
+      "description": "B3212321：向一弦展开，再往返收束；4/4教学适配。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A28",
+      "name": "全弦往返分解",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "4"
+        }
+      ],
+      "source_ids": [
+        "nga_fingerpicking"
+      ],
+      "evidence": "reviewed_tab_five_finger_arpeggio_adapted_thumb",
+      "family": "arpeggio",
+      "uniform": true,
+      "description": "B4321234：逐弦上行到一弦再下行，可由拇指兼顾低弦。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A29",
+      "name": "Travis交替低音基础",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        }
+      ],
+      "source_ids": [
+        "nga_fingerpicking",
+        "fender_travis"
+      ],
+      "evidence": "reviewed_thumb_one_thumb_two",
+      "family": "arpeggio",
+      "uniform": true,
+      "description": "B3／B22／B3／B22：正拍交替低弦，反拍拨高弦。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A30",
+      "name": "Travis高音一弦变体",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "1"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        }
+      ],
+      "source_ids": [
+        "fender_travis",
+        "blitz_pima"
+      ],
+      "evidence": "educational_high_string_variation",
+      "family": "arpeggio",
+      "uniform": true,
+      "description": "B1／B22／B1／B22：保留交替低音，反拍改用一、二弦。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A31",
+      "name": "一弦合拨与内弦轮换",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "B+1"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "4+1"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "3+1"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "4+1"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        }
+      ],
+      "source_ids": [
+        "ggf_fingerpicking"
+      ],
+      "evidence": "reviewed_tab_pattern_6_Am",
+      "family": "pinch",
+      "uniform": true,
+      "description": "低音或内弦与一弦同拨，二弦穿插；合拨保留逐弦音头。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A32",
+      "name": "Travis低高合拨变体",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "B+2"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "B+2"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "2"
+        }
+      ],
+      "source_ids": [
+        "nga_fingerpicking",
+        "fender_travis"
+      ],
+      "evidence": "educational_Travis_pinch_variation",
+      "family": "pinch",
+      "uniform": true,
+      "description": "第1、3拍低音与二弦合拨，低弦继续交替。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A33",
+      "name": "交替低音加高弦双音",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "3"
+        }
+      ],
+      "source_ids": [
+        "ggf_fingerpicking",
+        "fender_travis"
+      ],
+      "evidence": "educational_pattern_5_alternating_bass",
+      "family": "pinch",
+      "uniform": true,
+      "description": "B3(1+2)3／B23(1+2)3：第三拍换另一条低弦。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A34",
+      "name": "轻巴萨诺瓦切分合拨",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 480,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 480,
+          "action": "pinch",
+          "token": "1+2+3"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2+3"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "no_attack",
+          "token": "-"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "pinch",
+          "token": "1+2+3"
+        }
+      ],
+      "source_ids": [
+        "versatile_bossa"
+      ],
+      "evidence": "reviewed_step_5_rhythm_high_strings_adapted",
+      "family": "pinch",
+      "uniform": false,
+      "description": "低音在第1、3拍，合拨在第2拍、3拍后半、4拍后半；第4拍延续。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "A35",
+      "name": "整小节低高合拨保持",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 1920,
+          "action": "pinch",
+          "token": "B+1+2+3"
+        }
+      ],
+      "source_ids": [
+        "blitz_pima",
+        "achieve_rhythm"
+      ],
+      "evidence": "educational_whole_bar_pinch",
+      "family": "pinch",
+      "uniform": true,
+      "description": "小节开始低音与高三弦合拨一次，自然保持四拍。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S09",
+      "name": "八分上下交替扫",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm"
+      ],
+      "evidence": "public_text_eighth_alternation",
+      "family": "strum",
+      "uniform": true,
+      "description": "每拍下上各一次，共八个八分动作；可切换十六分时值。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S10",
+      "name": "民谣切分空扫",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm"
+      ],
+      "evidence": "public_text_eighth_omission_1",
+      "family": "strum",
+      "uniform": true,
+      "description": "按拍：下空／下上／空上／下上；空扫保留前音。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S11",
+      "name": "双拍展开空扫",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm"
+      ],
+      "evidence": "public_text_eighth_omission_2",
+      "family": "strum",
+      "uniform": true,
+      "description": "按拍：下空／下上／下空／下上。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S12",
+      "name": "反拍起扫组合",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm"
+      ],
+      "evidence": "public_text_eighth_omission_3",
+      "family": "strum",
+      "uniform": true,
+      "description": "按拍：空上／下上／下上／空上。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S13",
+      "name": "三三二扫弦分组",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 720,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 720,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 480,
+          "action": "strum",
+          "token": "DA"
+        }
+      ],
+      "source_ids": [
+        "nga_fingerpicking",
+        "achieve_rhythm"
+      ],
+      "evidence": "educational_3_3_2_rhythm_strum",
+      "family": "strum",
+      "uniform": false,
+      "description": "在第1拍、2拍后半和第4拍下扫；三三二分组，非三连音。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S14",
+      "name": "低弦与高弦交替扫",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "DL"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm",
+        "fender_travis"
+      ],
+      "evidence": "educational_low_high_string_group_variation",
+      "family": "strum",
+      "uniform": true,
+      "description": "正拍下扫低两弦，反拍上扫高三弦，箭头跨度随弦组变化。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S15",
+      "name": "十六分留空推进",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 120,
+          "action_span_ticks": 120,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 360,
+          "action_span_ticks": 120,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 600,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 840,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1080,
+          "action_span_ticks": 120,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1320,
+          "action_span_ticks": 120,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1560,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm"
+      ],
+      "evidence": "public_text_sixteenth_omission_1",
+      "family": "strum",
+      "uniform": true,
+      "description": "按拍：下空下空／下上下上／下空下空／下上下上。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S16",
+      "name": "切分十六分扫",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 120,
+          "action_span_ticks": 120,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 120,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 360,
+          "action_span_ticks": 120,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 600,
+          "action_span_ticks": 120,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 840,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 120,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 1080,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1320,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1560,
+          "action_span_ticks": 120,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 1800,
+          "action_span_ticks": 120,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm"
+      ],
+      "evidence": "public_text_sixteenth_omission_2",
+      "family": "strum",
+      "uniform": true,
+      "description": "按拍：下空空空／下空下上／空上下上／下空下上。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S17",
+      "name": "反拍上扫留白",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 240,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 720,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 1200,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 240,
+          "action": "air_or_no_pluck",
+          "token": "空"
+        },
+        {
+          "onset_tick": 1680,
+          "action_span_ticks": 240,
+          "action": "strum",
+          "token": "UH"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm"
+      ],
+      "evidence": "educational_omit_downbeats",
+      "family": "strum",
+      "uniform": true,
+      "description": "每拍前半空扫、后半上扫；默认自然延续，另可选择消音。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S18",
+      "name": "两拍一下扫延续",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 960,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 960,
+          "action": "strum",
+          "token": "DA"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm"
+      ],
+      "evidence": "public_text_half_notes",
+      "family": "strum",
+      "uniform": true,
+      "description": "第1、3拍各下扫一次，每次保持两拍。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S19",
+      "name": "整小节下扫延续",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 1920,
+          "action": "strum",
+          "token": "DA"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm"
+      ],
+      "evidence": "public_text_whole_note",
+      "family": "strum",
+      "uniform": true,
+      "description": "第1拍下扫一次，保持整小节四拍。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    },
+    {
+      "id": "S20",
+      "name": "交替低音与扫弦",
+      "events": [
+        {
+          "onset_tick": 0,
+          "action_span_ticks": 480,
+          "action": "pluck",
+          "token": "B"
+        },
+        {
+          "onset_tick": 480,
+          "action_span_ticks": 480,
+          "action": "strum",
+          "token": "DA"
+        },
+        {
+          "onset_tick": 960,
+          "action_span_ticks": 480,
+          "action": "pluck",
+          "token": "B2"
+        },
+        {
+          "onset_tick": 1440,
+          "action_span_ticks": 480,
+          "action": "strum",
+          "token": "DA"
+        }
+      ],
+      "source_ids": [
+        "achieve_rhythm",
+        "fender_travis"
+      ],
+      "evidence": "educational_bass_and_strum_combination",
+      "family": "strum",
+      "uniform": true,
+      "description": "按拍：低音／下扫／另一低弦／下扫；混合拨弦和扫弦。",
+      "_comment": "扫弦延音简化与右手候选扩充：新增，公开原型与教学适配范围见来源登记。"
+    }
+  ],
+  "_expansion_comment": "扫弦延音简化与右手候选扩充：追加26型；旧29型及默认音乐保持。",
+  "source_catalogue": "guitar_pattern_choice_sources.json"
+}
