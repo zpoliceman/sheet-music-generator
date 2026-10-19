@@ -1,0 +1,23 @@
+# 安装环境、访问码、上传素材和导出结果只保存在本机。
+.venv/
+runtime/
+reports/
+bin/
+output/
+__pycache__/
+*.py[cod]
+.env
+
+# 仅保留简短使用说明；方案、开发说明和上传教程不公开。
+/*.md
+!/README.md
+/docs/
+/git-commit-message.txt
+/requirements-dev.txt
+/tests/
+
+# 运行时只需要这三份辅助脚本，研究、样张和验证脚本留在本机。
+/scripts/*
+!/scripts/check_print_environment.py
+!/scripts/download_share.py
+!/scripts/prepare_print_source.py

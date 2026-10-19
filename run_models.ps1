@@ -32,7 +32,7 @@ try {
     # 第二首《渴》跨歌曲验证：新增本次素材证据快照，原全局首曲报告可能被下一次运行替换。
     Copy-Item -LiteralPath (Join-Path $projectRoot 'reports\first_audio_validation.json') -Destination (Join-Path $reportDir 'audio_validation.json')
     $stageStamp = [datetime]::Now.ToString('yyyy-MM-dd HH:mm:ss')
-    "$stageStamp｜模型验证 $runId：已核查素材 $Song；下一步串行分离人声与转录。" | Add-Content -LiteralPath (Join-Path $projectRoot 'progress.md') -Encoding UTF8
+    "$stageStamp｜模型验证 $runId：已核查素材 $Song；下一步串行分离人声与转录。" | Add-Content -LiteralPath (Join-Path $reportDir 'stages.log') -Encoding UTF8
     # 兼容性与样曲验证：新增全曲或带偏移片段选择，回映整首的时间轴明确保存。
     if ($Full) {
         # 第三首《我不难过》跨歌曲验证：修改UTF-8清单读取，避免PowerShell默认编码损坏中文路径；原代码保留。
@@ -54,7 +54,7 @@ try {
     & $pythonPath (Join-Path $projectRoot 'tools\check_environment.py') --audio $inputAudio --report $demucsReport --output-dir $separatedDir
     if ($LASTEXITCODE -ne 0) { throw ('人声分离失败，报告：' + $demucsReport) }
     # 第二首《渴》跨歌曲验证：新增分离完成留痕，原素材文件保持。
-    "模型验证 $runId：$Song 人声分离完成；下一步ROSVOT/RMVPE整曲转录。" | Add-Content -LiteralPath (Join-Path $projectRoot 'progress.md') -Encoding UTF8
+    "模型验证 $runId：$Song 人声分离完成；下一步ROSVOT/RMVPE整曲转录。" | Add-Content -LiteralPath (Join-Path $reportDir 'stages.log') -Encoding UTF8
     # 兼容性与样曲验证：新增 ROSVOT 单进程转录，歌词尚未对齐的状态由模型报告明确记录。
     $transcriptionDir = Join-Path $outputDir 'transcription'
     & $pythonPath (Join-Path $projectRoot 'tools\rosvot_smoke.py') --input (Join-Path $separatedDir 'vocals.wav') --output-dir $transcriptionDir --source-offset-seconds $offsetSeconds
@@ -78,7 +78,7 @@ try {
     } | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath $modelReportPath -Encoding UTF8
     # 第二首《渴》跨歌曲验证：新增最新指针，保留先前integrated_pipeline.full.json用于首曲回归。
     Copy-Item -LiteralPath $modelReportPath -Destination (Join-Path $projectRoot 'reports\integrated_pipeline.latest.json')
-    "模型验证 $runId：$Song 原始转录完成；制谱输入为 $modelReportPath。" | Add-Content -LiteralPath (Join-Path $projectRoot 'progress.md') -Encoding UTF8
+    "模型验证 $runId：$Song 原始转录完成；制谱输入为 $modelReportPath。" | Add-Content -LiteralPath (Join-Path $reportDir 'stages.log') -Encoding UTF8
     Write-Output ('可直接制谱的模型报告：' + $modelReportPath)
     Write-Output ('验证完成，报告目录：' + $reportDir)
 }

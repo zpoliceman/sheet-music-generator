@@ -5,7 +5,7 @@ from functools import lru_cache
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import RLock
-from urllib.parse import parse_qs, unquote, urlsplit
+from urllib.parse import parse_qs, unquote, urlsplit,quote
 import argparse
 import hashlib
 import html
@@ -13,6 +13,7 @@ import json
 import mimetypes
 import re
 import secrets
+import sys
 import time
 import uuid
 import webbrowser
@@ -32,6 +33,8 @@ from guitar_pattern_ranges_ui import editor_page
 from guitar_pattern_configurations import ConfigurationStore, full_result, editor_workspace, remember_workspace
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'HTML'))
+from printing.jobs import ExportQueue
 
 
 def current_projects(extra=()):
@@ -76,6 +79,7 @@ class Editor:
         # 扫弦箭头与实际弦组记谱修正：新增箭头绘制规则参与缓存指纹，旧柱式预览不能被继续复用。
         files = (*files, 'guitar_strum_notation.py')
         self.code_identity=hashlib.sha256(b''.join((Path(__file__).parent/name).read_bytes() for name in files)).hexdigest()
+        self.print_queue = ExportQueue('right_hand')
         self.loaded = {}
         self.previews = {}
         self.jobs = {}
@@ -120,6 +124,17 @@ class Editor:
                 # 初始默认完整谱与歌词对照：保留旧原谱链接字段，新增完整展开谱优先地址。
                 # 'original_url':'/source/'+identity+'/guitar/score.html'}
                 **self.score_links(identity)}
+
+    def print_source(self, body):
+        identity=body.get('project_id');source=self.projects.get(identity)
+        if source is None:raise ValueError('请先选择曲谱。')
+        version=body.get('version')
+        if not version:return source['path']
+        if not isinstance(version,str) or not re.fullmatch(r'v[0-9]{8}_[0-9]{6}_[a-f0-9]{6}',version):raise ValueError('保存版本编号无效。')
+        folder=(self.workspace/'saved'/version).resolve()
+        if not folder.is_relative_to(self.workspace/'saved') or not(folder/'configuration.json').is_file():raise ValueError('保存版本不存在。')
+        if read_json(folder/'configuration.json').get('project_id')!=identity:raise ValueError('这个保存版本不属于当前歌曲。')
+        return folder/'project.json'
 
     def preview(self, body):
         # 4/4可选右手与实时谱面试听：新增局部真实TAB和同轴音频；保存只使用此处核对的快照。
@@ -265,7 +280,7 @@ def handler_for(editor):
             # except (BrokenPipeError,ConnectionResetError):pass
             except (BrokenPipeError,ConnectionResetError,ConnectionAbortedError):pass
 
-        def file(self, path, root):
+        def file(self, path, root, download=None):
             path, root = Path(path).resolve(), Path(root).resolve()
             if not path.is_relative_to(root) or not path.is_file():
                 raise ValueError('文件不存在')
@@ -279,6 +294,7 @@ def handler_for(editor):
             self.send_response(206 if match else 200)
             self.send_header('Content-Type',mimetypes.guess_type(path)[0] or 'application/octet-stream')
             self.send_header('Content-Length',str(end-begin+1));self.send_header('Accept-Ranges','bytes')
+            if download:self.send_header('Content-Disposition',"attachment; filename*=UTF-8''"+quote(download))
             if match:self.send_header('Content-Range',f'bytes {begin}-{end}/{size}')
             self.end_headers()
             try:
@@ -307,9 +323,20 @@ def handler_for(editor):
                 # 右手候选悬停六线谱预览：新增只读候选组件资源，真实选型与保存接口保持原入口。
                 elif path in ('/pattern-picker.js', '/pattern-picker.css'):
                     self.file(Path(__file__).parent/('guitar_pattern_picker'+Path(path).suffix),Path(__file__).parent)
+                elif path in ('/score-downloads.js','/score-downloads.css','/right-score-downloads.js'):
+                    name=path.lstrip('/')
+                    self.file(ROOT/'HTML/web'/name,ROOT/'HTML/web')
+                elif path.startswith('/api/print/jobs/'):
+                    parts=path.split('/');identity=parts[4]
+                    if len(parts)==5:self.json({'job':editor.print_queue.public(editor.print_queue.get('local',identity))})
+                    elif len(parts)==7 and parts[5]=='files':
+                        file=editor.print_queue.file('local',identity,parts[6]);self.file(file,editor.print_queue.base,file.name)
+                    elif len(parts)==7 and parts[5]=='pages' and re.fullmatch(r'[1-9][0-9]*\.jpg',parts[6]):
+                        file=editor.print_queue.file('local',identity,page=int(parts[6][:-4]));self.file(file,editor.print_queue.base)
+                    else:self.json({'error':'下载文件不存在'},404)
                 elif path=='/api/catalogue':self.json(catalogue())
                 elif path=='/api/health':self.json({'application':'guitar_right_hand_editor','version':1,
-                    'workspace_root':str(ROOT), 'workspace':str(editor.workspace)})
+                    'workspace_root':str(ROOT), 'workspace':str(editor.workspace),'printing_available':True,'print_layout':'guitar-accompaniment-v1'})
                 # 初始默认完整谱与歌词对照：保留旧列表，新增轻量原谱地址，使初始谱面不等待完整来源校验。
                 # elif path=='/api/projects':self.json({'projects':[{'id':k,'title':v['title']} for k,v in editor.projects.items()]})
                 elif path=='/api/projects':self.json({'projects':[{'id':k,'title':v['title'],**editor.score_links(k)} for k,v in editor.projects.items()]})
@@ -349,6 +376,7 @@ def handler_for(editor):
                 if self.path=='/api/preview':self.json(editor.preview(body))
                 # 多区间右手配置与网页完整成品：保留旧仅预览ID的保存请求，增加命名配置快照。
                 # elif self.path=='/api/save':self.json(editor.save(body['preview_id']))
+                elif self.path=='/api/print/jobs':self.json({'job':editor.print_queue.start('local',editor.print_source(body))},202)
                 elif self.path=='/api/save':self.json(editor.save(body['preview_id'], body.get('configuration')))
                 else:self.json({'error':'操作不存在'},404)
             except Exception as exc:self.json({'error':str(exc)},400)

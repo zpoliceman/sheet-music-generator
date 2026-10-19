@@ -1,4 +1,4 @@
-# 无旧目录联接迁移：只解析当前工程配置登记的历史根目录，不改变报告内容。
+﻿# 无旧目录联接迁移：只解析当前工程配置登记的历史根目录，不改变报告内容。
 function Resolve-WorkspaceInput {
     param([Parameter(Mandatory=$true)][string]$Value, [Parameter(Mandatory=$true)][string]$Root)
     $mappingFile = Join-Path $Root 'data/workspace_paths.json'

@@ -8,6 +8,8 @@
   // 初始默认完整谱与歌词对照：新增轻量来源地址及对照谱状态，与修改快照分别保存。
   state.projects=[];
   state.reference={projectId:'',url:null,ready:false,measure:null};
+  window.guitarPrintContext=()=>({project_id:state.projectId,version:state.full?.version||null,needs_save:state.full?JSON.stringify(plan())!==state.savedPlan:!!state.preview?.music_changed,saving:state.saving});
+  const notifyPrint=()=>window.dispatchEvent(new Event('guitar-print-context'));
   const labels={120:'十六分',240:'八分',360:'附点八分',480:'四分',720:'附点四分',960:'二分',1440:'附点二分',1920:'全音符'};
   // 右手选择后主谱实时可见更新：保留旧隐藏在下方的状态，主谱旁同步显示实际结果／失败。
   // const message=(text,error=false)=>{$('status').textContent=text;$('status').dataset.error=String(error);};
@@ -52,6 +54,7 @@
     $('default-score-panel').dataset.busy='true';
   }
   function markDirty(){
+    notifyPrint();
     const dirty=!!state.savedPlan&&JSON.stringify(plan())!==state.savedPlan;
     $('save-note').textContent=dirty?'有未保存的调整；下方仍为上次保存的完整版本。':'使用各条区间的设置另存整曲；原谱保留。';
     $('save-note').dataset.dirty=String(dirty);
@@ -177,7 +180,7 @@
     try{
       const result=await api('/api/preview',{project_id:state.projectId,plan:plan(),first_measure:Number($('preview-measure').value)||null},state.controller.signal);
       if(sequence!==state.sequence)return;
-      state.preview=result;$('preview').innerHTML=result.svg;$('audio').src=result.audio_url;$('play').disabled=false;
+      state.preview=result;notifyPrint();$('preview').innerHTML=result.svg;$('audio').src=result.audio_url;$('play').disabled=false;
       $('save').disabled=!result.music_changed||state.saving;
       $('preview-range').textContent=`第${result.display_first_measure}–${result.display_last_measure}小节 · ${result.duration_seconds.toFixed(1)}秒`;
       const requested=new Set(state.ranges.filter(r=>r.choice).flatMap(r=>Array.from({length:r.end_measure-r.start_measure+1},(_,i)=>r.start_measure+i+offset())));
@@ -199,7 +202,7 @@
     $('configuration').value=selected;$('load-configuration').disabled=!selected;
   }
   function clearFull(){
-    $('full-result').hidden=true;$('full-score').src='about:blank';$('saved-link').hidden=true;state.full=null;state.savedPlan='';
+    $('full-result').hidden=true;$('full-score').src='about:blank';$('saved-link').hidden=true;state.full=null;state.savedPlan='';notifyPrint();
   }
   // 初始默认完整谱与歌词对照：新增读取已有完整谱，首次打开与切歌即展示，不依赖选型／保存。
   function showDefault(identity,source){
@@ -375,7 +378,7 @@
     if(!state.preview||state.saving)return;
     const previewId=state.preview.preview_id,projectId=state.projectId,submittedPlan=JSON.stringify(plan()),name=$('configuration-name').value.trim();
     const configuration={name,id:state.configuration?.name===name?state.configuration.id:null};
-    state.saving=true;$('save').disabled=true;message('正在校验并生成完整曲谱与整曲音频…');
+    state.saving=true;notifyPrint();$('save').disabled=true;message('正在校验并生成完整曲谱与整曲音频…');
     // 多区间右手配置与网页完整成品：新增保存期间固定配置身份，区间仍可调整，完成后不会覆盖另一个配置名。
     for(const id of ['project','configuration','configuration-name','load-configuration','new-configuration'])$(id).disabled=true;
     try{
@@ -388,9 +391,9 @@
       showFull(result,result.configuration.name);$('configuration-note').textContent='配置已保存。保留名称会更新本套配置；修改名称会另存另一套。历史曲谱版本保持。';
       message(state.preview?.preview_id===previewId?'已保存；完整曲谱与整曲试听已在下方生成':'已保存提交时的版本；当前调整尚未保存');
     // 多区间右手配置与网页完整成品：保留旧收尾，完成或失败都恢复命名配置操作。
-    // }catch(error){if(projectId===state.projectId)message(error.message,true);}finally{state.saving=false;$('save').disabled=!state.preview?.music_changed;}
+    // }catch(error){if(projectId===state.projectId)message(error.message,true);}finally{state.saving=false;notifyPrint();$('save').disabled=!state.preview?.music_changed;}
     }catch(error){if(projectId===state.projectId)message(error.message,true);}finally{
-      state.saving=false;$('save').disabled=!state.preview?.music_changed;
+      state.saving=false;notifyPrint();$('save').disabled=!state.preview?.music_changed;
       for(const id of ['project','configuration','configuration-name','new-configuration'])$(id).disabled=false;
       $('load-configuration').disabled=!$('configuration').value;
     }

@@ -1,143 +1,69 @@
 # 自动乐谱生成器
 
-从歌曲音频生成人声旋律、歌词和乐器伴奏，供阅读、试听和进一步编配。第一版以吉他和弦弹唱为主要使用场景，同时保留人声制谱、钢琴伴奏和音频分析入口。
+在Windows本机分析歌曲音频，生成人声简谱、歌词和吉他伴奏谱，并提供网页看谱、试听与PDF／整套JPG下载。右手编辑器支持55种4/4拍分解、合拨和扫弦，可按小节选择、调整时值并另存版本。
 
-项目在本机运行。右手编辑网页用于修改已有吉他伴奏工程；新歌曲的音频分析和初次制谱通过 PowerShell 脚本完成。
+统一网页支持朋友凭访问码上传MP3／NCM音源和TXT歌词。**新上传素材的整首自动制谱尚未接入网页**，初次制谱使用下方脚本；网页下载和右手编辑需要已有的伴奏工程。自动制谱结果需要人工核对。
 
-## 主要功能
+## 配置环境
 
-- **人声旋律与歌词**：从歌曲中分离人声、转录旋律，生成简谱或五线谱；支持自动识别歌词，也可提供校正后的歌词文本参与对齐。
-- **吉他弹唱谱**：把人声简谱、歌词、和弦名称、和弦指型图与六线谱放在同一时间轴上，区分演唱伴奏和前奏、间奏、尾奏中的器乐内容。
-- **右手演奏配置**：支持 4/4 拍的分解、合拨和扫弦，共有 55 种候选，包括 22 种分解、13 种合拨和 20 种扫弦。可以按小节安排不同手型、修改音符时值，并保存多套命名配置。
-- **谱面与试听**：初始页面展示默认完整曲谱；选择手型后主谱按拍更新，并可试听当前片段。保存配置后，网页展示另存的完整曲谱和可播放的整曲音频。
-- **钢琴伴奏**：与吉他共用和声分析，分别输出钢琴双手伴奏及人声参考谱。
-- **完整播放与阅读反复**：曲谱可按适合阅读的反复结构排版，完整音频仍按原曲顺序播放；支持原唱人声与生成伴奏合播、分别调节音量和定位。
-- **多种导出**：根据工程类型输出浏览器谱页、矢量谱图、MusicXML 乐谱交换文件、MIDI（Musical Instrument Digital Interface，乐器数字接口）演奏文件和音频。MIDI 保存演奏事件，不包含原唱录音。
+使用64位Windows、PowerShell和Python 3.11。完整制谱需要支持CUDA（Compute Unified Device Architecture，统一计算设备架构）的NVIDIA显卡及驱动。网页打印需要默认位置安装的Google Chrome和微软雅黑字体。
 
-自动分析得到的音高、歌词、拍位和编配仍需检查。复杂混音、现场录音、多位歌手及不清晰的器乐段可能需要人工校正；程序生成文件不等于已经完成音乐审定或真人试弹。
-
-## 运行前提
-
-当前启动方式面向 Windows 和 PowerShell，项目使用 Python 3.11。完整音频分析还依赖本地 PyTorch、NVIDIA 图形处理器环境、音频处理工具、第三方模型代码和模型权重。
-
-**仓库是源代码工程，目前没有覆盖全部依赖的一键安装脚本或完整锁定清单。** `requirements-staff.txt` 只列出五线谱渲染依赖，安装该文件不能代替完整运行环境的准备。`.venv-gpu/`、`.runtime/`、模型缓存、第三方运行目录、私人歌曲及生成结果均不随源码上传。
-
-下文的“打开右手编辑器”适用于已经配置好运行环境、并且已有伴奏工程的本地工作目录。首次克隆仓库后，需要另行准备这些运行依赖和输入数据；如果还没有歌曲工程，右手页面不会自动出现本机已有曲谱。
-
-## 打开右手编辑器
-
-在项目根目录双击 **`启动右手选择.cmd`**。启动器会检查本机服务；已有本应用服务时直接打开网页，否则启动后台服务，确认服务就绪后再打开：
-
-[http://127.0.0.1:8766/](http://127.0.0.1:8766/)
-
-也可以在 PowerShell 中执行：
+在项目根目录打开PowerShell，建立模型环境并安装依赖：
 
 ```powershell
-Set-Location -LiteralPath 'E:\Project\Software\sheet_music_generator'
-.\启动右手选择.cmd
+py -3.11 -m venv .venv-gpu
+.\.venv-gpu\Scripts\python.exe -m pip install torch==2.7.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu128
+.\.venv-gpu\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv-gpu\Scripts\python.exe -B tools/initialize_workspace.py
 ```
 
-第一行进入项目目录；如果项目放在其他位置，请改成自己的实际路径。第二行运行当前目录中的启动器。启动窗口关闭后，后台服务继续运行；电脑重启后重新运行同一启动器即可。
+第二行安装本项目当前使用的CUDA 12.8版PyTorch；驱动需支持该版本。最后一行创建空白复核配置，已有配置保持原样。`requirements.txt`列出主流程直接依赖，`requirements-staff.txt`列出五线谱渲染依赖。
 
-右手编辑器读取正常曲谱库所引用的伴奏工程。已有曲谱库入口为 `results/accompaniment/index.html`；右手配置、已存版本及服务日志保存在本地的 `test_outputs/accompaniment_runs/` 下。
+完整制谱还需准备以下外部文件，安装环境、模型权重和个人歌曲均不包含在仓库内：
 
-## 按小节选择右手手型
-
-1. 选择歌曲，对照页面初始展示的默认完整谱、歌词和小节号，确定要修改的位置。
-2. 点击“添加小节区间”，填写起始、结束小节。范围包含两端，例如 `5–8` 表示第 5、6、7、8 小节。不同区间不能重叠。
-3. 选中区间，在“演奏方式”中筛选分解、合拨或扫弦，再打开右手型列表。鼠标移到候选名称时，旁边会展示该候选的六线谱示意；点击名称才真正应用。触屏先查看候选，再点击“应用此手型”。
-4. 选择“候选原节奏”，或把各动作格改为四分、八分、十六分音符；也可以在下方节拍格中分别修改动作时值。程序按拍检查设置，无法适用的组合会在页面说明。
-5. 查看更新后的主谱，点击“试听当前片段”，检查区间内的实际效果。需要其他段落使用不同演奏方式时，继续增加区间。
-6. 填写配置名称，点击“保存并生成整曲”。程序另建版本，完成后直接在当前网页展示完整曲谱与整曲播放器。也可以单独打开新版本或反复阅读版。
-
-例如，可以在同一套配置中安排：
-
-| 小节范围 | 右手安排 |
+| 外部依赖 | 放置位置或配置要求 |
 | --- | --- |
-| 5–8 | 两组上行分解 |
-| 9–20 | 跨第三拍延续的分解 |
-| 21–25 | 扫弦 |
-| 26–50 | 两组上行分解 |
+| FFmpeg的`ffmpeg.exe`、`ffprobe.exe` | 放入`.tools/ffmpeg/任意版本/bin/`，并将该目录加入当前终端的`PATH`环境变量。 |
+| NCM转换工具`ncmdump.exe` | 放入`.tools/ncmdump/`；当前音频检查入口会检查该工具，即使输入为MP3也需准备。 |
+| [ROSVOT](https://github.com/RickyL-2000/ROSVOT) | 代码放入`third_party/ROSVOT/`；按上游说明下载权重，使`checkpoints/rosvot/model.pt`、`checkpoints/rwbd/model.pt`和`checkpoints/rmvpe/model.pt`存在。当前接入版本为`3c8332b`。 |
+| [TIFA](https://github.com/openvpi/TIFA) | 代码放入`third_party/TIFA/`；按上游说明准备TIFA-1.0-ST模型及配套配置，放入`.cache/tifa/model/TIFA-1.0-ST/`。当前接入版本为`614a277`。 |
 
-候选悬停示意使用 C 和弦及候选原节奏，便于比较右手动作；当前歌曲和自定义时值的实际结果应以主谱、节拍格及试听为准。
+Demucs、Whisper及节拍模型首次使用时可能联网下载。以上为当前工程的安装入口，尚未在全新电脑完成整套安装验证；第三方模型和权重需要单独准备，安装Python依赖不等于全部模型已经就绪。
 
-未选择手型的范围沿用原演奏。程序保留前奏、间奏、尾奏、弱起和短小节等需要保护的内容，页面会说明哪些小节实际应用、哪些小节保留。**保存会另建曲谱版本，不覆盖已认可的原谱；同一首歌可保存并重新载入多套配置。**
+## 从歌曲制谱
 
-### 如何阅读分解、合拨与扫弦
-
-数字表示弦号，`B` 表示当前和弦使用的低音弦，`+` 表示同刻合拨。“空”默认表示不拨弦或空扫，让前音自然延续；需要停止发声时可选择消音休止。
-
-六线谱中，下扫画为向上的跨弦箭头 `↑`，上扫画为向下的跨弦箭头 `↓`，箭头只跨实际扫到的弦。普通扫弦不会为每根弦重复绘制自然余音延音线；需要明确延续时才集中提示。
-
-当前右手选择面向 4/4 拍。其他拍号、三连音型、拍弦和闷音等技法尚未接入这个选择界面；不要用 4/4 候选直接替换不同拍号的曲谱。
-
-## 从新歌曲生成工程
-
-这一部分使用已经配置好的本机环境。先把音频放入 `test_music/`；准备校正歌词时，使用同目录中采用 UTF-8（8-bit Unicode Transformation Format，8 位 Unicode 转换格式）编码的文本文件。以下文件名和“实际运行编号”都是示例，执行前必须替换为自己的输入及脚本实际输出路径。
-
-### 1. 分析整首歌曲
+把音源和UTF-8编码的歌词放入自行创建的`test_music/`。在根目录依次执行；将示例文件名和“实际编号”替换为自己的文件及上一步输出路径：
 
 ```powershell
-.\run_models.ps1 -Full -Song '示例歌曲.flac'
+.\run_models.ps1 -Full -Song '歌曲.mp3'
+.\run_score.ps1 -ModelReport 'reports/runs/实际编号/integrated_pipeline.json' -LyricsFile 'test_music/歌曲.txt'
+.\run_accompaniment.ps1 -VocalProject 'test_outputs/score_runs/实际编号/score/project.json' -DemucsReport 'reports/runs/实际编号/demucs.json' -Output 'test_outputs/accompaniment_runs/my_song/delivery' -AnalysisDir 'test_outputs/accompaniment_runs/my_song/analysis' -ExportVocal
 ```
 
-`-Full` 要求处理完整歌曲；`-Song` 指定 `test_music/` 中的素材文件名。脚本顺序执行音频检查、人声分离和转录，把本次运行的报告放入 `reports/runs/`、分析产物放入 `test_outputs/runs/`，并输出具体目录。后续必须使用同一次运行的报告。
+三步分别执行音频分析、人声与歌词制谱、伴奏编配。每首歌使用新的输出目录；结果和报告保存在终端显示的路径。程序不会自动把待检查结果发布到正常曲谱库。
 
-### 2. 生成人声曲谱并对齐歌词
+## 打开网页
+
+统一网页先安装独立依赖，再启动：
 
 ```powershell
-.\run_score.ps1 -ModelReport 'reports\runs\实际运行编号\integrated_pipeline.json' -LyricsFile 'test_music\示例歌曲.txt'
+.\HTML\准备环境.ps1
+.\HTML\启动网页.cmd
 ```
 
-`-ModelReport` 指向上一步的完整歌曲报告；`-LyricsFile` 指定校正歌词。省略歌词参数时，程序使用自动识别路线。人声工程和曲谱保存在新建的 `test_outputs/score_runs/` 子目录；检查其实际 `score/project.json` 路径，再供伴奏生成使用。
+本机网址为[http://127.0.0.1:8768/](http://127.0.0.1:8768/)。管理员访问码保存在`HTML/runtime/app/管理员访问码.txt`；登录后为朋友生成独立访问码。启动器显示临时分享网址，分享期间电脑需开机联网。上传、分享与下载操作见[网页使用说明](HTML/README.md)。
 
-### 3. 生成吉他与钢琴伴奏
+双击根目录的`启动右手选择.cmd`打开[右手编辑器](http://127.0.0.1:8766/)。它读取本机正常曲谱库`results/accompaniment/index.html`所引用的工程，新克隆的仓库没有预装私人曲谱。
 
-```powershell
-.\run_accompaniment.ps1 -VocalProject 'test_outputs\score_runs\实际制谱编号\score\project.json' -DemucsReport 'reports\runs\实际运行编号\demucs.json' -Output 'test_outputs\accompaniment_runs\my_song_001\delivery' -AnalysisDir 'test_outputs\accompaniment_runs\my_song_001\analysis' -ExportVocal
-```
+选择歌曲后添加起止小节、选择右手型及音符时值，查看实时谱面并试听；点击“保存并生成整曲”另存版本，然后下载PDF（Portable Document Format，便携式文档格式）或整套JPG。未选择的范围沿用原谱。
 
-`-VocalProject` 指定检查过的人声工程；`-DemucsReport` 指定同源的人声分离报告；`-Output` 指定新成品目录；`-AnalysisDir` 指定本次编配分析目录；`-ExportVocal` 同时导出独立人声谱。每次使用新的输出目录，便于保留已有结果。
+## 主要目录
 
-程序可能因拍轴、来源或演奏约束不满足而停止，并保留报告；应先检查原因再继续。新生成的文件属于待检查结果，不会因为写入目录就自动成为已认可曲谱，也不会自动替换正常曲谱库入口。
-
-需要在已有工程上继续修改时，优先在右手网页中另存。脚本还提供 `-EditedProject` 等工程入口，具体参数及共用规则可查看源文件和 [MUSIC_REQUIREMENTS.md](MUSIC_REQUIREMENTS.md)。
-
-## 目录与入口
-
-| 路径 | 主要内容 |
+| 路径 | 内容 |
 | --- | --- |
-| `tools/` | 音频分析、旋律处理、歌词对齐、和声与伴奏编配、乐谱导出，以及本地网页服务的 Python 程序和网页资源。 |
-| `tools/data/` | 右手候选、和弦指型及其他编配参考定义；55 种右手候选保存在 `guitar_pattern_choices.json`。 |
-| `data/` | 程序配置和参考数据，包括工作目录路径解析、配置身份与规则数据。已有配置依赖其中的工作目录身份信息。 |
-| `tests/` | 自动检查程序。部分检查需要本地歌曲、缓存或已有曲谱，刚克隆的源码目录不具备全部测试数据。 |
-| `test_music/` | 本机输入歌曲和校正歌词，不上传到代码仓库。 |
-| `results/` | 已整理的正常曲谱库、成品及索引页，不上传到代码仓库。 |
-| `test_outputs/` | 分析中间产物、候选曲谱、右手编辑配置和另存版本，不上传到代码仓库。 |
-| `reports/` | 本地运行清单、错误说明与检查记录，不上传到代码仓库。 |
-| `history-version/` | 本地版本备份和 GitHub 更新教程。备份目录不上传，仅教程纳入代码仓库。 |
-| `third_party/` | 本地部署的第三方项目和模型运行依赖，不上传到代码仓库。 |
-| `.venv-gpu/`、`.runtime/` | 本机 Python 环境与运行时，不上传到代码仓库。 |
-| `.cache/` | 模型、特征及其他可复用缓存，不上传到代码仓库。 |
-| `.tools/` | 本项目辅助脚本与本地工具；只有本项目编写的顶层 Python 辅助脚本纳入仓库。 |
-| `tmp/` | 临时文件和调试产物，不上传到代码仓库。 |
+| `tools/`、`tools/data/` | 分析、编配、导出、右手编辑程序，以及指型和节奏定义。 |
+| `HTML/` | 统一网页、启动器、网页依赖与打印下载程序。 |
+| `config/` | 不含个人复核记录的空白配置示例。 |
+| `run_*.ps1` | 本地模型分析、制谱、伴奏及环境检查入口。 |
 
-| 根目录文件 | 用途 |
-| --- | --- |
-| [`启动右手选择.cmd`](启动右手选择.cmd) | 打开或恢复本机右手编辑服务。 |
-| [`run_models.ps1`](run_models.ps1) | 检查歌曲并执行人声分离、旋律转录。 |
-| [`run_score.ps1`](run_score.ps1) | 处理旋律、对齐歌词并导出人声曲谱。 |
-| [`run_accompaniment.ps1`](run_accompaniment.ps1) | 从人声工程或已有伴奏工程生成、另存伴奏。 |
-| [`run_validation.ps1`](run_validation.ps1) | 分阶段检查音频、模型环境和记谱工具。 |
-| [`requirements-staff.txt`](requirements-staff.txt) | 五线谱渲染所用的两项 Python 依赖；不是全项目安装清单。 |
-| [`.gitignore`](.gitignore) | 定义源码与本地数据的上传边界；忽略规则不会删除本地文件。 |
-| [`.gitattributes`](.gitattributes) | 定义文本处理规则和 Windows 启动文件的行尾。 |
-| [`MUSIC_REQUIREMENTS.md`](MUSIC_REQUIREMENTS.md) | 编配、记谱、演奏与已有成果保护要求。 |
-| [`todo.md`](todo.md)、[`progress.md`](progress.md)、[`HANDOFF.md`](HANDOFF.md) | 项目任务、工作进展与开发接续说明。 |
-| [`AGENTS.md`](AGENTS.md) | 协作、记录及中文说明规范。 |
-
-## 继续开发与更新 GitHub
-
-在当前工作目录中修改和检查代码，音乐产物另存；完整运行环境和本地曲谱需要另外备份。GitHub 保存的是按忽略规则筛选后的项目代码与说明，不代替整台电脑的运行环境备份。
-
-现有仓库是 [zpoliceman/sheet-music-generator](https://github.com/zpoliceman/sheet-music-generator)。提交、同步、推送和可选发布标签的操作见 [GitHub 上传与持续更新教程](history-version/GitHub上传与持续更新教程.md)，教程逐项解释 PowerShell 与 Git 命令，直接针对已有 `origin/main` 仓库。
+程序运行后使用`data/`保存本机配置，`test_music/`保存输入，`test_outputs/`保存工程及另存版本，`results/`保存整理后的曲谱库，`reports/`保存运行日志。这些本机数据不随源码上传。

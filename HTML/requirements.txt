@@ -1,0 +1,2 @@
+# 第一阶段已验证的网页依赖版本。
+-r requirements.lock.txt

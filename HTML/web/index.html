@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#254a3f">
+  <meta name="description" content="把歌曲音源和歌词放进同一个工作台，为简谱与吉他弹唱做好准备。">
+  <title>弦页 · 歌曲与乐谱工作台</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/score-downloads.css"><script src="/score-downloads.js" defer></script><script src="/app.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/" aria-label="弦页首页"><span class="brand-mark" aria-hidden="true">♮</span><span>弦页<small>歌曲与乐谱工作台</small></span></a>
+  <div class="header-actions"><span class="pilot-tag">朋友试用</span><span id="connection" class="connection">正在连接</span><button id="invite-open" class="text-button" hidden>邀请朋友</button><button id="logout" class="text-button" hidden>退出</button></div>
+</header>
+<main id="welcome" class="welcome">
+  <section class="welcome-copy">
+    <span class="eyebrow">从一首喜欢的歌开始</span>
+    <h1>把歌曲，放进<br>自己的乐谱工作台<span>。</span></h1>
+    <p class="welcome-intro">带上你的音源和歌词。让素材、曲谱与每一次演奏选择，都有一个清楚的位置。</p>
+    <div class="format-row"><span>MP3 / NCM 音源</span><span>TXT 歌词</span><span>独立保存</span></div>
+    <div class="sheet-art" aria-hidden="true"><div class="sheet-head"><span>一首歌的开始</span><span>4/4</span></div><div class="staff"><i>♩</i><i>♪</i><i>♩</i><i>♫</i></div><div class="sheet-caption">音源 ＋ 歌词 → 你的素材工作台</div></div>
+  </section>
+  <section class="login-card" aria-labelledby="login-title">
+    <span class="card-kicker">欢迎来到弦页</span><h2 id="login-title">打开你的工作台</h2>
+    <p>输入网站主人发给你的访问码。每位朋友的素材分别保存。</p>
+    <form id="login-form"><label for="access-code">访问码</label><input id="access-code" type="password" autocomplete="current-password" placeholder="粘贴你的访问码" required maxlength="160"><button id="login-submit" class="primary" type="submit">进入工作台 <span aria-hidden="true">→</span></button><p id="login-error" class="error" role="alert"></p></form>
+    <div class="login-note"><span aria-hidden="true">♪</span><p>目前可上传并保存歌曲与歌词。<br>简谱、吉他谱生成将在下一阶段接入。</p></div>
+    <p class="owner-hint">没有访问码？请联系把网址发给你的朋友。</p>
+  </section>
+</main>
+<main id="workspace" class="workspace" hidden>
+  <section class="workspace-heading"><div><span class="eyebrow" id="person-name">我的工作台</span><h1>一首歌，从这里准备好。</h1><p>上传音源与歌词，保存到你的素材库。曲谱生成接入后，可以继续使用这些素材。</p></div><span class="phase-badge"><i></i> 素材上传已开放</span></section>
+  <div class="work-grid">
+    <section class="upload-card" aria-labelledby="upload-title">
+      <div class="section-heading"><div><span class="card-kicker">开始一首新歌</span><h2 id="upload-title">上传歌曲素材</h2></div><span class="small-label">两份文件，一次保存</span></div>
+      <form id="upload-form" novalidate>
+        <div class="file-section"><div class="field-heading"><label for="audio-file"><span class="step-number">01</span> 歌曲音源</label><span>MP3 / NCM · 80MB以内</span></div>
+          <label class="drop-zone" id="audio-drop" for="audio-file"><input id="audio-file" class="file-input" type="file" accept=".mp3,.ncm,audio/mpeg"><span class="file-symbol" aria-hidden="true">♫</span><strong id="audio-title">点击选择，或把歌曲拖到这里</strong><span id="audio-description">保留你的原始音源</span><span class="choose-label">选择音源</span></label>
+          <audio id="local-audio" controls preload="metadata" hidden aria-label="所选MP3音源试听"></audio>
+        </div>
+        <div class="file-section"><div class="field-heading"><label for="lyrics-file"><span class="step-number">02</span> 歌词文本</label><span>TXT · 256KB以内</span></div>
+          <label class="drop-zone lyrics-zone" id="lyrics-drop" for="lyrics-file"><input id="lyrics-file" class="file-input" type="file" accept=".txt,text/plain"><span class="file-symbol text-symbol" aria-hidden="true">文</span><div><strong id="lyrics-title">选择配套的歌词 TXT</strong><span id="lyrics-description">保留换行，歌词内容会在下方预览</span></div><span class="choose-label">选择歌词</span></label>
+          <div id="lyrics-preview-wrap" class="lyrics-preview" hidden><div><span>歌词预览</span><span id="lyrics-encoding"></span></div><pre id="lyrics-preview"></pre></div>
+        </div>
+        <div id="upload-progress-wrap" class="upload-progress" hidden><div><span id="upload-stage">正在上传</span><span id="upload-percent">0%</span></div><progress id="upload-progress" max="100" value="0"></progress><button id="cancel-upload" class="text-button" type="button">取消本次上传</button></div>
+        <p id="upload-error" class="error" role="alert"></p><p id="upload-notice" class="success" role="status"></p>
+        <div class="upload-actions"><button id="upload-submit" class="primary" type="submit" disabled>上传并保存素材 <span aria-hidden="true">↑</span></button><button id="reset-upload" class="secondary" type="button" hidden>继续上传一首</button></div>
+        <p class="form-footnote">先以5分钟以内的歌曲试用。NCM会保留原文件，时长与完整解码将在制谱时检查。</p>
+      </form>
+    </section>
+    <aside class="side-column">
+      <section class="journey-card"><span class="card-kicker">接下来，你会在这里完成</span><h2>从歌曲到乐谱</h2><ol class="journey"><li class="current"><span>1</span><div><strong>准备音源与歌词</strong><p>上传并保存，现在就可以使用。</p></div><em>已开放</em></li><li><span>2</span><div><strong>生成人声简谱与吉他谱</strong><p>歌词、和弦与六线谱放在同一份谱里。</p></div></li><li><span>3</span><div><strong>选择右手，试听与另存</strong><p>按小节安排分解、合拨和扫弦。</p></div></li></ol><p class="upcoming-note">制谱与右手编辑将逐步接入，当前上传不会自动开始生成。</p></section>
+      <section class="privacy-card"><span class="privacy-icon" aria-hidden="true">◇</span><div><h3>这是你的素材空间</h3><p>素材按访问码分别保存。请保管好你的访问码，只分享给你信任的人。</p></div></section>
+    </aside>
+  </div>
+  <section class="score-library" aria-labelledby="score-library-title"><div class="section-heading"><div><span class="card-kicker">已完成的吉他伴奏谱</span><h2 id="score-library-title">曲谱下载</h2></div><button id="refresh-scores" class="secondary" type="button">刷新曲谱</button></div><p id="score-library-note">按默认弹唱版式另存，可下载PDF或整套JPG。</p><label>选择曲谱<select id="score-project" aria-label="选择要导出的曲谱"></select></label><div id="portal-score-downloads"></div></section>
+  <section class="library" id="library" aria-labelledby="library-title"><div class="section-heading"><div><span class="card-kicker">每首歌都留在这里</span><h2 id="library-title">我的素材 <span id="upload-count" class="count">0</span></h2></div><button id="refresh-uploads" class="secondary">刷新列表</button></div><div id="upload-list" class="upload-list"></div><div id="empty-library" class="empty-library"><span aria-hidden="true">♬</span><h3>还没有上传歌曲</h3><p>选择一份音源和歌词，开始准备你的第一首歌。</p></div></section>
+</main>
+<footer class="site-footer"><span>弦页 · 把喜欢的歌，慢慢弹出来。</span><span>分享服务需要网站主人的电脑保持开机联网。</span></footer>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="detail-dialog" class="modal detail-modal"><div class="modal-heading"><div><span class="card-kicker">已保存的素材</span><h2 id="detail-title"></h2></div><button class="close-button" data-close="detail-dialog" aria-label="关闭素材详情">×</button></div><p id="detail-info" class="help"></p><div class="status-note">素材已保存。整首制谱将在下一阶段接入。</div><audio id="saved-audio" controls preload="metadata" hidden aria-label="已上传MP3试听"></audio><h3>歌词</h3><pre id="detail-lyrics" class="detail-lyrics"></pre><div class="download-row"><a id="download-audio" class="secondary">下载音源原文件</a><a id="download-lyrics" class="secondary">下载歌词原文件</a></div></dialog>
+<dialog id="invite-dialog" class="modal invite-modal"><div class="modal-heading"><div><span class="card-kicker">只邀请你想邀请的人</span><h2>邀请朋友</h2></div><button class="close-button" data-close="invite-dialog" aria-label="关闭邀请面板">×</button></div><div class="share-box"><label for="share-url">朋友访问网址</label><div class="inline-field"><input id="share-url" readonly placeholder="免费分享入口尚未连接"><button id="copy-share" class="secondary" disabled>复制网址</button></div><p class="help">电脑、网页服务与分享进程都需要保持运行。临时网址重新连接后可能变化。</p></div><form id="invite-form"><label for="friend-name">朋友称呼</label><div class="inline-field"><input id="friend-name" placeholder="例如：小林" maxlength="40" required><button class="primary" type="submit">生成访问码</button></div></form><p id="invite-error" class="error" role="alert"></p><div id="new-invite" class="new-invite" hidden><strong id="new-invite-name"></strong><code id="new-invite-code"></code><button id="copy-invite" class="secondary">复制邀请信息</button><p>访问码只在这次显示，请先复制保存。每位朋友使用不同的访问码。</p></div><h3>已邀请的朋友</h3><div id="friend-list" class="friend-list"></div></dialog>
+</body>
+</html>

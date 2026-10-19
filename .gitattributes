@@ -1,2 +1,2 @@
-# 历史版本清理、第五版备份与GitHub教程：固定Windows启动批处理的CRLF行尾，避免克隆后中文注释被错误解析。
+# Windows启动批处理使用CRLF行尾。
 *.cmd text eol=crlf

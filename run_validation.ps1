@@ -1,4 +1,4 @@
-# 兼容性与样曲验证：新增项目内统一验证入口，不修改系统 Python 或系统 PATH。
+﻿# 兼容性与样曲验证：新增项目内统一验证入口，不修改系统 Python 或系统 PATH。
 [CmdletBinding()]
 param(
     [ValidateSet('AudioFirst', 'AudioAll', 'Notation', 'GPU')]

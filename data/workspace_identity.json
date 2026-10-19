@@ -1,5 +1,0 @@
-{
-  "version": 1,
-  "identity_root": "E:\\Project\\Software\\sheet_musit_generator",
-  "description": "此路径只参与曲谱编号计算，不用于访问文件。保留该记录可在迁移目录后继续找到原命名配置。"
-}

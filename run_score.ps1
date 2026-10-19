@@ -74,19 +74,14 @@ $run = [ordered]@{
     overrides = @{ tempo = $Tempo; key = $Key; meter = $Meter; beat_origin_seconds = "$BeatOrigin"; subdivision = $Subdivision }
 }
 function Save-ScoreRun {
-    # 歌词对齐与真实制谱：新增阶段落盘和用户要求的实时工作日志/当前任务书更新。
+    # 运行阶段记录写入本次报告目录，制谱不依赖或改写本机协作资料。
     param([string]$Completed, [string]$Next)
     if ($Completed) { $run.completed_stages += $Completed }
     $run.wall_seconds = $watch.Elapsed.TotalSeconds
     $run | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $reportDir 'run.json') -Encoding UTF8
     if ($Completed) {
         $stamp = [datetime]::UtcNow.AddHours(8).ToString('yyyy-MM-dd HH:mm:ss')
-        "`r`n### $stamp｜歌词对齐与真实制谱 $runId`r`n- 已完成：$Completed`r`n- 决策：同一源分析/人声时间轴；原始结果不覆盖；模型依次运行。`r`n- 待办：$Next`r`n" | Add-Content -LiteralPath (Join-Path $projectRoot 'progress.md') -Encoding UTF8
-        $todoPath = Join-Path $projectRoot 'todo.md'
-        $todoText = Get-Content -LiteralPath $todoPath -Raw -Encoding UTF8
-        $currentSteps = "## 上一步`r`n`r`n$Completed（运行 $runId）。`r`n`r`n## 下一步`r`n`r`n$Next`r`n"
-        $todoText = [regex]::Replace($todoText, '(?s)## 上一步\r?\n.*\z', { param($match) $currentSteps })
-        $todoText | Set-Content -LiteralPath $todoPath -Encoding UTF8
+        "`r`n### $stamp｜歌词对齐与真实制谱 $runId`r`n- 已完成：$Completed`r`n- 决策：同一源分析/人声时间轴；原始结果不覆盖；模型依次运行。`r`n- 待办：$Next`r`n" | Add-Content -LiteralPath (Join-Path $reportDir 'stages.log') -Encoding UTF8
     }
 }
 $previousEncoding = $env:PYTHONIOENCODING

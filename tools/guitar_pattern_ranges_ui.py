@@ -61,9 +61,10 @@ def editor_page(token):
 <div id="preview" class="score-view" aria-label="曲谱预览"></div>
 <details><summary>本次应用与保留范围</summary><p id="scope-result"></p></details></details>
 </article></div>
+<section class="score-library" aria-label="吉他谱下载"><h2>下载吉他伴奏谱</h2><div class="score-mode-row"><label>导出版本<select id="print-source-mode" aria-label="导出版本"><option value="original">默认原谱</option><option value="saved" disabled>当前已保存版本</option></select></label><span>默认弹唱排版 · 原文件保留</span></div><div id="right-score-downloads"></div></section>
 <section class="save-panel"><div><strong>保存配置，生成完整曲谱与音频</strong><p id="save-note">使用各条区间的设置另存整曲；原谱保留。</p></div><button id="save" disabled>保存并生成整曲</button><a id="saved-link" target="_blank" rel="noopener" hidden>单独打开新版本 ↗</a></section>
 <section id="full-result" class="full-result" hidden aria-label="完整曲谱和整曲试听"><div class="section-heading"><h2 id="full-title">完整曲谱与整曲试听</h2><a id="reading-link" target="_blank" rel="noopener">打开反复阅读版 ↗</a></div><p id="full-note" role="status"></p>
 <iframe id="full-score" title="完整吉他谱、原唱与伴奏播放器" src="about:blank"></iframe></section>
 <!-- 右手候选悬停六线谱预览：新增独立样式和组件，原编辑器继续负责真实选择与保存。 -->
 <link rel="stylesheet" href="/pattern-picker.css"><script src="/pattern-picker.js"></script>
-</main><script>window.EDITOR_TOKEN='''+json.dumps(token)+''';</script><script src="/ranges.js"></script></body></html>'''
+</main><script>window.EDITOR_TOKEN='''+json.dumps(token)+''';</script><link rel="stylesheet" href="/score-downloads.css"><script src="/score-downloads.js"></script><script src="/ranges.js"></script><script src="/right-score-downloads.js"></script></body></html>'''
