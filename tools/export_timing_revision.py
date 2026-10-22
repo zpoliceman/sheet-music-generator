@@ -763,6 +763,10 @@ def export_revision(project_path, output, instruments=None, preserve_audio_from=
         write_mxl(folder / 'score.mxl', (folder / 'score.musicxml').read_bytes())
         if is_voice:
             score.write_midi(folder / 'score.mid', voice)
+            from generation_contracts import check_vocal_midi
+            check['midi']=check_vocal_midi(folder / 'score.mid',voice)
+            if not check['midi']['valid']:
+                raise ValueError('简谱MIDI实际音符读回失败：'+str(check['midi']['errors']))
             # 最小拍轴与词音伴奏修复：修改旋律试听使用实际发声区间，原记谱时值式保留；声母记谱连贯不填造发声。
             # arrangement = {'instrument': 'piano', 'notes': [{**n, 'velocity': 80, 'hand': 'right'} for n in voice['quantized_notes']], 'pedal': []}
             arrangement = {'instrument': 'piano', 'notes': [{**n, 'start_tick': n['playback_start_tick'], 'end_tick': n['playback_end_tick'],

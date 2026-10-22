@@ -76,7 +76,8 @@ def choose_diagram(chord,active,future,capo,position):
     first=min(positive) if positive else 1
     # 和弦指型与X六线谱：新增低把位保持完整上弦枕，高把位第一行明确起始品。
     if first<=3 and max(positive,default=0)<=4:first=1
-    key=key_definition(pc_name(chord['key']['tonic_pc']-capo,chord['key'])+':major')
+    from accompaniment_arrange import capo_shape_key
+    key=capo_shape_key(chord['key'],capo)
     return {'frets':{str(s):int(f) for s,f in frets.items()},'position':first,
             'shape_name':chord_name(chord['root_pc']-capo,chord['quality'],chord['bass_pc']-capo,key),
             'sounding_name':chord['name'],'capo':capo,'barre':grip['barre'],'finger_count':grip['finger_count'],

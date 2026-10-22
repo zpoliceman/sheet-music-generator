@@ -270,9 +270,10 @@ def main() -> int:
             report["packages"][name] = importlib.metadata.version(name)
         except importlib.metadata.PackageNotFoundError:
             report["packages"][name] = "未安装"
-    uv = subprocess.run([str(ROOT / ".runtime" / "uv" / "uv.exe"), "--version"],
-                        capture_output=True, text=True)
-    report["runtime_tools"] = {"uv": uv.stdout.strip()}
+    uv_path = ROOT / ".runtime" / "uv" / "uv.exe"
+    # uv只用于安装，不是已安装模型的运行依赖。
+    uv_version = subprocess.run([str(uv_path), "--version"], capture_output=True, text=True).stdout.strip() if uv_path.is_file() else "not_installed_not_required_for_inference"
+    report["runtime_tools"] = {"uv": uv_version}
     driver = subprocess.run(["nvidia-smi", "--query-gpu=name,driver_version,memory.total,compute_cap",
                              "--format=csv,noheader"], capture_output=True, text=True)
     report["driver_raw"] = driver.stdout.strip()

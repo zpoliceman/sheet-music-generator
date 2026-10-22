@@ -9,6 +9,8 @@ PARAMETERS = {'candidate_margin_seconds': .28, 'phoneme_edge_seconds': .025,
               # 字音归属修复：新增音素时间扰动复核，不将路径差值当正确率。
               'minimum_shared_nucleus_seconds': .055, 'uncertain_margin': .35,
               'sensitivity_seconds': .08}
+SHORT_NUCLEUS_POLICY = {'version': 1, 'minimum_observed_nucleus_seconds': .03,
+                        'minimum_covered_fraction': .5, 'only_after_strict_path_failed': True}
 ROLE_WEIGHT = {'nucleus': 1.0, 'voiced_initial': .45, 'initial': .20, 'unknown': .65}
 
 # 字音归属修复：新增正长度音素校验；缺音素时显式以字界近似，保留复核提示。
@@ -27,19 +29,28 @@ def regions(char):
     return [(char['start_seconds'], char['end_seconds'], .65, 'unknown')], False
 
 # 字音归属修复：新增核音跨字检查；只有一个完整音确实覆盖多个核音时才拆同音。
-def expand_same_pitch(notes, chars, spans):
+def expand_same_pitch(notes, chars, spans, allow_short_nuclei=False):
     output = []
     for original in notes:
         start, end = original['start_seconds'], original['end_seconds']
         covered = []
+        short_evidence = []
         for ci, reg in enumerate(spans):
             nuclei = [(a, b) for a, b, _, role in reg if role in ('nucleus', 'unknown')]
             if not nuclei:
                 continue
             amount = sum(max(0, min(end, b) - max(start, a)) for a, b in nuclei)
             center = sum((a + b) * (b - a) / 2 for a, b in nuclei) / sum(b - a for a, b in nuclei)
-            if start < center < end and amount >= PARAMETERS['minimum_shared_nucleus_seconds']:
+            threshold = PARAMETERS['minimum_shared_nucleus_seconds']
+            nucleus_seconds = sum(b - a for a, b in nuclei)
+            observed_nuclei = all(role == 'nucleus' for _, _, _, role in reg if role in ('nucleus', 'unknown'))
+            if allow_short_nuclei and observed_nuclei and nucleus_seconds >= SHORT_NUCLEUS_POLICY['minimum_observed_nucleus_seconds']:
+                threshold = min(threshold, nucleus_seconds * SHORT_NUCLEUS_POLICY['minimum_covered_fraction'] + 1e-9)
+            if start < center < end and amount >= threshold:
                 covered.append(ci)
+                if amount < PARAMETERS['minimum_shared_nucleus_seconds']:
+                    short_evidence.append({'character_index': chars[ci]['index'], 'nucleus_seconds': nucleus_seconds,
+                                           'covered_nucleus_seconds': amount, 'policy_version': SHORT_NUCLEUS_POLICY['version']})
         # 字音归属修复：新增只拆相邻字，跨休止、跨句或仅擦过边缘的核音不生成重发。
         if len(covered) >= 2 and all(b == a + 1 for a, b in zip(covered, covered[1:])):
             cuts = [start]
@@ -53,7 +64,8 @@ def expand_same_pitch(notes, chars, spans):
                     output.append(dict(original, id=original['id'] + f'.syllable{i}',
                                        start_seconds=a, end_seconds=b,
                                        boundary_source='same_pitch_phoneme_boundary',
-                                       lyric_boundary_evidence='multiple_nuclei_in_one_source_note'))
+                                       lyric_boundary_evidence='multiple_nuclei_in_one_source_note',
+                                       **({'short_nucleus_recovery': copy.deepcopy(short_evidence)} if short_evidence else {})))
                 continue
         output.append(copy.deepcopy(original))
     return output
@@ -95,7 +107,7 @@ def transition_cost(left, right, previous, current, word_onsets):
 # 字音归属修复：新增全音段动态规划，每个字连续分组且至少一个音，避免事后强制改索引。
 # 字音归属修复：修改原签名以支持有界扰动复核，旧签名保留。
 # def align_notes(notes, lyrics, analysis=None):
-def align_notes(notes, lyrics, analysis=None, check_sensitivity=True):
+def align_notes(notes, lyrics, analysis=None, check_sensitivity=True, _recover_short_nuclei=False, _allow_short_nucleus_recovery=True):
     # 字音归属修复：新增API级来源校验，命令行之外也不能串用两条时间轴。
     source = lyrics.get('source', {})
     acoustic_source = (analysis or {}).get('source', {})
@@ -122,13 +134,15 @@ def align_notes(notes, lyrics, analysis=None, check_sensitivity=True):
     for char in chars:
         reg, valid = regions(char)
         spans.append(reg); available.append(valid)
-    expanded = expand_same_pitch(notes, chars, spans)
+    expanded = expand_same_pitch(notes, chars, spans, allow_short_nuclei=_recover_short_nuclei)
     # 字音归属修复：新增空候选的明确诊断，避免空矩阵造成不明错误。
     if not expanded:
         raise ValueError('没有声学音段，不能伪造字音。')
     costs = np.array([[note_cost(n, reg) for reg in spans] for n in expanded])
     active = np.flatnonzero(np.isfinite(costs).any(axis=1))
     if len(active) < len(chars):
+        if not _recover_short_nuclei and _allow_short_nucleus_recovery:
+            return align_notes(notes, lyrics, analysis, check_sensitivity, _recover_short_nuclei=True)
         raise ValueError('候选少于歌词字数，需复核声学分段。')
     costs = costs[active]
     onsets = sorted({float(w['start_seconds']) for w in (analysis or {}).get('predicted_word_segments', [])})
@@ -149,6 +163,9 @@ def align_notes(notes, lyrics, analysis=None, check_sensitivity=True):
             else:
                 dp[ni, ci], parent[ni, ci] = costs[ni, ci] + advance, ci - 1
     if not np.isfinite(dp[-1, -1]):
+        # 原可行结果保持；只有整句无解才复核有实测短元音支持的同音分字。
+        if not _recover_short_nuclei and _allow_short_nucleus_recovery:
+            return align_notes(notes, lyrics, analysis, check_sensitivity, _recover_short_nuclei=True)
         raise ValueError('音素/音段无法联合单调覆盖歌词，请复核句窗。')
     owners = np.full(size, -1, dtype=int)
     ci = count - 1
@@ -192,7 +209,10 @@ def align_notes(notes, lyrics, analysis=None, check_sensitivity=True):
             piece['word_alignment'] = {'method': 'phoneme_joint_monotonic' if available[ci] else 'character_interval_joint_fallback',
                                        'cost': float(costs[ni, ci]), 'alternative_margin': margin,
                                        'alternatives': alternatives, 'confidence_kind': 'uncalibrated_path_evidence',
-                                       'requires_review': not available[ci] or (margin is not None and margin < PARAMETERS['uncertain_margin'])}
+                                       'requires_review': bool(piece.get('short_nucleus_recovery')) or not available[ci] or (margin is not None and margin < PARAMETERS['uncertain_margin'])}
+            if piece.get('short_nucleus_recovery'):
+                piece['word_alignment']['short_nucleus_recovery'] = copy.deepcopy(piece['short_nucleus_recovery'])
+                piece['word_alignment']['strict_global_path_was_infeasible'] = True
             if piece['word_alignment']['requires_review']:
                 issues.append({'type': 'word_ownership_uncertain', 'piece_id': piece['id'],
                                'character_index': chars[ci]['index'], 'alternatives': alternatives,
@@ -215,7 +235,8 @@ def align_notes(notes, lyrics, analysis=None, check_sensitivity=True):
                 for phone in char.get('phonemes', []):
                     phone['start_seconds'] += delta; phone['end_seconds'] += delta
             try:
-                candidate, _, _ = align_notes(notes, shifted, analysis, check_sensitivity=False)
+                candidate, _, _ = align_notes(notes, shifted, analysis, check_sensitivity=False,
+                                               _allow_short_nucleus_recovery=_recover_short_nuclei)
                 variants.append((delta, candidate, None))
             except ValueError as error:
                 variants.append((delta, [], str(error)))

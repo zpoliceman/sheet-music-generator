@@ -31,7 +31,8 @@ def save_json(path: Path, value: object) -> None:
 # 兼容性与样曲验证：新增进程计时与独立日志，失败时保存完整返回码及错误。
 def run(command: list[str], log: Path) -> tuple[subprocess.CompletedProcess, float]:
     started = time.perf_counter()
-    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                            creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
     elapsed = time.perf_counter() - started
     log.parent.mkdir(parents=True, exist_ok=True)
     log.write_text(result.stdout.decode('utf-8', errors='replace') + result.stderr.decode('utf-8', errors='replace'), encoding='utf-8')
@@ -114,9 +115,11 @@ def tool(name: str) -> Path:
 # 
 
 # 兼容性与样曲验证：修改素材处理；缓存同时绑定源哈希和产物哈希，新转换验证后再发布。
-def process(source: Path, ncmdump: Path, ffprobe: Path, ffmpeg: Path) -> dict:
-    logs = ROOT / 'test_outputs' / 'probe'
-    output_dir = ROOT / 'test_outputs' / 'converted'
+def process(source: Path, ncmdump: Path, ffprobe: Path, ffmpeg: Path, *, workspace: Path | None = None) -> dict:
+    # 独立调用者可把转换与诊断放入自己的任务目录，旧命令行默认目录保持。
+    base = Path(workspace) if workspace is not None else ROOT / 'test_outputs'
+    logs = base / 'probe'
+    output_dir = base / 'converted'
     output_dir.mkdir(parents=True, exist_ok=True)
     record = {'source': str(source), 'filename': source.name, 'conversion_seconds': 0.0, 'status': 'pending'}
     before = None

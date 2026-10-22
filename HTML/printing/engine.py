@@ -239,7 +239,8 @@ def main():
             layout_rows.append({'row':index+1,'page':number,'bar_count':b-a,'source_measures':[u['number'] for u in units[a:b]],'display_measures':[u['display_number'] for u in units[a:b]],'height_pixels':height*scale,'details':details})
         if number==1:heading='<header class="first"><h1>'+html.escape(title)+'</h1><div class="artist">'+html.escape(artist)+'</div><div class="meta">'+html.escape(meta)+'</div></header>'
         else:heading='<header class="continued"><span>'+html.escape(title)+'</span><span>吉他伴奏谱</span></header>'
-        pages.append('<section class="sheet">'+heading+'<div class="music">'+''.join(music)+'</div><footer>'+str(number)+'</footer></section>')
+        draft_caption='待校对自动草稿 · ' if project.get('automatic_draft') else ''
+        pages.append('<section class="sheet">'+heading+'<div class="music">'+''.join(music)+'</div><footer>'+draft_caption+str(number)+'</footer></section>')
         page_diagrams.append(diagram_count);at+=count
     expected_notes=Counter();expected_vocals=Counter();expected_rhythm=Counter();expected_cjk=Counter()
     for u in units:
@@ -268,7 +269,9 @@ def main():
     pdf=output/f'{file_title}_吉他伴奏谱_参考版式.pdf'
     env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONDONTWRITEBYTECODE':'1'}
     result=subprocess.run([str(HTML/'.venv/Scripts/python.exe'),'-m','printing.engine','--print-html',str(print_html),'--pdf',str(pdf)],capture_output=True,text=True,encoding='utf-8',errors='replace',env=env,cwd=str(HTML))
-    (evidence/'chrome_print.txt').write_text(result.stdout+result.stderr,encoding='utf-8');assert result.returncode==0,'浏览器检查未通过，查看evidence/chrome_print.txt'
+    (evidence/'chrome_print.txt').write_text(result.stdout+result.stderr,encoding='utf-8')
+    if result.returncode:
+        raise ValueError('浏览器排版检查未通过：'+(result.stderr or result.stdout).strip()[-4000:])
     reader=PdfReader(str(pdf));assert len(reader.pages)==len(page_counts)
     text='\n'.join(p.extract_text() for p in reader.pages);actual_cjk=Counter(c for c in text if '\u4e00'<=c<='\u9fff')
     missing={c:n-actual_cjk[c] for c,n in expected_cjk.items() if actual_cjk[c]<n};assert not missing,missing

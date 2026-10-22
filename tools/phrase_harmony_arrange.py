@@ -173,7 +173,101 @@ def available_ranges(shared, start, end, fixed, unit=PPQ, source_notes=None):
 
 
 # 相似乐句和弦框架复用：新增每乐器独立休止范围/固定声部，模板音只进入可编辑完整拍。
-def generate_slots(shared, vocal, original, guitar_configuration, plans, fixed, serial):
+def retain_blocked_entry_bass(shared, vocal, configuration, generated, fixed, earlier, repair_chords):
+    """Keep a generated entry bass at its original pitch/time on another free string."""
+    from accompaniment_arrange import TUNING, grip_info
+    result = deepcopy(generated)
+    pulse = int(PPQ * 4 / shared['timing']['meter'][1])
+    maximum = min(12, configuration.get('maximum_fret', 12))
+    for index, note in enumerate(result):
+        if note.get('chord_id') not in repair_chords or note.get('role') != 'bass' or note['start_tick'] % pulse:
+            continue
+        blocked = [f for f in fixed if f.get('string') == note['string']
+                   and f['start_tick'] <= note['start_tick'] < f['end_tick']]
+        if not blocked:
+            continue
+        candidates = []
+        for string, open_pitch in TUNING.items():
+            fret = note['pitch_midi'] - open_pitch - capo_at({'configuration': configuration}, note['start_tick'])
+            if string == note['string'] or not 0 <= fret <= maximum:
+                continue
+            context = fixed + earlier + [other for j, other in enumerate(result) if j != index]
+            if any(other.get('string') == string and other['start_tick'] < note['end_tick']
+                   and other['end_tick'] > note['start_tick'] for other in context):
+                continue
+            trial = {**note, 'string': string, 'fret': fret}
+            local = [other for other in context if other['start_tick'] < note['end_tick'] and other['end_tick'] > note['start_tick']]
+            check = grip_position_path({'configuration': configuration, 'notes': local + [trial], 'fingering_diagrams': []}, vocal)
+            if check['valid']:
+                capo = capo_at({'configuration': configuration}, note['start_tick'])
+                active = [other for other in local + [trial] if other['start_tick'] <= note['start_tick'] < other['end_tick']]
+                grip = grip_info({other['string']: other['pitch_midi'] - TUNING[other['string']] - capo for other in active})
+                trial['finger'] = grip['fingers'].get(string, 0)
+                candidates.append((abs(fret - note['fret']), fret, string, trial))
+        if not candidates:
+            continue
+        trial = min(candidates, key=lambda row: row[:3])[-1]
+        trial['entry_bass_refingering'] = {'version': 1, 'original_string': note['string'],
+            'original_fret': note['fret'], 'string': trial['string'], 'fret': trial['fret'],
+            'protected_note_ids': [f['id'] for f in blocked], 'pitch_and_attack_release_preserved': True}
+        if note.get('right_hand_pattern_id'):
+            trial['pattern_adaptation'] = 'held_string_entry_bass_refingering'
+            trial['pattern_baseline_frets'] = {**note['pattern_baseline_frets'], str(trial['string']): trial['fret']}
+            trial['pattern_string_map'] = {token: trial['string'] if token in note['right_hand_token'].split('+')
+                and string == note['string'] else string for token, string in note['pattern_string_map'].items()}
+        result[index] = trial
+    return result
+
+
+def fit_held_string_boundary(shared, vocal, part, measure, plan, configuration, fixed, earlier,
+                             allowed, generated, events, row, serial, next_serial, repair_entry_chords):
+    """Select a complete playable boundary pattern if held source strings break a beat."""
+    def scoped(notes):
+        return [n for n in notes if any(a <= n['start_tick'] < b for a, b in allowed)]
+
+    def blockers(note):
+        return [n for n in fixed if n.get('string') is not None and n.get('string') == note.get('string')
+                and n['start_tick'] <= note['start_tick'] < n['end_tick']]
+
+    expected = scoped(generated)
+    lost = [n for n in expected if blockers(n)]
+    retained = [n for n in expected if not blockers(n)]
+    partial = any({n['start_tick'] for n in retained if a <= n['start_tick'] < b}
+                  and {n['start_tick'] for n in retained if a <= n['start_tick'] < b}
+                  != {n['start_tick'] for n in expected if a <= n['start_tick'] < b} for a, b in allowed)
+    if not lost or not partial or row is None:
+        return generated, events, row, next_serial
+    from guitar_section_patterns import simple_library_candidates
+    choices = simple_library_candidates([p for p in library()['patterns']
+        if p['meter'] == shared['timing']['meter'] and p['family'] == 'arpeggio' and p['id'] != plan['pattern_id']])
+    scores = {p['pattern_id']: p['score'] for p in plan.get('all_candidates', [])}
+    choices.sort(key=lambda p: (scores.get(p['id'], float('inf')), p['id']))
+    for pattern in choices:
+        trial, attacks, candidate_row, candidate_serial = measure_notes(shared, part, measure,
+            {**plan, 'pattern_id': pattern['id']}, serial)
+        if repair_entry_chords:
+            trial = retain_blocked_entry_bass(shared, vocal, configuration, trial, fixed, earlier, repair_entry_chords)
+        trial = scoped(trial)
+        if not trial or any(blockers(n) for n in trial):
+            continue
+        context = fixed + earlier + trial
+        check = grip_position_path({'configuration': configuration, 'notes': context, 'fingering_diagrams': []}, vocal)
+        if not check['valid']:
+            continue
+        adaptation = {'version': 1, 'reason': 'preserve_held_strings_with_complete_boundary_pattern',
+            'original_pattern_id': plan['pattern_id'], 'pattern_id': pattern['id'],
+            'blocked_attack_ticks': sorted({n['start_tick'] for n in lost}),
+            'protected_note_ids': sorted({f['id'] for n in lost for f in blockers(n)}),
+            'protected_music_unchanged': True, 'requires_review': True}
+        candidate_row['held_string_boundary_adaptation'] = adaptation
+        for note in trial:
+            note['held_string_boundary_adaptation'] = deepcopy(adaptation)
+        return trial, attacks, candidate_row, candidate_serial
+    # 无法形成完整可弹节奏时仍交给严格验收拒绝，不把缺拨弦伪装成完整模板。
+    return generated, events, row, next_serial
+
+
+def generate_slots(shared, vocal, original, guitar_configuration, plans, fixed, serial, repair_entry_chords=()):
     clock = SongClock(vocal); bar = shared['statistics']['bar_ticks']; notes = []; events = []; rows = []
     source_notes = [deepcopy(n) for n in original['notes'] if ordinary(shared, n)]
     for note in source_notes:
@@ -209,6 +303,7 @@ def generate_slots(shared, vocal, original, guitar_configuration, plans, fixed, 
             if not scoped:
                 continue
             part = {**dummy, 'notes': scoped}
+            slot_serial = serial
             if plan['pattern_id'] == 'meter_basic_arpeggio':
                 ns, es, row, serial = basic_meter_notes(shared, part, measure, serial)
             else:
@@ -221,6 +316,10 @@ def generate_slots(shared, vocal, original, guitar_configuration, plans, fixed, 
                 source_notes=scoped) if a < right and b > left]
             # 连续源拍序与人声联合重解通用修复：修改，旧只按拍范围筛选保留；尾边界固定同弦音仍在响时不能重建重叠的第二音。
             # ns = [n for n in ns if any(a <= n['start_tick'] < b for a,b in allowed)]
+            if repair_entry_chords:
+                ns = retain_blocked_entry_bass(shared, vocal, guitar_configuration, ns, fixed, notes, repair_entry_chords)
+            ns, es, row, serial = fit_held_string_boundary(shared, vocal, part, measure, plan, guitar_configuration,
+                fixed, notes, allowed, ns, es, row, slot_serial, serial, repair_entry_chords)
             ns = [n for n in ns if any(a <= n['start_tick'] < b for a,b in allowed)
                   and not any(f.get('string') is not None and f.get('string') == n.get('string')
                               and f['start_tick'] <= n['start_tick'] < f['end_tick'] for f in fixed)]
@@ -230,6 +329,15 @@ def generate_slots(shared, vocal, original, guitar_configuration, plans, fixed, 
                 note['end_tick'] = min(note['end_tick'], right, min(conflicts, default=note['end_tick']))
                 note['phrase_harmony_generated'] = True
             notes.extend(ns); ticks = {n['start_tick'] for n in ns}
+            changed = {n['start_tick']: n for n in ns if n.get('entry_bass_refingering')}
+            for event in es:
+                if event['start_tick'] in changed:
+                    event['pattern_adaptation'] = changed[event['start_tick']].get('pattern_adaptation')
+            if row:
+                for attack in row['realized_attacks']:
+                    if attack['tick'] in changed:
+                        attack['strings'] = sorted({n['string'] for n in ns if n['start_tick'] == attack['tick']})
+                        attack['adaptation'] = changed[attack['tick']].get('pattern_adaptation')
             events.extend(e for e in es if e['start_tick'] in ticks)
             if row:
                 row['regular_tick_ranges'] = allowed; row['pattern_start_tick'] = left; row['pattern_end_tick'] = right
@@ -359,7 +467,7 @@ def arranged_pedal(shared, original, notes):
 
 
 # 相似乐句和弦框架复用：新增明确升级入口，普通编辑重导不自动重配，已应用工程保持人工音符。
-def apply_phrase_harmony(shared, vocal, arrangements, cache_dir=None):
+def apply_phrase_harmony(shared, vocal, arrangements, cache_dir=None, _repair_entry_chords=()):
     existing = shared.get('phrase_harmony_plan', {})
     if ('arranged_harmony' in shared and existing.get('version') == POLICY['version']
             and existing.get('source_shared_sha256') == shared_fingerprint(shared)
@@ -393,7 +501,7 @@ def apply_phrase_harmony(shared, vocal, arrangements, cache_dir=None):
     # 连续源拍序与人声联合重解通用修复：修改，旧固定起号保留；历史编配重编时不能撞上保留的旧ID。
     # ns, es, rows, serial = generate_slots(active, vocal, originals['guitar'], config, plans, fixed['guitar'], 700000)
     ns, es, rows, serial = generate_slots(active, vocal, originals['guitar'], config, plans, fixed['guitar'],
-                                          next_note_serial(originals['guitar']['notes'], 700000))
+                                          next_note_serial(originals['guitar']['notes'], 700000), repair_entry_chords=_repair_entry_chords)
     if rows:
         serial = complete_quality(active, ns, es, rows, config['capo_fret'], serial, guitar=guitar)
     # 相似乐句和弦框架复用：新增补充性质音亦纳入实际和声校验，不能漏验新加七音/三音。
@@ -464,7 +572,16 @@ def apply_phrase_harmony(shared, vocal, arrangements, cache_dir=None):
         check = validate_playability(arrangement, SongClock(vocal))
         if not check['valid']: raise ValueError(name+'共同和弦实际演奏失败：'+str(check['errors'][:8]))
     check = validate_phrase_harmony(fresh, vocal, result)
-    if not check['valid']: raise ValueError('乐句共同和弦实音校验失败：'+str(check['errors'][:8]))
+    if not check['valid']:
+        prefix = 'guitar:performed_chord_entry_not_pulse_bass:'
+        if not _repair_entry_chords and check['errors'] and all(error.startswith(prefix) for error in check['errors']):
+            return apply_phrase_harmony(shared, vocal, arrangements, cache_dir,
+                                        _repair_entry_chords={error[len(prefix):] for error in check['errors']})
+        raise ValueError('乐句共同和弦实音校验失败：'+str(check['errors'][:8]))
+    from guitar_regular_rhythm import validate_regular_rhythm
+    rhythm_check = validate_regular_rhythm(active, guitar)
+    if rhythm_check and not rhythm_check['valid']:
+        raise ValueError('乐句伴奏实际拍组不完整：'+str(rhythm_check['errors'][:8]))
     return fresh, result, check
 
 
@@ -598,7 +715,13 @@ def validate_phrase_harmony(shared, vocal, arrangements):
             if first % pulse or not any(n['start_tick'] == first and n['role'] == 'bass' and n['pitch_midi'] % 12 == h['bass_pc'] for n in group):
                 errors.append(name+':performed_chord_entry_not_pulse_bass:'+h['id'])
         instruments[name] = {'generated_notes': count, 'protected_notes': len(info.get('protected_notes', []))}
-    return {'valid': not errors, 'errors': errors, 'status': 'actual_joint_harmony_checked',
+    source_pending=[]
+    if shared.get('automatic_draft_request')=={'version':1,'status':'needs_review','normal_publication_allowed':False}:
+        # 仅将原曲覆盖的音乐未决列入待校对；音高、拍值、弦位和演奏错误仍阻止导出。
+        source_pending=[e for e in errors if ':source_backed_chord_entry_missing:' in e]
+        errors=[e for e in errors if e not in source_pending]
+    return {'valid': not errors, 'errors': errors, 'source_review_issues':source_pending,
+            'musical_accuracy_verified':False, 'status': 'actual_joint_harmony_checked',
             'changed': True, 'raw_harmony_count': len(shared['harmony']), 'performed_harmony_count': len(harmony),
             'phrases': len(shared['phrase_harmony_plan']['phrases']),
             'reused_families': sum(len(f['members']) > 1 for f in shared['phrase_harmony_plan']['families']),

@@ -55,8 +55,10 @@ def fingerprint(value):
 # 吉他器乐低把位与指型复用：新增半开真实段落范围，混合小节不因此解锁普通演唱音。
 def editable_notes(shared, arrangement):
     sections = [s for s in shared.get('sections', []) if s['kind'] in POLICY['scope']]
+    protect_patterns=arrangement.get('configuration',{}).get('instrumental_register_preserve_vocal_patterns_version')==1
     return {n['id'] for n in arrangement['notes']
-            if any(s['start_tick'] <= n['start_tick'] < s['end_tick'] for s in sections)}
+            if any(s['start_tick'] <= n['start_tick'] < s['end_tick'] for s in sections)
+            and not (protect_patterns and n.get('phrase_harmony_generated') and n.get('right_hand_pattern_id'))}
 
 
 # 吉他器乐低把位与指型复用：新增只在真实休止或器乐段界分句，连续旋律不按排版行任意切八度。
@@ -715,6 +717,8 @@ def arrange_instrumental_register(shared, vocal, arrangement, replay_version=Non
                                      'source_notes':source,'source_notes_sha256':fingerprint(source),
                                      'editable_note_ids':sorted(editable),'report':report,
                                      'result_notes_sha256':fingerprint(result['notes'])}
+    if arrangement.get('configuration',{}).get('instrumental_register_preserve_vocal_patterns_version')==1:
+        result['instrumental_register']['vocal_pattern_protection_version']=1
     # 保音持续按弦与整句八度衔接：新增明确搜索来源标记，旧工程没有字段时只使用原算法重放。
     if search_version != 1:
         from guitar_register_search import SEARCH_POLICY
@@ -807,7 +811,7 @@ def validate_instrumental_register(shared, vocal, arrangement, replay=False):
     errors=[]; originals=info.get('source_notes',[]); source={n['id']:n for n in originals}
     # 器乐乐句和声视图统一通用修复：修改范围取值，原式保留；与规划入口使用同一来源视图。
     # actual={n['id']:n for n in arrangement['notes']}; editable=editable_notes(shared,{'notes':originals})
-    actual={n['id']:n for n in arrangement['notes']}; editable=editable_notes(planning_shared,{'notes':originals})
+    actual={n['id']:n for n in arrangement['notes']}; editable=editable_notes(planning_shared,{'notes':originals,'configuration':arrangement.get('configuration',{})})
     # 器乐合理分句与十二品硬限制：修改，旧仅一个策略保留；历史来源按旧版验证，新版有独立强约束。
     # if info.get('version')!=1 or info.get('policy')!=POLICY:
     version = info.get('version')
@@ -822,6 +826,8 @@ def validate_instrumental_register(shared, vocal, arrangement, replay=False):
         if any(n['fret'] > 12 for n in arrangement['notes'] if n['id'] in editable):
             errors.append('instrumental_register_above_twelve')
     # 原曲拍轴与歌词拍位通用修复：新增实际搜索版本核验，不能只改配置让旧派生自动获得新候选许可。
+    if info.get('vocal_pattern_protection_version',0)!=arrangement['configuration'].get('instrumental_register_preserve_vocal_patterns_version',0):
+        errors.append('instrumental_register_vocal_pattern_protection_changed')
     voicing_version=arrangement['configuration'].get('instrumental_register_voicing_version',1)
     if voicing_version not in (1,2) or info.get('voicing_version',1)!=voicing_version:
         errors.append('instrumental_register_voicing_version_changed')

@@ -24,7 +24,17 @@ try {
     switch ($Stage) {
         'AudioFirst' { & $projectPython (Join-Path $projectRoot 'tools\audio_inventory.py') --first '孙燕姿 - 遇见.ncm' }
         'AudioAll' { & $projectPython (Join-Path $projectRoot 'tools\audio_inventory.py') --all }
-        'Notation' { & $projectPython (Join-Path $projectRoot 'tools\notation_smoke.py') check (Join-Path $projectRoot 'test_outputs\notation\synthetic_vocal.musicxml') --require-match }
+        'Notation' {
+            $notationTool = Join-Path $projectRoot 'tools\notation_smoke.py'
+            $notationDirectory = Join-Path $projectRoot 'test_outputs\notation'
+            $notationXml = Join-Path $notationDirectory 'synthetic_vocal.musicxml'
+            $notationReference = Join-Path $notationDirectory 'synthetic_vocal.project.json'
+            if (-not (Test-Path -LiteralPath $notationXml) -and -not (Test-Path -LiteralPath $notationReference)) {
+                & $projectPython $notationTool generate --output-dir $notationDirectory
+                if ($LASTEXITCODE -ne 0) { throw '人工记谱检查样例生成失败。' }
+            }
+            & $projectPython $notationTool check $notationXml --reference $notationReference --require-match
+        }
         'GPU' { & $projectPython (Join-Path $projectRoot 'tools\check_environment.py') --report (Join-Path $projectRoot 'reports\environment_recheck.json') }
     }
     if ($LASTEXITCODE -ne 0) { throw ('验证阶段失败：' + $Stage + '，返回码 ' + $LASTEXITCODE) }

@@ -12,6 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def verify_reading_source(project, source):
+    if project.get('automatic_draft'):
+        from draft_music_review import verify_draft
+        return verify_draft(project,source)
     # 局部两拍过渡听辨修订：新增已复核小节层的来源重放，不能复制旧分组或绕过原音乐保护。
     if project.get('bar_boundary_revision'):
         from reviewed_bar_boundaries import verify_revision

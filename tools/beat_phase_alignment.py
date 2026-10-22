@@ -114,8 +114,9 @@ def derive_phase_vocal(original, correction):
     # 强拍相位与伴奏同步纠错：新增用户首句文字复核只写派生谱，原TXT和音素所有者索引不变。
     for change in review.get('lyric_text_corrections', []):
         char = next(c for c in vocal['lyrics']['characters'] if c['index'] == change['index'])
-        if char['text'] != change['old']:
+        if char['text'] not in (change['old'], change['new']):
             raise ValueError('歌词复核原字不匹配。')
+        # 用户提供的正确歌词可已包含修正字，仍只接受记录中的旧字或正确字。
         char['text'] = change['new']; char['text_correction'] = deepcopy(change)
     # 乐句节奏与音值分组：修改，原绝对元音先验调用注释保留；历史派生复现与新版策略严格区分。
     # pieces, audit = nucleus_onsets(base['quantized_notes'], vocal['lyrics']['characters'], mapping, vocal['timing'])

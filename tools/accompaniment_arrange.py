@@ -896,7 +896,7 @@ def requested_instruments(shared):
 # def arrange_requested(shared, vocal, capo=None):
 # 歌词自动加载与伴随声部音区保护：修改通用编配选择器接收同源伴随音区参考，不改变旧调用。
 # def arrange_requested(shared, vocal, capo=None, phrase_register=False):
-def arrange_requested(shared, vocal, capo=None, phrase_register=False, companion_reference=None):
+def arrange_requested(shared, vocal, capo=None, phrase_register=False, companion_reference=None, provisional_vocal=False):
     instruments = requested_instruments(shared)
     # 保音持续按弦与整句八度衔接：修改新初始配音先整体规划，原逐音入口留作历史重放。
     # result = {'guitar': arrange_guitar(shared, vocal, capo)}
@@ -906,8 +906,12 @@ def arrange_requested(shared, vocal, capo=None, phrase_register=False, companion
         # guitar = arrange_phrase_guitar(shared, vocal, capo)
         # 歌词自动加载与伴随声部音区保护：修改无参考的旧调用保持参数形态，旧重放和旧调用方不受影响。
         # guitar = arrange_phrase_guitar(shared, vocal, capo, companion_reference=companion_reference)
-        guitar = (arrange_phrase_guitar(shared, vocal, capo) if companion_reference is None else
-                  arrange_phrase_guitar(shared, vocal, capo, companion_reference=companion_reference))
+        if provisional_vocal:
+            guitar = arrange_phrase_guitar(shared, vocal, capo, companion_reference=companion_reference,
+                                          provisional_vocal=True)
+        else:
+            guitar = (arrange_phrase_guitar(shared, vocal, capo) if companion_reference is None else
+                      arrange_phrase_guitar(shared, vocal, capo, companion_reference=companion_reference))
     else:
         guitar = arrange_guitar(shared, vocal, capo)
     result = {'guitar': guitar}

@@ -105,7 +105,15 @@ def validate_structured_rhythm(shared,guitar):
 # 原曲器乐旋律骨干重提取：新增不改变旧调用签名的认可人声来源，源骨干验收使用真实绑定工程。
 def source_vocal(guitar):
     from instrumental_source_melody import source_parent
-    return source_parent(guitar)['accepted_vocal_project']
+    parent=source_parent(guitar)
+    if parent is None and guitar.get('instrumental_flow'):
+        # 新音源已直接保留器乐请求，可能没有旧旋律重提取账本；
+        # 使用同样经过文件摘要校验的低弦织体来源，不能凭空补人声。
+        from guitar_instrumental_flow import flow_parent
+        parent=flow_parent(guitar)
+    if parent is None:
+        raise ValueError('缺少可验证的人声来源，不能核查器乐节奏。')
+    return parent['accepted_vocal_project']
 
 
 # 结构稳定伴奏与人声合播：新增真实来源与重复选择核查，记录明确原曲变体理由。

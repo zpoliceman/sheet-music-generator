@@ -15,6 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def validate_parent(project, path):
+    if project.get('automatic_draft'):
+        from draft_music_review import verify_draft
+        verify_draft(project,path)
     # 4/4可选右手与实时谱面试听：新增旧拍轴／小节／来源仍按原规则重放，已选型版本先核真实选择。
     # 4/4可选右手与实时谱面试听：新增已有发布凭据时核对实际交付，防止手改原工程被当作认可基线。
     if (Path(path).parent/'publication.json').is_file():
@@ -141,6 +144,12 @@ def revise_selection(project_path, output, plan=None, feature_cache=None):
     require_selection(revised)
     from guitar_pattern_selection_ui import saved_index
     saved_index(revised, output, source)
+    if original.get('automatic_draft'):
+        from draft_music_review import stamp_draft,annotate_delivery
+        delivered=read_json(output/'project.json')
+        stamp_draft(delivered)
+        save_json(output/'project.json',delivered)
+        annotate_delivery(output)
     result = {'valid': True, 'output': str(output), 'music_changed': audit['music_changed'],
         'music_status': 'needs_review', 'normal_entry_changed': False, 'policy': POLICY,
         'selection': selection_check, 'section_patterns': selection_check, 'artifacts': checks,

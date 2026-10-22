@@ -308,10 +308,10 @@
       const info=await api('/api/project?id='+encodeURIComponent(identity));if(sequence!==state.sequence)return;state.project=info;
       // 初始默认完整谱与歌词对照：新增真实小节表完成后的定位选项，快切歌曲的旧响应不能覆盖新谱。
       showDefault(identity,info);$('default-measure').replaceChildren();
-      for(let m=1;m<=info.measure_count;m++)$('default-measure').add(new Option(`第${m-offset()}小节`,String(m)));
+      for(let m=1;m<=info.measure_count;m++)$('default-measure').add(new Option(m===1&&offset()?'弱起预备':`第${m-offset()}小节`,String(m)));
       $('default-measure').disabled=!state.reference.url;
-      $('preview-measure').replaceChildren();for(let m=1;m<=info.measure_count;m++)$('preview-measure').add(new Option(`第${m-offset()}小节`,String(m)));
-      $('source-note').textContent=`第${1-offset()}–${maximum()}小节 · ${info.eligible_measures.length}个可选演唱小节`;$('original-link').href=info.original_url;
+      $('preview-measure').replaceChildren();for(let m=1;m<=info.measure_count;m++)$('preview-measure').add(new Option(m===1&&offset()?'弱起预备':`第${m-offset()}小节`,String(m)));
+      $('source-note').textContent=`${offset()?'弱起预备＋第1':'第1'}–${maximum()}小节 · ${info.eligible_measures.length}个可选演唱小节`;$('original-link').href=info.original_url;
       const saved=await api('/api/configurations?project_id='+encodeURIComponent(identity));if(sequence!==state.sequence)return;
       state.configurations=saved.configurations;populateConfigurations();loading(false);newConfiguration();
     }catch(error){if(sequence===state.sequence)message(error.message,true);}

@@ -280,6 +280,10 @@ def load_edited_project(path,rearrange=False,capo=None,repair_missing_features=F
 
 # 和弦弹唱与伴奏编配：新增一次完整导出与实测报告，音乐听审未完成时明确为初稿。
 def generate(args):
+    if (getattr(args,'review_draft',False) or getattr(args,'defer_vocal_prototype',False)) and args.edited_project:
+        raise ValueError('新草稿选项只用于新音源；已有曲谱请用原编辑入口另存。')
+    if getattr(args,'review_draft',False) and not Path(args.output).resolve().is_relative_to(ROOT/'test_outputs/accompaniment_runs'):
+        raise ValueError('待校对草稿只能保存在独立test_outputs目录，不能写入正常曲谱库。')
     # 首次生成自动拍轴交接：新增新源缓存参数不得静默作用于旧认可工程，保护修订／重导分支。
     # 尾段原声局部补证：修改旧工程保护范围，来源决定也不能用于覆盖旧认可音乐。
     # if getattr(args,'edited_project',None) and any(getattr(args,name,None) for name in ('source_meter_evidence','source_meter_model_cache')):
@@ -428,6 +432,9 @@ def generate(args):
         raise ValueError('独立源拍轴重建与历史拍轴校正请分别另存执行，不能在同一任务互相覆盖。')
     fresh_music=not args.edited_project or args.rearrange or source_rebuild_requested
     source_meter_enabled=False
+    review_draft=bool(getattr(args,'review_draft',False))
+    draft_issues=[]
+
     inherited_layout=read_json(args.edited_project).get('guitar_score_layout',{}).get('mode') if args.edited_project else None
     # 原曲拍轴与歌词拍位通用修复：修改，旧默认条件保留；明确重建也执行完整阅读与编配功能。
     # fold_repeats_enabled=getattr(args,'fold_repeats',False) or inherited_layout=='repeat_folded' or not args.edited_project or args.rearrange
@@ -542,14 +549,21 @@ def generate(args):
             # vocal,source_meter_evidence=prepare_source_vocal(vocal,binding,work/'features')
             # 首次生成自动拍轴交接：修改新输入实际接收匿名原声决定；旧工程修订继续原路线。
             # vocal,source_meter_evidence=prepare_source_vocal(vocal,binding,work/'features',quality=True)
-            vocal,source_meter_evidence=prepare_source_vocal(vocal,binding,work/'features',quality=True,
-                first_generation=not bool(args.edited_project), evidence=getattr(args,'source_meter_evidence',None),
-                feature_caches=getattr(args,'meter_features_from',()) or (),
-                # 尾段原声局部补证：修改增加冻结且来源重放通过的首次决定参数，不触发全曲重选拍。
-                # model_cache=getattr(args,'source_meter_model_cache',None))
-                model_cache=getattr(args,'source_meter_model_cache',None),
-                decision_path=getattr(args,'first_source_decision',None))
-            source_meter_enabled=True
+            try:
+                vocal,source_meter_evidence=prepare_source_vocal(vocal,binding,work/'features',quality=True,
+                    first_generation=not bool(args.edited_project), evidence=getattr(args,'source_meter_evidence',None),
+                    feature_caches=getattr(args,'meter_features_from',()) or (),
+                    # 尾段原声局部补证：修改增加冻结且来源重放通过的首次决定参数，不触发全曲重选拍。
+                    # model_cache=getattr(args,'source_meter_model_cache',None))
+                    model_cache=getattr(args,'source_meter_model_cache',None),
+                    decision_path=getattr(args,'first_source_decision',None))
+                source_meter_enabled=True
+            except __import__('first_generation_source').UnresolvedFirstSource as pending:
+                if not review_draft:
+                    raise
+                draft_issues.append({'stage':'first_generation_source_clock',
+                    'decision_path':pending.decision_path,'issues':pending.decision['issues']})
+                print('拍速／首拍尚待校对，按用户选择继续生成完整自动草稿；不将拍轴标为通过。',flush=True)
         # 默认入口原曲节拍强制复核：新增源校正必须在和声窗及初次伴奏原型生成之前通过完整复核。
         # 首拍与首尾局部补证：新增首次分支在已验拍轴之后、和声／编配之前实际加载指定字音补证，不能只接受参数却沿用旧词位。
         # 歌词自动加载与伴随声部音区保护：修改正常首次入口自动读取共享分析的必需修正清单；旧显式参数仍受相同来源校验。
@@ -568,7 +582,11 @@ def generate(args):
             if vocal.get('first_source_word_correction',{}).get('artifact_sha256')!=sha256(first_words_path):
                 raise ValueError('首次局部字音没有实际进入当前人声，拒绝继续编配')
             print('已加载并重放指定局部词音，原拍轴与音高保持',flush=True)
-        source_entry_ready=require_calibrated_source(vocal,shared['input_binding'] if shared is not None else binding)
+        if review_draft and draft_issues:
+            source_entry_ready={'status':'needs_review','source_clock_verified':False,
+                                'normal_publication_allowed':False,'issues':draft_issues}
+        else:
+            source_entry_ready=require_calibrated_source(vocal,shared['input_binding'] if shared is not None else binding)
         # 尾段原声局部补证：修改首次中断恢复沿用同源同轴的共享分析，不因已有来源层而整曲重算和弦。
         # if shared is None or source_meter_enabled:
         if shared is not None and source_meter_enabled and vocal.get('first_source_meter_correction'):
@@ -619,6 +637,10 @@ def generate(args):
             save_bundle(work/'shared_analysis.json',bundle_words,companion_reference)
             shared=read_json(work/'shared_analysis.json')
         # 分解和弦优先：新增复用多轨攻击缓存的柱式例外核查，原和声及原织体kind保留。
+        if review_draft:
+            shared['automatic_draft_request']={'version':1,'status':'needs_review','normal_publication_allowed':False}
+        else:
+            shared.pop('automatic_draft_request',None)
         print('核查柱式例外的原曲起音证据',flush=True)
         shared=add_block_support(shared,vocal,work/'features')
         # 默认入口原曲节拍强制复核：新增新曲也须在首次乐器编配前通过来源检查，不能只凭prepare函数自报成功。
@@ -628,12 +650,21 @@ def generate(args):
         # print('编配吉他与钢琴',flush=True)
         # arrangements={'guitar':arrange_guitar(shared,vocal,args.capo),'piano':arrange_piano(shared,vocal)}
         # 渴首次吉他编配：新增按所选乐器执行，保留各乐器原验证。
+        from generation_contracts import check_shared
+        check_shared(shared,vocal)
         print('编配吉他' if requested_instruments(shared)==('guitar',) else '编配吉他与钢琴',flush=True)
         # 保音持续按弦与整句八度衔接：修改全新音乐显式启用整句规划，旧工程重导不触发。
         # arrangements=arrange_requested(shared,vocal,args.capo)
         # 歌词自动加载与伴随声部音区保护：修改真实首次编配入口消费同源参考，仍执行完整旋律、低音、和声与指法求解。
         # arrangements=arrange_requested(shared,vocal,args.capo,phrase_register=True)
-        arrangements=arrange_requested(shared,vocal,args.capo,phrase_register=True,companion_reference=companion_reference)
+        provisional = bool(getattr(args,'defer_vocal_prototype',False))
+        if provisional and args.edited_project:
+            raise ValueError('延后唱段原型只用于新生成，不能丢弃已有曲谱的指法。')
+        arrangements=arrange_requested(shared,vocal,args.capo,phrase_register=True,
+                                      companion_reference=companion_reference,provisional_vocal=provisional)
+        if review_draft:
+            arrangements['guitar']['configuration']['instrumental_flow_regular_events_version']=1
+            arrangements['guitar']['configuration']['instrumental_register_preserve_vocal_patterns_version']=1
     # 常用右手伴奏型：新增新编配默认启用；编辑重导仅显式请求时套型，保护手工编辑。
     # 强拍相位与伴奏同步纠错：新增已授权的相位纠错先重建人声/和声，再选型，禁止复用错拍的右手循环。
     # 乐句节奏与音值分组：修改，原条件与调用注释保留；新增完整乐句升级同样重建共享分析。
@@ -656,7 +687,7 @@ def generate(args):
     # structural_enabled=getattr(args,'structural_rhythm',False) or not args.edited_project or args.rearrange
     # 原曲拍轴与歌词拍位通用修复：修改，旧自动后置拼接条件保留；已经独立重建的时序不再自动套旧原型校正。
     # performance_enabled=getattr(args,'performance_beat_clock',False) or not args.edited_project or args.rearrange
-    performance_enabled=getattr(args,'performance_beat_clock',False) or (fresh_music and not source_meter_enabled)
+    performance_enabled=getattr(args,'performance_beat_clock',False) or (fresh_music and not source_meter_enabled and not review_draft)
     structural_enabled=getattr(args,'structural_rhythm',False) or performance_enabled
     local_clock_enabled=getattr(args,'local_beat_clock',False) or structural_enabled
     if local_clock_enabled:
@@ -696,8 +727,8 @@ def generate(args):
     # 原曲拍轴与歌词拍位通用修复：修改，旧自动后置版本保留；显式历史校正仍可复现，新的独立源层不再拼接旧原型。
     # continuous_enabled=getattr(args,'continuous_meter',False) or not args.edited_project or args.rearrange
     # if not args.edited_project or args.rearrange or continuous_enabled:
-    continuous_enabled=getattr(args,'continuous_meter',False) or (fresh_music and not source_meter_enabled)
-    if (fresh_music and not source_meter_enabled) or continuous_enabled:
+    continuous_enabled=getattr(args,'continuous_meter',False) or (fresh_music and not source_meter_enabled and not review_draft)
+    if (fresh_music and not source_meter_enabled and not review_draft) or continuous_enabled:
         from source_meter_harmony import correct_source_meter_project
         print('核查跨乐器低音、小节首拍和开放指型性质音', flush=True)
         shared,vocal,arrangements=correct_source_meter_project(shared,vocal,arrangements,Path(args.analysis_dir)/'features')
@@ -710,7 +741,7 @@ def generate(args):
     # 人声连续音值与长休止漏音通用修复：新增初次生成／明确升级的局部声学复核；普通历史重导不静默改音。
     # 原曲拍轴与歌词拍位通用修复：修改，旧自动层保留；源f0已参与新层时不再隐式叠加旧人声派生。
     # if getattr(args,'vocal_continuity',False) or not args.edited_project or args.rearrange:
-    if getattr(args,'vocal_continuity',False) or (fresh_music and not source_meter_enabled):
+    if getattr(args,'vocal_continuity',False) or (fresh_music and not source_meter_enabled and not review_draft):
         from vocal_continuity_project import correct_vocal_continuity
         print('复核长休止内部稳定人声，修复连续字尾及字内音值',flush=True)
         shared,vocal,arrangements=correct_vocal_continuity(shared,vocal,arrangements,Path(args.analysis_dir)/'features',
@@ -730,7 +761,7 @@ def generate(args):
     # structured=getattr(args,'structured_accompaniment',False) or getattr(args,'correct_beat_phase',False) or getattr(args,'phrase_rhythm',False) or local_clock_enabled
     # 原曲拍轴与歌词拍位通用修复：修改，旧结构条件保留；独立源重建使用规整共同编配。
     # structured=getattr(args,'structured_accompaniment',False) or getattr(args,'correct_beat_phase',False) or getattr(args,'phrase_rhythm',False) or local_clock_enabled or continuous_enabled
-    structured=getattr(args,'structured_accompaniment',False) or getattr(args,'correct_beat_phase',False) or getattr(args,'phrase_rhythm',False) or local_clock_enabled or continuous_enabled or source_meter_enabled
+    structured=review_draft or getattr(args,'structured_accompaniment',False) or getattr(args,'correct_beat_phase',False) or getattr(args,'phrase_rhythm',False) or local_clock_enabled or continuous_enabled or source_meter_enabled
     # 跨歌曲和弦复用与器乐准备：新增一次联合规划；新编配不先按旧逐小节和弦造一套即将废弃的模板音。
     # 原曲拍轴与歌词拍位通用修复：修改，旧条件保留；新拍轴必须重算共同和声和两套实际伴奏。
     # joint_harmony_enabled=getattr(args,'phrase_harmony',False) or not args.edited_project or args.rearrange
@@ -818,6 +849,10 @@ def generate(args):
     # 跨歌曲和弦复用与器乐准备：修改，原重复条件保留；共同使用前面声明的联合规划入口。
     # if getattr(args,'phrase_harmony',False) or not args.edited_project or args.rearrange:
     if joint_harmony_enabled:
+        if review_draft:
+            shared['automatic_draft_request']={'version':1,'status':'needs_review','normal_publication_allowed':False}
+        else:
+            shared.pop('automatic_draft_request',None)
         print('联合相似乐句选择稳定和弦进行，两乐器重编实际伴奏',flush=True)
         # 跨曲低音与强拍复用通用修复：新增可回放的编配前诊断快照，边界实音失败必须可逐音追查。
         if vocal.get('source_meter_correction'):
@@ -934,6 +969,8 @@ def generate(args):
         work=Path(args.analysis_dir).resolve()
         if not work.is_relative_to(ROOT/'test_outputs'/'accompaniment_runs'):
             raise ValueError('器乐表现来源缓存必须位于项目分析目录。')
+        if fresh_music and not args.edited_project:
+            arrangements['guitar']['configuration']['instrumental_clarity_lyric_guard_version']=1
         seed={'shared_analysis':deepcopy(shared),'accepted_vocal_project':deepcopy(vocal),'arrangements':deepcopy(arrangements)}
         if args.edited_project and fingerprint(read_json(args.edited_project)['arrangements']['guitar'])==fingerprint(arrangements['guitar']):
             expression_source=Path(args.edited_project).resolve()
@@ -989,13 +1026,19 @@ def generate(args):
     if arrangements['guitar'].get('instrumental_register',{}).get('version') == 2:
         from guitar_instrumental_register import require_instrumental_fret_limit
         instrumental_fret_limit = require_instrumental_fret_limit(shared,arrangements['guitar'])
+    if fresh_music and not args.edited_project:
+        from generation_contracts import check_shared
+        check_shared(shared,vocal,stage='吉他编配→完整导出')
     for name,arrangement in arrangements.items():
         validation=validate_playability(arrangement,SongClock(vocal))
         if not validation['valid']:raise ValueError(name+'编辑/编配违反演奏约束：'+str(validation['errors'][:8]))
     # 原声覆盖与选音归属通用修复：新增最终源覆盖门槛，避免后级模板或可弹性修复再次删成整小节休止。
     from source_accompaniment_quality import validate_source_coverage
     source_coverage_check=validate_source_coverage(shared,vocal,arrangements)
-    if not source_coverage_check['valid']:raise ValueError('原声覆盖检查未通过：'+str(source_coverage_check['errors'][:8]))
+    if not source_coverage_check['valid']:
+        if not review_draft:
+            raise ValueError('原声覆盖检查未通过：'+str(source_coverage_check['errors'][:8]))
+        draft_issues.append({'stage':'source_music_coverage','check':source_coverage_check})
     # 尾段原声局部补证：新增首次来源v2统一末阶段，先执行既有稳定右手／长段读法再导三套谱；旧工程和历史导出流程保持。
     if fresh_music and not args.edited_project and vocal.get('first_source_meter_correction',{}).get('version')==2:
         from first_generation_delivery import finish_first_delivery
@@ -1004,7 +1047,10 @@ def generate(args):
         # return finish_first_delivery(shared,vocal,arrangements,Path(args.analysis_dir),output)
         # 4/4可选右手与实时谱面试听：修改首次末阶段传递同一选择，未传保持旧调用及行为。
         # result=finish_first_delivery(shared,vocal,arrangements,Path(args.analysis_dir),output)
-        if right_hand_plan is None:
+        if review_draft:
+            result=finish_first_delivery(shared,vocal,arrangements,Path(args.analysis_dir),output,
+                right_hand_plan=right_hand_plan,review_draft=True,draft_issues=draft_issues)
+        elif right_hand_plan is None:
             result=finish_first_delivery(shared,vocal,arrangements,Path(args.analysis_dir),output)
         else:
             result=finish_first_delivery(shared,vocal,arrangements,Path(args.analysis_dir),output,right_hand_plan=right_hand_plan)
@@ -1047,6 +1093,13 @@ def generate(args):
             feature_project['arrangements']['guitar'])
     feature_project['feature_capabilities']=delivery_capabilities(feature_upgrade,result.get('guitar_repeat_layout'))
     feature_project['last_feature_upgrade']=feature_upgrade
+    if review_draft:
+        from draft_music_review import stamp_draft
+        phrase_pending=(phrase_harmony_check or {}).get('source_review_issues',[])
+        if phrase_pending:draft_issues.append({'stage':'source_backed_chord_entry','issues':phrase_pending})
+        stamp_draft(feature_project,draft_issues)
+        result['music_review']={'status':'needs_review','normal_publication_allowed':False,
+                                'source_clock_check':deepcopy(source_entry_ready)}
     save_json(output/'project.json',feature_project)
     if instrumental_register_check is not None:
         result['instrumental_register']=instrumental_register_check
@@ -1142,6 +1195,9 @@ def generate(args):
         result['instrumental_fret_limit'] = instrumental_fret_limit
     result['preservation']={'checked_file_count':len(protected),'all_sha256_unchanged':True,'files':protected}
     result['elapsed_seconds']=time.perf_counter()-started
+    if review_draft:
+        from draft_music_review import annotate_delivery
+        annotate_delivery(output)
     save_json(output/'validation.json',result)
     save_json(output/'manifest.json',{'schema_version':1,'files':[{'path':str(p.relative_to(output)).replace('\\','/'),
                       'sha256':sha256(p),'bytes':p.stat().st_size} for p in sorted(output.rglob('*')) if p.is_file() and p.name!='manifest.json']})
@@ -1179,6 +1235,8 @@ def main():
     # 渴首次吉他编配：新增按所选乐器执行，保留各乐器原验证。
     parser.add_argument('--shared-analysis',type=Path);parser.add_argument('--six-sources',action='store_true')
     parser.add_argument('--guitar-only',action='store_true',help='新编配仅生成吉他谱与原唱合播；仍保留完整分轨分析及吉他演奏／时序核验。')
+    parser.add_argument('--defer-vocal-prototype',action='store_true',help='新生成先规划器乐，唱段在共同和声阶段正式编配；最终全部演奏检查保持。')
+    parser.add_argument('--review-draft',action='store_true',help='节拍尚未确定时保留真实未决证据并生成标有待校对的完整草稿；不发布正常曲谱。')
     parser.add_argument('--analysis-dir',type=Path,default=ROOT/'test_outputs'/'accompaniment_runs'/'current')
     parser.add_argument('--capo',type=int,choices=range(0,8));parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--report',type=Path);parser.add_argument('--edited-project',type=Path);parser.add_argument('--rearrange',action='store_true')

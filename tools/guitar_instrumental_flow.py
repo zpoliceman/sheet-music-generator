@@ -333,6 +333,13 @@ def arrange_flow(shared, vocal, original, plan):
                 'source': 'instrumental_flow', 'onset_origin': 'backbone_with_lower_arpeggio',
                 'note_ids': sorted(n['id'] for n in group), 'stroke': None,
                 'right_hand_duration_ticks': duration, 'right_hand_duration_source': 'instrumental_flow_grid'})
+            if result['configuration'].get('instrumental_flow_regular_events_version')==1 and any(n.get('right_hand_pattern_id') for n in group):
+                prior=next((e for e in original['attack_events'] if e['start_tick']==tick and
+                            e.get('right_hand_duration_source')=='regular_pattern_slot'),None)
+                if prior:
+                    for field in ('right_hand_pattern_id','right_hand_slot','right_hand_duration_ticks',
+                                  'right_hand_duration_source','pattern_cycle_origin_tick'):
+                        if field in prior:events[-1][field]=deepcopy(prior[field])
     result['attack_events'] = sorted(events, key=lambda e: e['start_tick'])
     for field in ('tab_display', 'rhythm_display', 'time_alignment_display'):
         result.pop(field, None)
@@ -438,6 +445,8 @@ def validate_flow(shared, vocal, guitar, replay=False):
         # 原曲拍轴与歌词拍位通用修复：新增候选版本绑定真实源工程，篡改派生配置不能绕过下一拍准备核验。
         if guitar['configuration'].get('instrumental_flow_motion_version',1)!=base['configuration'].get('instrumental_flow_motion_version',1):
             errors.append('instrumental_flow_motion_version_changed')
+        if guitar['configuration'].get('instrumental_flow_regular_events_version',0)!=base['configuration'].get('instrumental_flow_regular_events_version',0):
+            errors.append('instrumental_flow_regular_events_version_changed')
         # 器乐填充密度随主体伴奏：修改，旧固定版本1判别保留；历史与主体密度版本分别严格复演。
         # if info['version'] != 1 or info['policy'] != POLICY:
         expected_policy=POLICY if info['version']==1 else POLICY_V2 if info['version']==2 else None

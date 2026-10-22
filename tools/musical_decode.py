@@ -816,7 +816,7 @@ def export(args):
     started=time.perf_counter();analysis=score.read_json(args.notes);lyrics=score.read_json(args.lyrics)
     if analysis["source"].get("offset_seconds",0)!=0 or lyrics["source"].get("offset_seconds",0)!=0: raise ValueError("需整首零偏移时间轴。")
     if analysis["source"]["sha256"]!=lyrics["source"]["sha256"]: raise ValueError("歌词与人声音符源不一致。")
-    audio_analysis=score.analyze_audio(args.audio,score.ROOT/"reports/score_audio_analysis.json")
+    audio_analysis=score.analyze_audio(args.audio,getattr(args,"audio_report",None) or score.ROOT/"reports/score_audio_analysis.json")
     if abs(audio_analysis["duration_seconds"]-analysis["source"]["duration_seconds"])>.1: raise ValueError("混音与人声长度不一致。")
     # 大调约束与强拍先验：修改导出读入可选用户确认，原调用保留。
     # project=decode(analysis,lyrics,audio_analysis,args.key,args.tempo,args.meter,args.beat_origin)
@@ -866,6 +866,7 @@ def main():
     parser.add_argument("--title",default="人声乐谱");parser.add_argument("--key",help="输出目标调，例如 G:major；默认源调，记谱可纠正低支持音高")
     # 大调约束与强拍先验：新增来源受校验的用户吞字确认文件参数。
     parser.add_argument("--review-annotations",type=Path)
+    parser.add_argument("--audio-report",type=Path,help="本次任务独立音源分析报告")
     parser.add_argument("--tempo",type=float);parser.add_argument("--meter");parser.add_argument("--beat-origin",type=float)
     parser.add_argument("--subdivision",type=int,choices=(2,4,8),default=8,help="旧入口兼容；音乐层保护短主音使用32分最小网格")
     return export(parser.parse_args())

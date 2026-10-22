@@ -170,6 +170,42 @@ def analyze_sections(shared,vocal,guitar):
 
 
 # 器乐背景休止与旋律突出：新增背景上下文闭合，仅跨越无独立音乐证据的短窗；真实长音保留待复核。
+def protect_lyric_rests(intervals, vocal):
+    """Automatic background proposals cannot mask an already mapped lyric note."""
+    clock=SongClock(vocal);protected=[]
+    for note in vocal.get('quantized_notes',[]):
+        if note.get('lyric_index') is None:continue
+        begin,end=note['start_tick'],note['end_tick']
+        source_begin,source_end=note.get('start_seconds'),note.get('end_seconds')
+        if source_begin is not None and source_end is not None:
+            begin=min(begin,clock.tick(source_begin));end=max(end,clock.tick(source_end))
+        if end>begin:
+            protected.append((max(0,math.floor(begin/120)*120),min(clock.total_ticks,math.ceil(end/120)*120),note['id']))
+    output=[];vetoes=[]
+    for interval in intervals:
+        begin,end=interval['start_tick'],interval['end_tick']
+        overlapping=[r for r in protected if r[0]<end and r[1]>begin]
+        if not overlapping:
+            output.append(deepcopy(interval));continue
+        fragments=[(begin,end)]
+        for left,right,_ in overlapping:
+            next_fragments=[]
+            for a,b in fragments:
+                if right<=a or left>=b:next_fragments.append((a,b));continue
+                if a<left:next_fragments.append((a,left))
+                if right<b:next_fragments.append((right,b))
+            fragments=next_fragments
+        emitted=[]
+        for a,b in fragments:
+            left=max(interval['start_seconds'],clock.seconds(a));right=min(interval['end_seconds'],clock.seconds(b))
+            if right-left<POLICY['minimum_background_seconds']:continue
+            row=deepcopy(interval);row.update(start_tick=a,end_tick=b,start_seconds=left,end_seconds=right,lyric_boundary_protected=True)
+            output.append(row);emitted.append({'start_tick':a,'end_tick':b})
+        vetoes.append({'original_interval':deepcopy(interval),'protected_note_ids':sorted({r[2] for r in overlapping}),
+                       'remaining_intervals':emitted,'reason':'preserve_lyric_source_and_notation_intervals'})
+    return output,vetoes
+
+
 def aggregate_background(plan,shared,vocal,guitar):
     clock=SongClock(vocal);sources=plan['source_bindings'];curve=source_curve(sources.get('accompaniment',sources['mix']))
     intervals=[];reviews=[];step=POLICY['window_step_seconds']
@@ -231,6 +267,9 @@ def aggregate_background(plan,shared,vocal,guitar):
                 for k in range(i,j):states[k]='ambiguous';rows[k]['context_decision']='preserve_established_musical_decay'
             i=j
         section['resolved_states']=states
+    if guitar.get('configuration',{}).get('instrumental_clarity_lyric_guard_version') == 1:
+        intervals,vetoes=protect_lyric_rests(intervals,vocal)
+        if vetoes:plan['lyric_voice_protection']={'version':1,'vetoes':vetoes,'accepted_vocal_unchanged':True}
     plan['rest_intervals']=intervals;plan['review_windows']=reviews;plan['decision']='automatic_background_filter' if intervals else 'preserve_music_and_uncertain_sections'
     return plan
 

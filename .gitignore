@@ -43,3 +43,7 @@ __pycache__/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# 本地桌面可执行文件由desktop/build.ps1编译。
+/弦页制谱.exe
+/desktop/*.pdb

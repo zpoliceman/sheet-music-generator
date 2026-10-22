@@ -134,6 +134,7 @@ def main() -> int:
     parser.add_argument("--language", choices=("zh", "en", "auto"), default="zh")
     parser.add_argument("--lyrics-file", type=Path, help="用户提供的 UTF-8 正确歌词；不需要重新运行 ASR")
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--report-dir", type=Path, help="本次任务独立报告目录")
     args = parser.parse_args()
     output = args.output_dir.resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -175,9 +176,10 @@ def main() -> int:
     except Exception as exc:
         report.update(status="failed", error=f"{type(exc).__name__}: {exc}", traceback=traceback.format_exc())
     report["wall_seconds"] = time.perf_counter() - started
-    save_json(ROOT / "reports" / "lyrics_asr.json", report)
+    report_dir = args.report_dir or ROOT / "reports"
+    save_json(report_dir / "lyrics_asr.json", report)
     # 歌词对齐与真实制谱：新增按模型保留独立实测报告，质量对照不覆盖坏稿基线。
-    save_json(ROOT / "reports" / f"lyrics_asr.{args.model}.json", report)
+    save_json(report_dir / f"lyrics_asr.{args.model}.json", report)
     print(json.dumps(report, ensure_ascii=False), flush=True)
     return 1 if report["status"] == "failed" else 0
 

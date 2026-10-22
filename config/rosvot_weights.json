@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "source": {
+    "repository": "https://github.com/RickyL-2000/ROSVOT.git",
+    "commit": "3c8332bf43adae35f6e4d64971862f2f6139b310"
+  },
+  "download": {
+    "official_readme_url": "https://drive.google.com/file/d/1JNtNT37KiLq9uFQqHk7JFs-3trxd3bRh/view?usp=sharing",
+    "sha256": "b6055e81315b93415c9bd7fc48e10a28a3da1bea960cab7385483bd7443ba852",
+    "shared_components": [
+      "RMVPE",
+      "ROSVOT",
+      "RWBD"
+    ]
+  },
+  "files": [
+    {
+      "path": "third_party/ROSVOT/checkpoints/rmvpe/model.pt",
+      "bytes": 368492925,
+      "sha256": "19dc1809cf4cdb0a18db93441816bc327e14e5644b72eeaae5220560c6736fe2"
+    },
+    {
+      "path": "third_party/ROSVOT/checkpoints/rosvot/config.yaml",
+      "bytes": 3176,
+      "sha256": "2ad2cb756623418c471b7dc2f56175cce88b69a70b4a2c354fa1a78525aa54e2"
+    },
+    {
+      "path": "third_party/ROSVOT/checkpoints/rosvot/model.pt",
+      "bytes": 144674420,
+      "sha256": "7501fb5f913d971c2f51bcb3063b930027b03206581820a4d2bfdc394c9c3fcb"
+    },
+    {
+      "path": "third_party/ROSVOT/checkpoints/rwbd/config.yaml",
+      "bytes": 3451,
+      "sha256": "3bb41f1d9eaa85aa1b3e5b6d94fff4ab4affb39719028ab69b4505974b9a1bc7"
+    },
+    {
+      "path": "third_party/ROSVOT/checkpoints/rwbd/model.pt",
+      "bytes": 119897457,
+      "sha256": "0bc2d42a6d4b7a05436deb937e2deda1c12de49e5687cfda0bdf6a430120dcd2"
+    }
+  ]
+}

@@ -87,7 +87,8 @@ def common_chart(chord,entry,check,capo):
     frets = fret_map(entry);info = grip_info(frets);positive = [f for f in frets.values() if f>0]
     first = min(positive,default=1)
     if max(positive,default=0)<=4:first=1
-    key = key_definition(pc_name(chord['key']['tonic_pc']-capo,chord['key'])+':major')
+    from accompaniment_arrange import capo_shape_key
+    key = capo_shape_key(chord['key'],capo)
     return {'frets':{str(s):f for s,f in frets.items()}, 'position':first,
             'shape_name':chord_name(chord['root_pc']-capo,chord['quality'],chord['bass_pc']-capo,key),
             'sounding_name':chord['name'], 'capo':capo, 'barre':info['barre'], 'finger_count':info['finger_count'],

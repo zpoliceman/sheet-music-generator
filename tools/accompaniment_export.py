@@ -663,7 +663,8 @@ def _numeric_guitar_row(shared,vocal,arrangement,first,last):
             # shape_key=score.key_definition(pc_name(chord['key']['tonic_pc']-arrangement['configuration']['capo_fret'],chord['key'])+':major')
             # name='N.C.' if chord['name']=='N.C.' else chord_name(chord['root_pc']-arrangement['configuration']['capo_fret'],chord['quality'],chord['bass_pc']-arrangement['configuration']['capo_fret'],shape_key)
             current_capo=capo_at(arrangement,at)
-            shape_key=score.key_definition(pc_name(chord['key']['tonic_pc']-current_capo,chord['key'])+':major')
+            from accompaniment_arrange import capo_shape_key
+            shape_key=capo_shape_key(chord['key'],current_capo)
             name='N.C.' if chord['name']=='N.C.' else chord_name(chord['root_pc']-current_capo,chord['quality'],chord['bass_pc']-current_capo,shape_key)
             scene.text(px,45,name,17,'#234945',weight='bold')
         scene.end_measure()

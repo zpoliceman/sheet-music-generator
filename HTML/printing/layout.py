@@ -119,6 +119,12 @@ def prepare_reference(unit,charts):
     unit.update(positions=positions,width=width,bands=dict(bands))
 
 
+def diagram_anchor(unit,instance,targets):
+    # 预留宽度和绘图必须使用同一音符时间列；避让后的图心可能靠近小节线。
+    x=instance['old_x'];at=min(unit['centers'],key=lambda center:abs(center-x))
+    return targets[at]+x-at+35
+
+
 def inline_chart(chart,instance,x,y):
     root=node('g',transform=f'translate({x:g},{y:g})',data_inline_chart='true',data_chart_key=instance['key'],data_chord_name=chart['name'],data_start_tick=instance['node'].get('data-start-tick'),data_plan_id=instance['node'].get('data-plan-id'))
     root.append(node('text',chart['name'],x=0,y=20,font_size=CHART_NAME_SIZE,font_weight='bold',font_family='Arial, Microsoft YaHei, sans-serif',text_anchor='middle',fill='#111',data_chord_label='true'))
@@ -198,7 +204,7 @@ def make_reference_row(row_units,charts,native_width):
             label+=' / '+','.join(str(o['first']+unit['number']-unit['block']['canonical_first']-unit['pickup_offset']) for o in unit['block']['occurrences'][1:])
         group.append(node('text',label,x=3,y=16,font_size=16,fill='#333',data_measure_label='true'))
         for chart in unit['charts']:
-            group.append(inline_chart(charts[chart['key']],chart,mx(chart['old_x'])+35,chart_top))
+            group.append(inline_chart(charts[chart['key']],chart,diagram_anchor(unit,chart,targets),chart_top))
         group.append(styled_tab(unit['tab'],lambda x:mx(x-unit['left']),tab_top))
         if unit['show_meter']:
             num,den=unit['meter']
@@ -225,7 +231,7 @@ def make_reference_row(row_units,charts,native_width):
             top=voice_bottom+extra_tail+route_tail+12+vi*variant_slot
             group.append(node('text',f"第{variant['pass']}遍用下方奏法（第{variant['source_measure']-unit['pickup_offset']}小节）",x=width/2,y=top+18,font_size=17,text_anchor='middle',fill='#111',data_variant_caption=variant['source_measure']))
             alt_group=node('g',data_variant_source_measure=variant['source_measure'],data_variant_canonical_measure=unit['number'],data_variant_pass=variant['pass'])
-            for chart in variant['charts']:alt_group.append(inline_chart(charts[chart['key']],chart,mx(chart['old_x'])+35,top+25))
+            for chart in variant['charts']:alt_group.append(inline_chart(charts[chart['key']],chart,diagram_anchor(unit,chart,targets),top+25))
             alt_group.append(styled_tab(variant['tab'],lambda x:mx(x+variant['offset']),top+25+chart_slot([charts[c['key']] for c in variant['charts']],tab_top_padding(variant['tab']))))
             group.append(alt_group)
         for mark in unit['markers']:

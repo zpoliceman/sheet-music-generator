@@ -357,6 +357,7 @@ def main():
     parser.add_argument('--padding-seconds', type=float, default=.35)
     parser.add_argument('--plan-only', action='store_true')
     parser.add_argument('--force', action='store_true')
+    parser.add_argument('--report-dir', type=Path, help='本次任务独立报告目录')
     args = parser.parse_args()
     report = {'task': '歌词对齐与真实制谱', 'operation': 'tifa_phrase_alignment', 'timings': {}, 'warnings': []}
     started = time.perf_counter()
@@ -564,13 +565,14 @@ def main():
     # 歌词对齐与真实制谱：修改；原无条件写入保留为注释，避免缓存命中覆盖首次推理计时证据。
     # save_json(ROOT/'reports/lyrics_phrase_alignment.json', report)
     # save_json(output/'alignment_report.json', report)
+    report_dir = args.report_dir or ROOT/'reports'
     if report['status'] == 'cache_hit':
-        # 歌词对齐与真实制谱：新增本次CPU缓存检查报告，首次模型预测报告保持原字节。
-        save_json(ROOT/'reports/lyrics_phrase_alignment.latest.json', report)
+        # 首次模型预测报告保持原字节，缓存检查另存。
+        save_json(report_dir/'lyrics_phrase_alignment.latest.json', report)
         save_json(output/'alignment_report.latest.json', report)
     else:
         # 歌词对齐与真实制谱：新增真实预测或失败报告沿用原路径，保持外部接口兼容。
-        save_json(ROOT/'reports/lyrics_phrase_alignment.json', report)
+        save_json(report_dir/'lyrics_phrase_alignment.json', report)
         save_json(output/'alignment_report.json', report)
     print(json.dumps({k:v for k,v in report.items() if k not in ('phrase_reports', 'jobs')}, ensure_ascii=False), flush=True)
     return 1 if report['status']=='failed' or report.get('failed_predictions', 0) else 0

@@ -8,7 +8,7 @@ from source_meter_selection import fingerprint
 
 # 4/4可选右手与实时谱面试听：修改首次最终交付接口，选择直接进入最终编译，避免被默认型覆盖。
 # def finish_first_delivery(shared,vocal,arrangements,work,output):
-def finish_first_delivery(shared,vocal,arrangements,work,output,right_hand_plan=None):
+def finish_first_delivery(shared,vocal,arrangements,work,output,right_hand_plan=None,review_draft=False,draft_issues=None):
     # 尾段原声局部补证：新增首先重放源拍轴，再保存阶段来源；失败不能丢掉已完成的和声／器乐结果。
     from source_meter_entry import require_calibrated_source
     from source_timing_acceptance import require_isolated_output
@@ -60,8 +60,10 @@ def finish_first_delivery(shared,vocal,arrangements,work,output,right_hand_plan=
     if (fingerprint(project['shared_analysis'])!=fingerprint(shared) or fingerprint(project['accepted_vocal_project'])!=fingerprint(vocal)
             or any(fingerprint(project['arrangements'].get(name))!=fingerprint(value) for name,value in arrangements.items() if name!='guitar')):
         raise ValueError('首次末阶段改变原拍轴、共享和弦或非吉他编配')
-    if not coverage['valid'] or not all(row['valid'] for row in playability.values()):
-        raise ValueError('首次末阶段实际覆盖或演奏失败')
+    if not all(row['valid'] for row in playability.values()):
+        raise ValueError('首次末阶段实际演奏失败')
+    if not coverage['valid'] and not review_draft:
+        raise ValueError('首次末阶段实际覆盖失败')
     result={'output':str(output),'valid':True,'status':'candidate_artifacts_passed','music_status':'needs_review',
             'normal_publication_allowed':False,'source_meter_entry_check':source_check,'source_coverage_quality':coverage,
             'playability':playability,'section_patterns':pattern['section_patterns'],'artifacts':checks,
@@ -69,7 +71,21 @@ def finish_first_delivery(shared,vocal,arrangements,work,output,right_hand_plan=
             'original_voice_shared_harmony_and_piano_preserved':True,'pitch_chord_decoder_called_by_finalizer':False}
     # 尾段原声局部补证：新增实际零攻击证据，不能用来源标记代替检查最终两乐器。
     result['terminal_decay_acceptance']=require_terminal_arrangements(project['shared_analysis'],project['accepted_vocal_project'],project['arrangements'])
+    if review_draft:
+        from draft_music_review import stamp_draft,annotate_delivery
+        issues=deepcopy(draft_issues or [])
+        if not coverage['valid']:issues.append({'stage':'source_music_coverage','check':coverage})
+        stamp_draft(project,issues)
+        save_json(project_path,project)
+        result['music_review']={'status':'needs_review','normal_publication_allowed':False}
+        annotate_delivery(output)
     save_json(output/'first_generation_delivery.json',result)
+    if review_draft:
+        # The variable-measure exporter has its own actual-artifact checks;
+        # record a fresh manifest after the final project and visible labels.
+        files=[{'path':p.relative_to(output).as_posix(),'sha256':sha256(p),'bytes':p.stat().st_size}
+               for p in sorted(output.rglob('*')) if p.is_file() and p.name!='manifest.json']
+        save_json(output/'manifest.json',{'version':1,'exporter':'variable_measure_timeline','files':files})
     return result
 
 

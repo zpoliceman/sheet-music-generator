@@ -222,6 +222,20 @@ def _actual_repeat_print(project, folder, plan):
     missing = [path.name for path in expected if not path.is_file()]
     if missing:
         return {'valid': False, 'errors': ['repeat_print_row_missing:' + name for name in missing]}
+    if not modern and not plan.get('folded_blocks') and (folder/'score_full.html').is_file():
+        # 没有可复用长段时，生成器实际显示完整展开谱；repeat_rows是评估候选，
+        # 不能拿没有采用的候选SVG与当前页面比较。仍核查真正显示的每一行。
+        page=(folder/'score.html').read_text('utf-8')
+        complete=(folder/'score_full.html').read_text('utf-8')
+        visible=sorted((folder/'rows').glob('measures_*.svg'))
+        errors=[]
+        if page!=complete:errors.append('unfolded_actual_page_differs_from_full_score')
+        if not visible:errors.append('unfolded_visible_rows_missing')
+        errors.extend('unfolded_actual_page_differs_from_svg:'+path.name
+                      for path in visible if path.read_text('utf-8') not in page)
+        return {'valid':not errors,'errors':errors,'visible_symbols':0,
+                'mode':'evaluated_unfolded_no_qualified_section',
+                'actual_rows_checked':len(visible),'actual_page_matches_svg_files':not errors}
     rows = [{'guitar': path.read_text('utf-8')} for path in expected]
     result = validate_marks(plan, rows)
     page = (folder / 'score.html').read_text('utf-8')

@@ -291,7 +291,8 @@ def measure_notes(shared, guitar, measure, plan, serial):
             # 强拍相位与伴奏同步纠错：新增实际循环起点供独立实音核验。
             if guitar['configuration'].get('beat_synchronous_patterns'):
                 note['pattern_cycle_origin_tick'] = cycle_origin
-        key = key_definition(pc_name(chord['key']['tonic_pc'] - capo, chord['key']) + ':major')
+        from accompaniment_arrange import capo_shape_key
+        key = capo_shape_key(chord['key'],capo)
         events.append({'start_tick': tick, 'kind': 'arpeggio', 'chord_id': chord['id'],
                        'chart_id': None, 'shape_name': chord_name(chord['root_pc'] - capo, chord['quality'], chord['bass_pc'] - capo, key),
                        'sounding_name': chord['name'], 'source': nearest['source'], 'stroke': None, 'stroke_status': None,

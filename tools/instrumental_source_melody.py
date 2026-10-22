@@ -597,4 +597,5 @@ def validate_source_backbone(shared,vocal,guitar,replay=False):
 
 # 原曲器乐旋律骨干重提取：新增只承认已核验的旧主线替换；旧低音／和声永远不能混入此集合。
 def superseded_ids(guitar,check):
-    return set(guitar['instrumental_source_backbone']['superseded_note_ids']) if check and check['valid'] else set()
+    info=guitar.get('instrumental_source_backbone')
+    return set(info['superseded_note_ids']) if info and check and check['valid'] else set()

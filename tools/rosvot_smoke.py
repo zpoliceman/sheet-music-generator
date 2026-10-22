@@ -111,6 +111,8 @@ def infer(args, deps):
 
     # 兼容性与样曲验证：新增官方归档校验，避免以不同权重冒充已记录的模型。
     provenance_path = ROOT / "reports" / "rosvot_compatibility.json"
+    if not provenance_path.is_file():
+        provenance_path = ROOT / "config" / "rosvot_weights.json"
     provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
     weight_files = []
     for item in provenance["files"]:

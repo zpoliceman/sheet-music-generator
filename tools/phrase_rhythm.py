@@ -6,6 +6,11 @@ from functools import lru_cache
 import math
 
 VERSION = 1
+
+
+class RhythmConflict(ValueError):
+    """No complete notation fits the bounded acoustic candidates."""
+
 PPQ = 480
 GRID = 60
 POLICY = {'version': VERSION, 'word_grid_ticks': 120, 'fine_grid_ticks': 60,
@@ -194,7 +199,7 @@ def release_cost(word, tick, latency, beat_ticks=PPQ):
 # 乐句节奏与音值分组：新增长句终止的缓慢演唱延迟模型，释放和字首不是同一个声学边界。
 # 乐句节奏与音值分组：修改原型声明保留；释放候选取实际大拍，不继承4/4常数。
 # def latency_profile(words, entry_latency):
-def latency_profile(words, entry_latency, beat_quarters=1.):
+def latency_profile(words, entry_latency, beat_quarters=1., maximum=None):
     last = words[-1]
     release = max(last['end'], last['voiced_end'])
     # 乐句节奏与音值分组：修改，原四分终止先验保留；依据拍号推断长句释放。
@@ -203,6 +208,14 @@ def latency_profile(words, entry_latency, beat_quarters=1.):
     if last['observed_span'] < .6 or abs(terminal) > .32:
         terminal = entry_latency
     terminal = max(-.30, min(.30, terminal))
+    # A separately inferred next phrase may start before this terminal prior.
+    # Only replace an infeasible prior when the observed release itself supports
+    # the shared boundary within the same bounded performance-latency budget.
+    if maximum is not None and not end_candidates(last, terminal, maximum):
+        boundary = (maximum // 120) * 120 / PPQ
+        constrained = release - boundary
+        if abs(constrained) <= POLICY['maximum_phrase_latency_quarters']:
+            terminal = constrained
     length = max(.25, release - words[0]['start'])
     # 乐句节奏与音值分组：新增句末呼吸/拖腔只影响后半句，禁止把尾音释放滞后投射到起句强拍。
     return [entry_latency + (terminal - entry_latency) *
@@ -216,7 +229,7 @@ def latency_profile(words, entry_latency, beat_quarters=1.):
 # def solve_phrase(words, entry, latency, maximum, reference=None):
 #     local_latency, terminal_latency = latency_profile(words, latency)
 def solve_phrase(words, entry, latency, maximum, reference=None, beat_quarters=1.):
-    local_latency, terminal_latency = latency_profile(words, latency, beat_quarters)
+    local_latency, terminal_latency = latency_profile(words, latency, beat_quarters, maximum)
     first = round(entry * PPQ)
     states = {first: (onset_cost(words[0], first, latency), ())}
     for index, word in enumerate(words[:-1]):
@@ -247,7 +260,7 @@ def solve_phrase(words, entry, latency, maximum, reference=None, beat_quarters=1
                     if next_begin not in following or value < following[next_begin][0]:
                         following[next_begin] = (value, path + ((begin, end, lengths),))
         if not following:
-            raise ValueError('乐句节奏候选冲突；需复核音段/字界，未用游标强行推后。')
+            raise RhythmConflict('乐句节奏候选冲突；需复核音段/字界，未用游标强行推后。')
         states = following
     word = words[-1]
     best = (math.inf, ())
@@ -262,11 +275,55 @@ def solve_phrase(words, entry, latency, maximum, reference=None, beat_quarters=1
             if value < best[0]:
                 best = (value, path + ((begin, end, lengths),))
     if not best[1]:
-        raise ValueError('乐句末音无可用完整节奏候选。')
+        raise RhythmConflict('乐句末音无可用完整节奏候选。')
     return best
 
 
 # 乐句节奏与音值分组：新增整曲联合结果和逐音可追溯审计，原秒时间/音高/身份不改。
+def solve_phrase_boundaries(phrases, defaults, last_limit, beat_quarters):
+    """Reconsider adjacent entry candidates together only if the original path failed.
+
+    Entries remain within the existing acoustic latency budget. No note, lyric,
+    source time, or pitch is removed, and a previously feasible default is kept.
+    """
+    candidates=[]
+    budget=POLICY['maximum_phrase_latency_quarters']
+    for words, default in zip(phrases, defaults):
+        choices=[default]
+        if not words[0]['orphan']:
+            observed=words[0]['start']
+            for k in range(math.floor((observed-budget)*4),math.ceil((observed+budget)*4)+1):
+                entry=k/4
+                if entry<0 or abs(observed-entry)>budget+1e-9 or entry==default[0]:continue
+                choices.append((entry,observed-entry,'joint_adjacent_phrase_boundary'))
+        candidates.append(choices)
+    # Objective: change the fewest prior entries, then the least distance, then
+    # minimize the existing acoustic/rhythmic cost among the feasible paths.
+    states={entry:((0,0.,0.),(),()) for entry in candidates[0]}
+    for index, words in enumerate(phrases):
+        following={}
+        next_entries=candidates[index+1] if index+1<len(phrases) else [(last_limit/PPQ,0.,'audio_end')]
+        for choice,(objective,selected,paths) in states.items():
+            entry,latency,method=choice
+            for next_choice in next_entries:
+                maximum=round(next_choice[0]*PPQ)
+                if maximum<=round(entry*PPQ):continue
+                try:
+                    path=solve_phrase(words,entry,latency,maximum,beat_quarters=beat_quarters)
+                except RhythmConflict:
+                    continue
+                cost=(objective[0]+int(entry!=defaults[index][0]),
+                      objective[1]+abs(entry-defaults[index][0]),objective[2]+path[0])
+                if next_choice not in following or cost<following[next_choice][0]:
+                    following[next_choice]=(cost,selected+(choice,),paths+(path,))
+        if not following:
+            text=''.join(w['char'].get('text','') for w in words)
+            raise RhythmConflict('相邻乐句无法在原声允许的时间范围内完整记谱；第'+str(index+1)+'句“'+text+'”需要校对，未删除音符或强推后句。')
+        states=following
+    best=min(states.values(),key=lambda value:value[0])
+    return list(best[1]),list(best[2])
+
+
 def solve_words(pieces, characters, mapping, timing, duration):
     output = deepcopy(pieces)
     words = word_models(output, characters, mapping, timing)
@@ -278,13 +335,17 @@ def solve_words(pieces, characters, mapping, timing, duration):
     beat_quarters=tree.groups[0]*tree.unit_ticks/PPQ
     entries = [phrase_entry(p,beat_quarters) for p in phrases]
     # 乐句节奏与音值分组：新增整曲已观测重复乐句的相对节奏共识；标题和人工拍点不参与。
-    paths = []; maxima = []; repeats = defaultdict(list)
+    repeats = defaultdict(list)
+    defaults = list(entries)
+    last_limit = math.ceil((mapping.seconds_to_quarters(duration)-timing['score_start_quarter'])*PPQ)
+    maxima = [round(entries[i+1][0]*PPQ) if i+1<len(entries) else last_limit for i in range(len(entries))]
+    try:
+        paths = [solve_phrase(p,entry,latency,maximum,beat_quarters=beat_quarters)
+                 for p,(entry,latency,method),maximum in zip(phrases,entries,maxima)]
+    except RhythmConflict:
+        entries, paths = solve_phrase_boundaries(phrases,defaults,last_limit,beat_quarters)
+        maxima = [round(entries[i+1][0]*PPQ) if i+1<len(entries) else last_limit for i in range(len(entries))]
     for index, phrase in enumerate(phrases):
-        entry, latency, method = entries[index]
-        maximum = round(entries[index+1][0]*PPQ) if index+1 < len(entries) else math.ceil((mapping.seconds_to_quarters(duration)-timing['score_start_quarter'])*PPQ)
-        # 乐句节奏与音值分组：修改原型调用保留；所有乐句共同使用拍层级。
-        # maxima.append(maximum); paths.append(solve_phrase(phrase,entry,latency,maximum))
-        maxima.append(maximum); paths.append(solve_phrase(phrase,entry,latency,maximum,beat_quarters=beat_quarters))
         if len(phrase) >= 4 and not any(w['orphan'] for w in phrase):
             root = phrase[0]['notes'][0]['pitch_midi']
             signature = tuple((w['char'].get('text','').casefold(),tuple(n['pitch_midi']-root for n in w['notes'])) for w in phrase)
@@ -310,7 +371,7 @@ def solve_words(pieces, characters, mapping, timing, duration):
         cost, path = paths[index]
         # 乐句节奏与音值分组：修改，旧审计调用保留；元数据与实际求解共享大拍。
         # local_latency, terminal_latency = latency_profile(phrase, latency)
-        local_latency, terminal_latency = latency_profile(phrase, latency,beat_quarters)
+        local_latency, terminal_latency = latency_profile(phrase, latency, beat_quarters, maximum)
         for word, word_latency, (begin, end, lengths) in zip(phrase, local_latency, path):
             at = begin
             for note, length in zip(word['notes'], lengths):
@@ -328,6 +389,20 @@ def solve_words(pieces, characters, mapping, timing, duration):
                           'observed_repeat_soft_reference': index in references,
                           'word_count': len(phrase), 'end_tick': path[-1][1],
                           'words': [{'character_index': w['char'].get('index'), 'begin_tick': p[0], 'end_tick': p[1]} for w, p in zip(phrase, path)]})
+        if entries[index] != defaults[index]:
+            decisions[-1]['joint_boundary_constraint'] = {
+                'version':1,'original_entry_tick':round(defaults[index][0]*PPQ),
+                'selected_entry_tick':round(entry*PPQ),
+                'maximum_latency_quarters':POLICY['maximum_phrase_latency_quarters'],
+                'source_times_and_pitches_unchanged':True,'accuracy_verified':False}
+        _, unbounded_terminal = latency_profile(phrase, latency, beat_quarters)
+        if terminal_latency != unbounded_terminal:
+            decisions[-1]['terminal_boundary_constraint'] = {
+                'version': 1, 'next_phrase_or_audio_limit_tick': maximum,
+                'unconstrained_latency_quarters': unbounded_terminal,
+                'constrained_latency_quarters': terminal_latency,
+                'source_times_and_pitches_unchanged': True,
+                'accuracy_verified': False}
     by_id = {n['id']: n for n in output}
     for note in output:
         if note.get('grace'):

@@ -312,7 +312,11 @@ def handler_for(editor):
             try:
                 request=urlsplit(self.path);path=unquote(request.path);query=parse_qs(request.query)
                 if path=='/':
-                    raw=editor_page(editor.token).encode('utf-8');self.send_response(200)
+                    page=editor_page(editor.token)
+                    if any(read_json(row['path']).get('automatic_draft') for row in editor.projects.values()):
+                        from draft_music_review import BANNER
+                        page=page.replace('<body>','<body>'+BANNER,1)
+                    raw=page.encode('utf-8');self.send_response(200)
                     self.send_header('Content-Type','text/html; charset=utf-8');self.send_header('Content-Length',str(len(raw)))
                     self.send_header('Cache-Control','no-store');self.end_headers();self.wfile.write(raw)
                 elif path in ('/editor.js','/editor.css'):
